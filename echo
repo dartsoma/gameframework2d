@@ -1,0 +1,41 @@
+make: Entering directory '/home/dartsoma/Documents/Project/gameframework2d/src'
+Creating dependencies.
+Done.
+gcc -g  -fPIC -Wall -pedantic -std=gnu99 -fgnu89-inline -Wno-unknown-pragmas -Wno-variadic-macros `sdl2-config --cflags`  -I../include  -I../gfc/include  -I../gfc/simple_logger/include  -I../gfc/simple_json/include -c ent.c
+gcc ent.o game.o gf2d_draw.o gf2d_graphics.o gf2d_sprite.o player.o rgbStep.o -g  -o ../gf2d ../gfc/libs/libgfc.a ../gfc/simple_json/libs/libsj.a ../gfc/simple_logger/libs/libsl.a  `sdl2-config --libs` -lSDL2_image -lpng -ljpeg -lz -lm 
+make: Leaving directory '/home/dartsoma/Documents/Project/gameframework2d/src'
+make: Entering directory '/home/dartsoma/Documents/Project/gameframework2d/src'
+Creating dependencies.
+Done.
+gcc -g  -fPIC -Wall -pedantic -std=gnu99 -fgnu89-inline -Wno-unknown-pragmas -Wno-variadic-macros `sdl2-config --cflags`  -I../include  -I../gfc/include  -I../gfc/simple_logger/include  -I../gfc/simple_json/include -c ent.c
+make: Leaving directory '/home/dartsoma/Documents/Project/gameframework2d/src'
+make: Entering directory '/home/dartsoma/Documents/Project/gameframework2d/src'
+Creating dependencies.
+Done.
+gcc -g  -fPIC -Wall -pedantic -std=gnu99 -fgnu89-inline -Wno-unknown-pragmas -Wno-variadic-macros `sdl2-config --cflags`  -I../include  -I../gfc/include  -I../gfc/simple_logger/include  -I../gfc/simple_json/include -c ent.c
+make: Leaving directory '/home/dartsoma/Documents/Project/gameframework2d/src'
+make: Entering directory '/home/dartsoma/Documents/Project/gameframework2d/src'
+Creating dependencies.
+Done.
+gcc -g  -fPIC -Wall -pedantic -std=gnu99 -fgnu89-inline -Wno-unknown-pragmas -Wno-variadic-macros `sdl2-config --cflags`  -I../include  -I../gfc/include  -I../gfc/simple_logger/include  -I../gfc/simple_json/include -c ent.c
+gcc -g  -fPIC -Wall -pedantic -std=gnu99 -fgnu89-inline -Wno-unknown-pragmas -Wno-variadic-macros `sdl2-config --cflags`  -I../include  -I../gfc/include  -I../gfc/simple_logger/include  -I../gfc/simple_json/include -c game.c
+make: Leaving directory '/home/dartsoma/Documents/Project/gameframework2d/src'
+make: Entering directory '/home/dartsoma/Documents/Project/gameframework2d/src'
+Creating dependencies.
+Done.
+gcc -g  -fPIC -Wall -pedantic -std=gnu99 -fgnu89-inline -Wno-unknown-pragmas -Wno-variadic-macros `sdl2-config --cflags`  -I../include  -I../gfc/include  -I../gfc/simple_logger/include  -I../gfc/simple_json/include -c ent.c
+gcc -g  -fPIC -Wall -pedantic -std=gnu99 -fgnu89-inline -Wno-unknown-pragmas -Wno-variadic-macros `sdl2-config --cflags`  -I../include  -I../gfc/include  -I../gfc/simple_logger/include  -I../gfc/simple_json/include -c game.c
+gcc -g  -fPIC -Wall -pedantic -std=gnu99 -fgnu89-inline -Wno-unknown-pragmas -Wno-variadic-macros `sdl2-config --cflags`  -I../include  -I../gfc/include  -I../gfc/simple_logger/include  -I../gfc/simple_json/include -c player.c
+gcc ent.o game.o gf2d_draw.o gf2d_graphics.o gf2d_sprite.o player.o rgbStep.o -g  -o ../gf2d ../gfc/libs/libgfc.a ../gfc/simple_json/libs/libsj.a ../gfc/simple_logger/libs/libsl.a  `sdl2-config --libs` -lSDL2_image -lpng -ljpeg -lz -lm 
+make: Leaving directory '/home/dartsoma/Documents/Project/gameframework2d/src'
+make: Entering directory '/home/dartsoma/Documents/Project/gameframework2d/src'
+Creating dependencies.
+Done.
+gcc -g  -fPIC -Wall -pedantic -std=gnu99 -fgnu89-inline -Wno-unknown-pragmas -Wno-variadic-macros `sdl2-config --cflags`  -I../include  -I../gfc/include  -I../gfc/simple_logger/include  -I../gfc/simple_json/include -c game.c
+gcc -g  -fPIC -Wall -pedantic -std=gnu99 -fgnu89-inline -Wno-unknown-pragmas -Wno-variadic-macros `sdl2-config --cflags`  -I../include  -I../gfc/include  -I../gfc/simple_logger/include  -I../gfc/simple_json/include -c player.c
+make: Leaving directory '/home/dartsoma/Documents/Project/gameframework2d/src'
+make: Entering directory '/home/dartsoma/Documents/Project/gameframework2d/src'
+Creating dependencies.
+Done.
+gcc -g  -fPIC -Wall -pedantic -std=gnu99 -fgnu89-inline -Wno-unknown-pragmas -Wno-variadic-macros `sdl2-config --cflags`  -I../include  -I../gfc/include  -I../gfc/simple_logger/include  -I../gfc/simple_json/include -c player.c
+make: Leaving directory '/home/dartsoma/Documents/Project/gameframework2d/src'
