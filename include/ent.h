@@ -1,7 +1,7 @@
 #ifndef __ENT_H__
 #define __ENT_H__
 
-
+// The entity class
 
 
 
@@ -14,6 +14,7 @@ typedef struct {
     GFC_Vector2D position;
     GFC_Vector2D scale;
     GFC_Vector2D center;
+    GFC_Vector2D velocity;
     float rotation;
 
 } eTransform;
@@ -26,6 +27,7 @@ typedef struct Entity {
     GFC_TextLine name;
     eTransform transform;
     Sprite *sprite;
+    GFC_Color color;
     float frame;
     int* stats;
     void (*think) (struct Entity *self);// called every frame
@@ -76,5 +78,7 @@ void ent_clear();
 void ent_think_all();
 
 void ent_update_all();
+
+Ent *index_ent(int id);
 
 #endif

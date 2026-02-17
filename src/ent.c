@@ -1,6 +1,6 @@
 #include "simple_logger.h"
 #include "ent.h"
-
+#include "camera.h"
 
 static EntManager entManager = {0};
 
@@ -55,6 +55,27 @@ Ent *ent_new(){
     return NULL;
 }
 
+// adds entities to back of the list, for props and misc sprites and such
+
+Ent *ent_new_rev(){
+    int i;
+    if (!entManager.entList){
+        slog("eMan not initialized");
+        return NULL;
+    }
+    for (i = entManager.entMax; i > 0; i--){
+        if(entManager.entList[i]._inuse) continue;
+        entManager.entList[i]._inuse = 1;
+        entManager.entList[i].transform.position = gfc_vector2d(0, 0);
+        entManager.entList[i].transform.scale = gfc_vector2d(1, 1);
+        // set default
+
+        return &entManager.entList[i];
+    }
+    return NULL;
+}
+
+
 void ent_free(Ent *self){
     if(!self) return;
     if(self->sprite)gf2d_sprite_free(self->sprite);
@@ -79,15 +100,20 @@ void ent_clear(){
 
 void ent_draw(Ent *self){
     if(!self)return;
+    GFC_Vector2D offset, position;
+    offset = camera_get_pos();
+
+    gfc_vector2d_sub(position, self->transform.position, offset);
+
     if(self->sprite){
     gf2d_sprite_render(
         self->sprite,
-        self->transform.position,
+        position,
         &self->transform.scale,
         &self->transform.center,
         &self->transform.rotation,
         NULL,
-        NULL,
+        &self->color,
         NULL,
         (Uint32) self->frame);
     }
@@ -132,5 +158,12 @@ void ent_think_all(){
         if(!entManager.entList[i]._inuse)continue;
         ent_think(&entManager.entList[i]);
     }
+}
+
+
+Ent *index_ent(int id){
+
+    return &entManager.entList[id];
+
 }
 
