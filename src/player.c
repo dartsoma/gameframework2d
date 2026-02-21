@@ -7,6 +7,8 @@
 
 void player_think(Ent *self){
 
+
+
     if(!self){
     return;
     }
@@ -26,6 +28,7 @@ if(gfc_input_key_down("w")){
 if(gfc_input_key_down("s")){
     move(self, DOWN);
 }
+
 
 }
 
@@ -88,7 +91,7 @@ Ent *player_new(){
     self->stats = (int*) malloc(sizeof(int) * 3);
     self->stats[HEALTH] = 100;
     self->stats[ARMOR] = 0;
-    self->stats[SPEED] = 1;
+    self->stats[SPEED] = 10;
 
     self->frame=0;
     self->color = gfc_color8(255,255,255, 255);

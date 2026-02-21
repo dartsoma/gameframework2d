@@ -1,6 +1,6 @@
 
 #include "simple_logger.h"
-
+#include "prop.h"
 #include "level.h"
 
 Level* level_new(){
@@ -18,7 +18,7 @@ void level_free(Level *level){
 }
 
 Level *level_create(const char *background){
-
+    int i = 0;
     Level *level;
     level = level_new();
     level->width = 1200;
@@ -34,21 +34,30 @@ Level *level_create(const char *background){
     return level;
 }
 
-/*
-    Level *load_props(const char *filepath)
+
+    Level *load_props(Level *level)
     {
+        int i, propCount;
         const char *str;
         Level *level
         SJson *json;
-        SJson *config;
+        SJson *config, props;
         if (!filepath)return NULL;
         json = sj_load(filepath);
         if (!json)  return NULL;
 
-        config = sj_object_get_value(json, "whatiwant");
+        // lolololololol
+        config = sj_object_get_value(json, "../def/.props");
+        propCount = sj_array_get_count(array);
 
+        for(i = 0; i < itemCount; i++){
+
+            props = sj_array_get_nth(config,i);
+            if (!props) continue;
+
+        }
     }
-*/
+
 void level_draw(Level *level){
 
     GFC_Vector2D position, offset;
@@ -70,7 +79,7 @@ void level_draw(Level *level){
 void setup_camera(Level *level){
     camera_set_target(0); // Default Player
     camera_set_pos(gfc_vector2d(0,0));
-    camera_set_bounds(gfc_rect(0,0, 5000, 5000));
+    camera_set_bounds(gfc_rect(0,0, 2000, 2000));
     camera_set_size(gfc_vector2d(level->width, level->height));
     camera_bounding();
 

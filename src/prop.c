@@ -2,6 +2,7 @@
 #include "prop.h"
 
 
+propArray
 
 Ent *prop_new(Uint8 type, GFC_Vector2D pos){
     Ent *self;

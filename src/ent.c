@@ -83,7 +83,7 @@ void ent_free(Ent *self){
 }
 
 
-void ent_clear(){
+void ent_clear()    {
     int i;
     if (!entManager.entList){
         slog("Entity Manager not initialized");

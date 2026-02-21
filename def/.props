@@ -1,0 +1,37 @@
+{
+  "props": [
+    {
+      "name": "barrel",
+      "draw": [
+        {
+          "position": [
+            0,
+            0
+          ],
+          "scale": [
+            2,
+            2
+          ],
+          "color": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "imagepath": "images/Barrel-2.png",
+          "framewidth": 32,
+          "frameheight": 32,
+          "framesperline": 1
+        }
+      ],
+      "stats": [
+        {
+          "health": 100,
+          "hazardflags": 0,
+          "hazardradius": 0,
+          "destructable": 1
+        }
+      ]
+    }
+  ]
+}
