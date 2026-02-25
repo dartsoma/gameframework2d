@@ -4,7 +4,7 @@
 #include "ent.h"
 
 
-Ent *prop_new(Uint8 type, GFC_Vector2D pos);
+Ent *prop_new();
 
 void prop_think(Ent *self);
 

@@ -1,41 +1,29 @@
 #ifndef __WORLD_DEF_H__
 #define __WORLD_DEF_H__
 
+#include "simple_json.h"
+#include "gfc_hashmap.h"
 #include "prop.h"
 
 
-typedef struct {
-
+typedef struct
+{
+    char name[25];
     int position[2];
     Uint8 scale[2];
     Uint8 color[4];
-    char imagePath[50];
+    char imagepath[50];
     int framewidth;
     int frameheight;
     int framesperline;
-    int frames
+    Uint8 stats[4];
 
-} Drawdef;
+}  PropDef;
 
-typedef struct
-{
-    char* name;
-    Drawdef draw;
-    Uint8* stats[4];
+PropDef *create_propdef(SJson *prop);
 
-}  Propdef;
+void free_propdef(PropDef *def);
 
-typedef struct{
-
-   Propdef props[100];
-   int height, width;
-
-} Leveldef;
-
-
-define_props (){
-
-
-}
+void instance_props(SJson *leveldef, GFC_HashMap *prop_map);
 
 #endif

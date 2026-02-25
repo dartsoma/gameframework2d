@@ -63,13 +63,12 @@ Ent *ent_new_rev(){
         slog("eMan not initialized");
         return NULL;
     }
-    for (i = entManager.entMax; i > 0; i--){
+    for (i = entManager.entMax-1; i > 0; i--){
         if(entManager.entList[i]._inuse) continue;
         entManager.entList[i]._inuse = 1;
         entManager.entList[i].transform.position = gfc_vector2d(0, 0);
         entManager.entList[i].transform.scale = gfc_vector2d(1, 1);
         // set default
-
         return &entManager.entList[i];
     }
     return NULL;
@@ -91,7 +90,7 @@ void ent_clear()    {
     }
     for (i = 0; i < entManager.entMax; i++){
         if(!(entManager.entList[i]._inuse)) continue;
-        free(&entManager.entList[i]);
+        ent_free(&entManager.entList[i]);
     }
 }
 /**

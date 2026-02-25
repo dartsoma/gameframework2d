@@ -63,6 +63,7 @@ void ent_manager_init(Uint32 max);
  ***/
 
 Ent *ent_new();
+Ent *ent_new_rev();
 
 /**
  * @brief frees and entity

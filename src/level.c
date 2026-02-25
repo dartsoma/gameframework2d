@@ -1,6 +1,6 @@
 
 #include "simple_logger.h"
-#include "prop.h"
+#include "world_def.h"
 #include "level.h"
 
 Level* level_new(){
@@ -17,8 +17,7 @@ void level_free(Level *level){
     free(level);
 }
 
-Level *level_create(const char *background){
-    int i = 0;
+Level *level_create(const char *levelname){
     Level *level;
     level = level_new();
     level->width = 1200;
@@ -27,36 +26,75 @@ Level *level_create(const char *background){
         slog("no level init");
         return NULL;
     }
-    if(background){
-        level->background = gf2d_sprite_load_image(background);
-    }
+
+    load_defs(level);
+
+    set_level(level, levelname);
 
     return level;
 }
 
 
-    Level *load_props(Level *level)
+    void load_defs(Level *level)
     {
-        int i, propCount;
-        const char *str;
-        Level *level
-        SJson *json;
-        SJson *config, props;
-        if (!filepath)return NULL;
-        json = sj_load(filepath);
-        if (!json)  return NULL;
-
+        int i, c;
+        PropDef *propdef;
+        SJson *json; //free
+        SJson *config, *propjson;
+        json = sj_load("./def/.props");
+        if (!json)  return;
         // lolololololol
-        config = sj_object_get_value(json, "../def/.props");
-        propCount = sj_array_get_count(array);
+        config = sj_object_get_value(json, "props");
+        c = sj_array_get_count(config);
+        level->prop_map = gfc_hashmap_new();
 
-        for(i = 0; i < itemCount; i++){
 
-            props = sj_array_get_nth(config,i);
-            if (!props) continue;
+        for(i = 0; i < c; i++){
 
+            propjson = sj_array_get_nth(config,i);
+            if (!propjson) continue;
+            // Create a propdef object
+            propdef = create_propdef(propjson);
+            // use name as a key
+            gfc_hashmap_insert(level->prop_map, propdef->name, propdef);
         }
+        sj_free(json);
     }
+
+
+    void set_level(Level *level, const char* levelname){
+
+        int i, c;
+
+        if(!level) return;
+        SJson *json;
+        json = sj_load("./def/.levels");
+        if (!json)  return;
+        SJson *config, *leveljson;
+
+        config = sj_object_get_value(json, "levels");
+        c = sj_array_get_count(config);
+
+        for(i = 0; i < c; i++){
+
+            leveljson = sj_array_get_nth(config,i);
+            if(strcmp(levelname,  sj_object_get_string(leveljson, "name")) == 0){
+
+                // level defaults
+            sj_object_get_int(leveljson, "width", &level->width );
+            sj_object_get_int(leveljson, "height", &level->height );
+            level->background = gf2d_sprite_load_image(sj_object_get_string(leveljson, "imagepath"));
+                // spawn functions
+            instance_props(leveljson, level->prop_map);
+                break;
+            }
+        }
+
+        sj_free(json);
+        //gfc_hashmap_foreach(level->prop_map, (gfc_work_func*)free_propdef);
+        gfc_hashmap_free(level->prop_map);
+    }
+
 
 void level_draw(Level *level){
 
@@ -71,7 +109,7 @@ void level_draw(Level *level){
     gf2d_sprite_draw_image(level->background, offset);
     } else {
 
-        slog("no background");
+       // slog("no background");
     }
 }
 

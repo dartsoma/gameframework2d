@@ -6,9 +6,9 @@
 #include "gfc_input.h"
 #include "gf2d_graphics.h"
 #include "gf2d_sprite.h"
-#include "level.h"
 #include "ent.h"
 #include "prop.h"
+#include "level.h"
 #include "player.h"
 
 int main(int argc, char * argv[])
@@ -18,16 +18,14 @@ int main(int argc, char * argv[])
     const Uint8 * keys;
     Sprite *sprite;
     Ent *player;
-    Ent *barrel1;
-    Ent *barrel2;
     Level *level;
     
     int mx,my;
     float mf = 0;
     Sprite *mouse;
 
-    rgbVal mRgbVal = {255, 0, 0, 1};
-    GFC_Color mouseGFC_Color = gfc_color8(mRgbVal.red,mRgbVal.green,mRgbVal.blue, 1);
+    rgbVal mRgbVal = {255, 0, 0, 255};
+    GFC_Color mouseGFC_Color = gfc_color8(mRgbVal.red,mRgbVal.green,mRgbVal.blue, 255);
 
     /*program initializtion*/
     init_logger("gf2d.log",0);
@@ -43,9 +41,9 @@ int main(int argc, char * argv[])
     gf2d_graphics_set_frame_delay(16);
     gf2d_sprite_init(1024);
     ent_manager_init(1024);
-    gfc_input_init("../sample_config/input.cfg");
+    gfc_input_init("./gfc/sample_config/input.cfg");
     SDL_ShowCursor(SDL_DISABLE);
-    level = level_create("images/backgrounds/TerrariaJungle.png");
+    level = level_create("test");
     /*demo setup*/
     sprite = gf2d_sprite_load_image("images/backgrounds/bg_flat.png");
     mouse = gf2d_sprite_load_all("images/pointer.png",32,32,16,0);
@@ -54,8 +52,6 @@ int main(int argc, char * argv[])
 
     setup_camera(level);
     player = player_new();
-    barrel1 = prop_new( 0 ,gfc_vector2d(200,100));
-    barrel2 = prop_new( 1 ,gfc_vector2d(100,100));
     while(!done)
     {
         SDL_PumpEvents();   // update SDL's internal event structures
@@ -94,7 +90,6 @@ int main(int argc, char * argv[])
         if (keys[SDL_SCANCODE_ESCAPE])done = 1; // exit condition
         //slog("Rendering at %f FPS",gf2d_graphics_get_frames_per_second());
     }
-    ent_free(player);
     ent_clear();
     ent_manager_close();
     level_free(level);

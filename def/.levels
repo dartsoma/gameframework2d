@@ -1,0 +1,45 @@
+{
+  "levels": [
+    {
+      "name": "test",
+      "width": 1200,
+      "height": 700,
+      "imagepath": "./images/backgrounds/TerrariaJungle.png",
+      "props": [
+        {
+          "name": "barrel",
+          "xpos": 600,
+          "ypos": 600,
+          "xscale": 1,
+          "yscale": 4,
+          "rcolor": 1,
+          "gcolor": 0,
+          "bcolor": 0,
+          "acolor": 1,
+        },
+                {
+          "name": "barrel",
+          "xpos": 100,
+          "ypos": 100,
+          "xscale": 2,
+          "yscale": 2,
+          "rcolor": 1,
+          "gcolor": 1,
+          "bcolor": 0,
+          "acolor": 1,
+        },
+                {
+          "name": "barrel",
+          "xpos": 200,
+          "ypos": 500,
+          "xscale": 2,
+          "yscale": 2,
+          "rcolor": 0,
+          "gcolor": 1,
+          "bcolor": 1,
+          "acolor": 1,
+        }
+      ]
+    }
+  ]
+}
