@@ -85,6 +85,8 @@ int main(int argc, char * argv[])
                 &mouseGFC_Color,
                 (int)mf);
 
+           // slog("PLayer (%f,%f) center", player->transform.position.x, player->transform.position.y );
+
         gf2d_graphics_next_frame();// render current draw frame and skip to the next frame
         
         if (keys[SDL_SCANCODE_ESCAPE])done = 1; // exit condition

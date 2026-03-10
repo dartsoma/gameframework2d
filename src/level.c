@@ -91,7 +91,7 @@ Level *level_create(const char *levelname){
         }
 
         sj_free(json);
-        //gfc_hashmap_foreach(level->prop_map, (gfc_work_func*)free_propdef);
+       // gfc_hashmap_foreach(level->prop_map, (gfc_work_func*)free_propdef);
         gfc_hashmap_free(level->prop_map);
     }
 
@@ -117,8 +117,8 @@ void level_draw(Level *level){
 void setup_camera(Level *level){
     camera_set_target(0); // Default Player
     camera_set_pos(gfc_vector2d(0,0));
-    camera_set_bounds(gfc_rect(0,0, 2000, 2000));
-    camera_set_size(gfc_vector2d(level->width, level->height));
+    camera_set_bounds(gfc_rect(0,0, level->width, level->height-100));
+    camera_set_size(gfc_vector2d(1200, 700));
     camera_bounding();
 
 }

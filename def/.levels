@@ -2,8 +2,8 @@
   "levels": [
     {
       "name": "test",
-      "width": 1200,
-      "height": 700,
+      "width": 1920,
+      "height": 1080,
       "imagepath": "./images/backgrounds/TerrariaJungle.png",
       "props": [
         {
@@ -16,6 +16,7 @@
           "gcolor": 0,
           "bcolor": 0,
           "acolor": 1,
+          "z-index": 1
         },
                 {
           "name": "barrel",
@@ -27,6 +28,7 @@
           "gcolor": 1,
           "bcolor": 0,
           "acolor": 1,
+          "z-index": 1
         },
                 {
           "name": "barrel",
@@ -38,6 +40,7 @@
           "gcolor": 1,
           "bcolor": 1,
           "acolor": 1,
+          "z-index": 1
         }
       ]
     }

@@ -16,7 +16,7 @@ typedef struct
     int framewidth;
     int frameheight;
     int framesperline;
-    Uint8 stats[4];
+    Uint8 stats[5];
 
 }  PropDef;
 

@@ -92,13 +92,25 @@ Ent *player_new(){
     self->stats[HEALTH] = 100;
     self->stats[ARMOR] = 0;
     self->stats[SPEED] = 10;
+    self->_tags = TAG_PLAYER;
+
 
     self->frame=0;
     self->color = gfc_color8(255,255,255, 255);
     self->transform.velocity = gfc_vector2d(0,0);
     self->transform.position = gfc_vector2d(0,0);
+    self->transform.center = gfc_vector2d(0,0);
+
+    // yes this is a magic number, I'm making it the scale of the player's width and height in pixels
+    self->collide.c_dim = gfc_vector2d(12.8,12.8);
+    self->collide.c_color = GFC_COLOR_RED;
+    self->collide.c_mask = CM_FFA;
+
     self->think = player_think;
     self->update = player_update;
+
+    insert_collision_layer(self);
+
     return self;
 
 }

@@ -9,7 +9,8 @@
       "health": 100,
       "hazardflags": 0,
       "hazardradius": 0,
-      "destructable": 1
+      "destructable": 1,
+      "dynamic": 1
     }
   ]
 }

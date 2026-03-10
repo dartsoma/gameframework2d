@@ -4,7 +4,6 @@
 PropDef *create_propdef(SJson *prop){
 
     // prop is object
-
     PropDef *def = malloc(sizeof(PropDef));
 
     if (!def) return NULL;
@@ -19,6 +18,8 @@ PropDef *create_propdef(SJson *prop){
     sj_object_get_uint8(prop, "hazardflags", &def->stats[1]);
     sj_object_get_uint8(prop, "hazardradius", &def->stats[2]);
     sj_object_get_uint8(prop, "destructable", &def->stats[3]);
+    sj_object_get_uint8(prop, "dynamic", &def->stats[4]);
+
 
     return def;
 
@@ -74,6 +75,24 @@ void instance_props(SJson *leveljson, GFC_HashMap *prop_map){
     sj_object_get_float(propjson, "gcolor", &prop->color.g);
     sj_object_get_float(propjson, "bcolor", &prop->color.b);
     sj_object_get_float(propjson, "acolor", &prop->color.a);
+    prop->collide.c_dim.x = ((float)propdef->framewidth/10);
+    prop->collide.c_dim.y = ((float)propdef->frameheight/10);
+
+    if (propdef->stats[4] > 0){
+
+        prop->_tags = TAG_DYNAMIC;
+
+    } else {
+        prop->_tags = TAG_STATIC;
+    }
+
+
+    insert_collision_layer(prop);
+
+    // collision hitbox
+    gfc_vector2d_scale_by(prop->collide.c_dim, prop->transform.scale, prop->collide.c_dim);
+
+
     slog("Prop Loaded");
     }
 

@@ -36,6 +36,7 @@ Ent *prop_new(){
     */
     self->stats = (int*) malloc(sizeof(int) * 4);
 
+
     self->frame=0;
     self->transform.velocity = gfc_vector2d(0,0);
     self->think = prop_think;
