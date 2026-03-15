@@ -17,6 +17,17 @@
           "bcolor": 0,
           "acolor": 1,
           "z-index": 1
+        },        {
+          "name": "wall",
+          "xpos": 600,
+          "ypos": 600,
+          "xscale": 1,
+          "yscale": 4,
+          "rcolor": 1,
+          "gcolor": 0,
+          "bcolor": 0,
+          "acolor": 1,
+          "z-index": 1
         },
                 {
           "name": "barrel",

@@ -81,9 +81,10 @@ void instance_props(SJson *leveljson, GFC_HashMap *prop_map){
     if (propdef->stats[4] > 0){
 
         prop->_tags = TAG_DYNAMIC;
-
+        prop->collide.c_mask = CM_TRIGGER;
     } else {
         prop->_tags = TAG_STATIC;
+        prop->collide.c_mask = CM_BLOCKER;
     }
 
 

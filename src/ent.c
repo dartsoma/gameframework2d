@@ -111,11 +111,49 @@ void ent_collide(Ent *self){
 
     if (gfc_rect_overlap(self->collide.c_box, worldObjects[i]->collide.c_box)){
 
+
+
         self->collide.c_color = GFC_COLOR_GREEN;
         worldObjects[i]->collide.c_color = GFC_COLOR_GREEN;
+
+        if(worldObjects[i]->collide.c_mask == CM_BLOCKER){
+
+            double s_x1 = self->collide.c_box.x, s_y1 = self->collide.c_box.y;
+            double w_x1 = worldObjects[i]->collide.c_box.x, w_y1 = worldObjects[i]->collide.c_box.y;
+            double s_x2 = s_x1 + self->collide.c_box.w, s_y2 = s_y1 + self->collide.c_box.h;
+            double w_x2 = w_x1 + worldObjects[i]->collide.c_box.w, w_y2 = w_y1 + worldObjects[i]->collide.c_box.h;
+        // Calculate origin distance
+        // use origin distance to gauge which has the lowest
+
+            double left_overlap = s_x2 - w_x1;
+            double right_overlap = w_x2 - s_x1;
+            double top_overlap = s_y2 - w_y1;
+            double bot_overlap = w_y2 - s_y1;
+            double min_pen = top_overlap;
+
+            min_pen = MIN(min_pen, bot_overlap);
+            min_pen = MIN(min_pen, left_overlap);
+            min_pen = MIN(min_pen, right_overlap);
+
+            if (min_pen == top_overlap){
+
+                self->transform.position.y -= top_overlap;
+
+            } else if (min_pen == bot_overlap) {
+                self->transform.position.y += bot_overlap;
+
+            }
+            else if (min_pen  == left_overlap) {
+                self->transform.position.x -= left_overlap;
+            }
+            else if (min_pen == right_overlap) {
+                self->transform.position.x += right_overlap;
+            }
+
+            }
+        }
     }
 
-    }
 
     // dynamic collide next
 
@@ -124,9 +162,9 @@ void ent_collide(Ent *self){
         if(dynamicObjects[i] == self)continue;
 
         if (gfc_rect_overlap(self->collide.c_box, dynamicObjects[i]->collide.c_box)){
-
             self->collide.c_color = GFC_COLOR_GREEN;
             dynamicObjects[i]->collide.c_color = GFC_COLOR_GREEN;
+
         }
 
     }
@@ -230,7 +268,7 @@ Ent *ent_new_rev(){
         entManager.entList[i].collide.c_dim = gfc_vector2d(1,1);
         gfc_rect_set(entManager.entList[i].collide.c_box, 0, 0, 1, 1);
         entManager.entList[i].collide.c_color = GFC_COLOR_RED;
-        entManager.entList[i].collide.c_mask = CM_WORLD;
+        entManager.entList[i].collide.c_mask = CM_NONE;
         return &entManager.entList[i];
     }
     return NULL;

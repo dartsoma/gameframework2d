@@ -13,12 +13,11 @@
 typedef enum {
 
     CM_NONE = -1,
-    CM_WORLD = 0,
-    CM_TEAM1 = 1,
-    CM_TEAM2 = 2,
-    CM_FFA = 3,
-    CM_ITEM = 4,
-    CM_HAZARD = 5
+    CM_BLOCKER = 0,
+    CM_TRIGGER = 1,
+    CM_TEAM1 = 2,
+    CM_TEAM2 = 3,
+    CM_FFA = 4
 
 } CollisionMask;
 

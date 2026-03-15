@@ -53,8 +53,8 @@ void prop_think(Ent *self){
 
 void prop_update(Ent *self){
     if (!self)return;
-    self->frame += 0.025;
-    if (self->frame >= 7) self->frame = 0;
+
+
 
 }
 

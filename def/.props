@@ -11,6 +11,30 @@
       "hazardradius": 0,
       "destructable": 1,
       "dynamic": 1
+    },
+        {
+      "name": "blocker",
+      "imagepath": "images/Blocker.png",
+      "framewidth": 128,
+      "frameheight": 64,
+      "framesperline": 1,
+      "health": 0,
+      "hazardflags": 0,
+      "hazardradius": 0,
+      "destructable": 0,
+      "dynamic": 0
+    },
+            {
+      "name": "wall",
+      "imagepath": "images/BrickWall.png",
+      "framewidth": 128,
+      "frameheight": 64,
+      "framesperline": 1,
+      "health": 0,
+      "hazardflags": 0,
+      "hazardradius": 0,
+      "destructable": 0,
+      "dynamic": 0
     }
   ]
 }
