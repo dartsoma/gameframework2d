@@ -8,7 +8,6 @@
 void player_think(Ent *self){
 
 
-
     if(!self){
     return;
     }
@@ -21,13 +20,10 @@ if(gfc_input_key_down("d")){
     move(self, RIGHT);
 }
 
-if(gfc_input_key_down("w")){
-    move(self, UP);
+if(gfc_input_key_down(" ")){
+    move(self, JUMP);
 }
 
-if(gfc_input_key_down("s")){
-    move(self, DOWN);
-}
 
 
 }
@@ -35,41 +31,64 @@ if(gfc_input_key_down("s")){
 void move(Ent *self, int dir){
     if(!self)return;
 
-    switch(dir){
-        case LEFT:
-            gfc_vector2d_add(self->transform.velocity, self->transform.velocity, gfc_vector2d (-1, 0));
-            break;
-        case RIGHT:
-            gfc_vector2d_add(self->transform.velocity, self->transform.velocity, gfc_vector2d (1, 0));
-            break;
-        case UP:
-            gfc_vector2d_add(self->transform.velocity, self->transform.velocity, gfc_vector2d (0, -1));
-            break;
-        case DOWN:
-            gfc_vector2d_add(self->transform.velocity, self->transform.velocity, gfc_vector2d (0, 1));
-            break;
+    double direction = 0;
+
+    if (dir == LEFT){
+        direction += -1;
     }
 
-    if (self->transform.velocity.x > 1) {self->transform.velocity.x = 1;} else
-    if (self->transform.velocity.x < -1) self->transform.velocity.x = -1;
-    if (self->transform.velocity.y > 1) {self->transform.velocity.y = 1;} else
-    if (self->transform.velocity.y < -1) self->transform.velocity.y = -1;
+    if (dir == RIGHT){
+       direction += 1;
+    }
 
-    gfc_vector2d_scale(self->transform.velocity, self->transform.velocity, self->stats[SPEED]);
+    direction *= self->stats[SPEED];
+
+    if (fabs(self->transform.velocity.x) < self->stats[SPEED]) {
+
+       self->transform.velocity.x = direction;
+
+    }
+
+    if (dir == JUMP && (self->status &= 1)) {
+        self->status |= 2;
+    }
+
 }
 
 
-void player_update(Ent *self)
+void player_update(Ent *self, float deltatime)
 {
     if(!self)return;
-    self->frame += 0.1;
-    if (self->frame >= 16) self->frame = 0;
+
+    // check if airborne
+
+    if ((self->status & 1) == 0){
+
+        self->transform.velocity.y += deltatime * 4;
+    } else if ((self->status & 1) == 1){
+        self->transform.velocity.y = 0;
+    }
+    if ((self->status & 2) == 2) {
+        if(self->transform.velocity.y <= -3){
+            self->status -= 2;
+        } else {
+            self->transform.velocity.y -= deltatime * 300;
+        }
+
+    }
 
     gfc_vector2d_add(self->transform.position, self->transform.velocity, self->transform.position);
-    if(gfc_vector2d_magnitude(self->transform.velocity) < GFC_EPSILON ){
-        self->transform.velocity = gfc_vector2d(0, 0);
+
+    // all gravity bound objects must fall
+
+
+    if(fabs(self->transform.velocity.x) < GFC_EPSILON ){
+        self->transform.velocity.x = 0;
+    } else if ((self->status >> 2 & 4) == 0){
+        // not walking so declerate
+    self->transform.velocity.x *= 0.1;
     }
-    gfc_vector2d_scale(self->transform.velocity, self->transform.velocity, 0.1);
+
 }
 
 Ent *player_new(){

@@ -6,8 +6,7 @@
 
 #define LEFT 0
 #define RIGHT 1
-#define UP 2
-#define DOWN 3
+#define JUMP 2
 
 /**
  * @note Used in stats
@@ -21,7 +20,7 @@ Ent *player_new();
 
 void player_think(Ent *self);
 
-void player_update(Ent *self);
+void player_update(Ent *self, float deltatime);
 
 void move(Ent *self, int dir);
 

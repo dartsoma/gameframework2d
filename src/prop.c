@@ -34,7 +34,7 @@ Ent *prop_new(){
     gfc_vector2d_copy(self->transform.position, pos);
     self->transform.scale = gfc_vector2d(3,3);
     */
-    self->stats = (int*) malloc(sizeof(int) * 4);
+    self->stats = (int*) malloc(sizeof(int) * 5);
 
 
     self->frame=0;
@@ -49,12 +49,32 @@ Ent *prop_new(){
 void prop_think(Ent *self){
     if (!self)return;
 
+
 }
 
-void prop_update(Ent *self){
+void prop_update(Ent *self, float deltatime){
     if (!self)return;
 
+    if(self->_tags == TAG_DYNAMIC) {
 
+        if ((self->status & 3) == 0){
+            self->transform.velocity.y += deltatime * 4;
+        }
+
+
+        gfc_vector2d_add(self->transform.position, self->transform.velocity, self->transform.position);
+
+        // all gravity bound objects must fall
+
+
+        if(fabs(self->transform.velocity.x) < GFC_EPSILON ){
+            self->transform.velocity.x = 0;
+        } else if ((self->status >> 2 & 4) == 0){
+            // not walking so declerate
+            self->transform.velocity.x *= 0.1;
+        }
+
+    }
 
 }
 

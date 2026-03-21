@@ -66,8 +66,9 @@ typedef struct Entity {
     GFC_Color color;
     float frame;
     int* stats;
+    Uint8 status; // Grounded - 1 | Jumping - 2 | Moving - 4 |
     void (*think) (struct Entity *self);    // called every frame
-    void (*update) (struct Entity *self);   // called every frame
+    void (*update) (struct Entity *self, float deltatime);   // called on deltatime
 } Ent;
 
 
@@ -129,7 +130,7 @@ void ent_clear();
 
 void ent_think_all();
 
-void ent_update_all();
+void ent_update_all(float deltatime);
 
 void insert_collision_layer(Ent* self);
 

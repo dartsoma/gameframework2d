@@ -8,7 +8,7 @@ Ent *prop_new();
 
 void prop_think(Ent *self);
 
-void prop_update(Ent *self);
+void prop_update(Ent *self, float deltatime);
 
 
 

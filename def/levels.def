@@ -28,6 +28,17 @@
           "bcolor": 0,
           "acolor": 1,
           "z-index": 1
+        }, {
+          "name": "blocker",
+          "xpos": 0,
+          "ypos": 860,
+          "xscale": 20,
+          "yscale": 4,
+          "rcolor": 1,
+          "gcolor": 0,
+          "bcolor": 0,
+          "acolor": 1,
+          "z-index": 1
         },
                 {
           "name": "barrel",

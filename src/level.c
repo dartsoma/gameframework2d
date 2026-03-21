@@ -41,8 +41,11 @@ Level *level_create(const char *levelname){
         PropDef *propdef;
         SJson *json; //free
         SJson *config, *propjson;
-        json = sj_load("./def/.props");
-        if (!json)  return;
+        json = sj_load("./def/props.def");
+        if (!json){
+
+            slog("bad propdef");
+        }
         // lolololololol
         config = sj_object_get_value(json, "props");
         c = sj_array_get_count(config);
@@ -59,21 +62,29 @@ Level *level_create(const char *levelname){
             gfc_hashmap_insert(level->prop_map, propdef->name, propdef);
         }
         sj_free(json);
+
+        slog("finished loading defs");
     }
 
 
     void set_level(Level *level, const char* levelname){
 
-        int i, c;
 
+
+        int i, c;
         if(!level) return;
         SJson *json;
-        json = sj_load("./def/.levels");
-        if (!json)  return;
+        json = sj_load("./def/levels.def");
+        slog("loading level");
+        if (!json) {
+            slog("bad level def");
+        }
         SJson *config, *leveljson;
+        slog("loading level");
 
         config = sj_object_get_value(json, "levels");
         c = sj_array_get_count(config);
+
 
         for(i = 0; i < c; i++){
 
@@ -108,7 +119,6 @@ void level_draw(Level *level){
 
     gf2d_sprite_draw_image(level->background, offset);
     } else {
-
        // slog("no background");
     }
 }

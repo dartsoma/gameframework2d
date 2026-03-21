@@ -13,13 +13,23 @@
 
 int main(int argc, char * argv[])
 {
+
+
+
+
+
+
     /*variable declarations*/
     int done = 0;
     const Uint8 * keys;
     Sprite *sprite;
     Ent *player;
     Level *level;
-    
+
+    // deltatime
+    int lastUpdate = SDL_GetTicks();
+
+
     int mx,my;
     float mf = 0;
     Sprite *mouse;
@@ -41,14 +51,19 @@ int main(int argc, char * argv[])
     gf2d_graphics_set_frame_delay(16);
     gf2d_sprite_init(1024);
     ent_manager_init(1024);
+
     gfc_input_init("./gfc/sample_config/input.cfg");
     SDL_ShowCursor(SDL_DISABLE);
+    slog("gamecycle");
     level = level_create("test");
+    slog("gamecycle");
+
     /*demo setup*/
     sprite = gf2d_sprite_load_image("images/backgrounds/bg_flat.png");
     mouse = gf2d_sprite_load_all("images/pointer.png",32,32,16,0);
     slog("press [escape] to quit");
     /*main game loop*/
+
 
     setup_camera(level);
     player = player_new();
@@ -58,7 +73,20 @@ int main(int argc, char * argv[])
         keys = SDL_GetKeyboardState(NULL); // get the keyboard state for this frame
         /*update things here*/
         gfc_input_update();
-        ent_update_all();
+
+        // physics
+        int current = SDL_GetTicks();
+
+        float deltatime = (current - lastUpdate) / 1000.0f;
+
+        if (deltatime <= 0 || deltatime > 0.1f) {
+            deltatime = 0.016f; // Cap at 60 FPS
+        }
+
+        ent_update_all(deltatime);
+
+        lastUpdate = current;
+
         ent_think_all();
         camera_update(player->transform.position);
         SDL_GetMouseState(&mx,&my);
@@ -90,7 +118,7 @@ int main(int argc, char * argv[])
         gf2d_graphics_next_frame();// render current draw frame and skip to the next frame
         
         if (keys[SDL_SCANCODE_ESCAPE])done = 1; // exit condition
-        //slog("Rendering at %f FPS",gf2d_graphics_get_frames_per_second());
+        // slog("Rendering at %f FPS",gf2d_graphics_get_frames_per_second());
     }
     ent_clear();
     ent_manager_close();
