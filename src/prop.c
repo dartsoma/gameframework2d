@@ -62,9 +62,8 @@ void prop_update(Ent *self, float deltatime){
         }
 
 
-        gfc_vector2d_add(self->transform.position, self->transform.velocity, self->transform.position);
-
-        // all gravity bound objects must fall
+        self->transform.position.x += self->transform.velocity.x * deltatime;
+        self->transform.position.y += self->transform.velocity.y * deltatime;
 
 
         if(fabs(self->transform.velocity.x) < GFC_EPSILON ){

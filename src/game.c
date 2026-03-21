@@ -28,6 +28,8 @@ int main(int argc, char * argv[])
 
     // deltatime
     int lastUpdate = SDL_GetTicks();
+    int current;
+    float deltastep, deltatime;
 
 
     int mx,my;
@@ -75,15 +77,20 @@ int main(int argc, char * argv[])
         gfc_input_update();
 
         // physics
-        int current = SDL_GetTicks();
+        current = SDL_GetTicks();
 
-        float deltatime = (current - lastUpdate) / 1000.0f;
+        deltatime = (current - lastUpdate) / 1000.0f;
 
         if (deltatime <= 0 || deltatime > 0.1f) {
             deltatime = 0.016f; // Cap at 60 FPS
         }
 
-        ent_update_all(deltatime);
+        deltastep += deltatime;
+
+        while (deltastep >= 0.016){
+            ent_update_all(deltastep);
+            deltastep -= 0.016;
+        }
 
         lastUpdate = current;
 

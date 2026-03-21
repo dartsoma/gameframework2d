@@ -49,8 +49,10 @@ void move(Ent *self, int dir){
 
     }
 
-    if (dir == JUMP && (self->status &= 1)) {
+    if (dir == JUMP && ((self->status & 3) == 1)) {
         self->status |= 2;
+         self->transform.velocity.y -= self->stats[JUMPPOWER];
+         slog("jump");
     }
 
 }
@@ -64,20 +66,22 @@ void player_update(Ent *self, float deltatime)
 
     if ((self->status & 1) == 0){
 
-        self->transform.velocity.y += deltatime * 4;
-    } else if ((self->status & 1) == 1){
+        self->transform.velocity.y += 800.0f    *deltatime;
+
+    } else if ((self->status & 3) == 1){
+
         self->transform.velocity.y = 0;
+
     }
-    if ((self->status & 2) == 2) {
-        if(self->transform.velocity.y <= -3){
+    if ((self->status & 2 ) == 2) {
+        if(self->transform.velocity.y >= 0)
+        {
             self->status -= 2;
-        } else {
-            self->transform.velocity.y -= deltatime * 300;
         }
-
     }
 
-    gfc_vector2d_add(self->transform.position, self->transform.velocity, self->transform.position);
+    self->transform.position.x += self->transform.velocity.x * deltatime;
+    self->transform.position.y += self->transform.velocity.y * deltatime;
 
     // all gravity bound objects must fall
 
@@ -107,10 +111,11 @@ Ent *player_new(){
         0
     );
     // Default Stats
-    self->stats = (int*) malloc(sizeof(int) * 3);
+    self->stats = (int*) malloc(sizeof(int) * 5);
     self->stats[HEALTH] = 100;
     self->stats[ARMOR] = 0;
-    self->stats[SPEED] = 10;
+    self->stats[SPEED] = 500.0f;
+    self->stats[JUMPPOWER] = 300.0f;
     self->_tags = TAG_PLAYER;
 
 

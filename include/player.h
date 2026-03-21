@@ -8,6 +8,7 @@
 #define RIGHT 1
 #define JUMP 2
 
+
 /**
  * @note Used in stats
  *
@@ -15,6 +16,7 @@
 #define HEALTH 0
 #define ARMOR 1
 #define SPEED 2
+#define JUMPPOWER 3
 
 Ent *player_new();
 
