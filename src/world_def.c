@@ -1,6 +1,42 @@
     #include "simple_logger.h"
     #include "world_def.h"
 
+
+
+    Gun *create_guns(){
+
+        int i, c;
+        SJson *json;
+        SJson *config, *loadjson;
+        json = sj_load("./def/guns.def");
+
+        if (!json){
+            slog("bad guns.def");
+            return NULL;
+        }
+
+        config = sj_object_get_value(json, "guns");
+        c = sj_array_get_count(config);
+
+
+        for(i = 0; i < c; i++){
+
+            loadjson = sj_array_get_nth(config,i);
+
+        }
+        sj_free(json);
+
+        slog("finished loading defs");
+
+    }
+
+    Melee *create_melees(){
+
+
+
+    }
+
+
     PropDef *create_propdef(SJson *prop){
         slog("creating propdef");
         // prop is object

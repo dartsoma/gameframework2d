@@ -1,0 +1,112 @@
+{
+  "guns": [
+    {
+      "id": 0,
+      "name": "null",
+      "sprite": "n/a",
+      "firerate": 0,
+      "spread": 0,
+      "accuracy": 0,
+      "reserve": 0,
+      "ammo": 0,
+      "projectileId": 0,
+      "type": 0
+    },
+    {
+      "id": 1,
+      "name": "pistol",
+      "sprite": "images/pistol.png",
+      "firerate": 1,
+      "spread": 0,
+      "accuracy": 0.75,
+      "reserve": 21,
+      "ammo": 7,
+      "projectileId": 1,
+      "type": 4
+    },
+    {
+      "id": 2,
+      "name": "smg",
+      "sprite": "images/smg.png",
+      "firerate": 3,
+      "spread": 0,
+      "accuracy": 0.5,
+      "reserve": 90,
+      "ammo": 30,
+      "projectileId": 2,
+      "type": 4
+    },
+    {
+      "id": 3,
+      "name": "sawedoff",
+      "sprite": "images/sawedoff.png",
+      "firerate": 2,
+      "spread": 8,
+      "accuracy": 0.5,
+      "reserve": 8,
+      "ammo": 2,
+      "projectileId": 2,
+      "type": 1
+    },
+    {
+      "id": 4,
+      "name": "boltsniper",
+      "sprite": "images/boltsniper.png",
+      "firerate": 0.5,
+      "spread": 0,
+      "accuracy": 1.25,
+      "reserve": 7,
+      "ammo": 1,
+      "projectileId": 3,
+      "type": 2
+    },
+        {
+      "id": 5,
+      "name": "semisniper",
+      "sprite": "images/semisniper.png",
+      "firerate": 0.75,
+      "spread": 0,
+      "accuracy": 1,
+      "reserve": 7,
+      "ammo": 1,
+      "projectileId": 3,
+      "type": 2
+    },
+        {
+      "id": 6,
+      "name": "rpg",
+      "sprite": "images/rpg.png",
+      "firerate": 0.5,
+      "spread": 0,
+      "accuracy": 1.25,
+      "reserve": 7,
+      "ammo": 1,
+      "projectileId": 5,
+      "type": 5
+    },
+    {
+      "id": 7,
+      "name": "auto",
+      "sprite": "images/auto.png",
+      "firerate": 2.5,
+      "spread": 0,
+      "accuracy": 0.75,
+      "reserve": 120,
+      "ammo": 30,
+      "projectileId": 4,
+      "type": 3
+    },
+        {
+      "id": 8,
+      "name": "semiauto",
+      "sprite": "images/semiauto.png",
+      "firerate": 0.75,
+      "spread": 0,
+      "accuracy": 0.85,
+      "reserve": 120,
+      "ammo": 30,
+      "projectileId": 4,
+      "type": 3
+    }
+  ]
+}

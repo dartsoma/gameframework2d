@@ -1,0 +1,34 @@
+{
+  "projectile": [
+    {
+      "id": 0,
+      "name": "null",
+      "damage": 0
+    },
+    {
+      "id": 1,
+      "name": "light",
+      "damage": 15
+    },
+    {
+      "id": 2,
+      "name": "pellet",
+      "damage": 7
+    },
+        {
+      "id": 3,
+      "name": "heavy",
+      "damage": 70
+    },
+    {
+      "id": 4,
+      "name": "medium",
+      "damage": 20
+    },
+    {
+      "id": 5,
+      "name": "rocket",
+      "damage": 50
+    }
+  ]
+}

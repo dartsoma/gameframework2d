@@ -285,8 +285,7 @@
     void ent_free(Ent *self){
         if(!self) return;
         if(self->sprite)gf2d_sprite_free(self->sprite);
-        if(self->stats) free(self->stats);
-
+        if(self->free)self->free(self);
         switch (self->_tags){
 
             case TAG_PLAYER:
@@ -318,6 +317,9 @@
 
                 break;
         }
+
+        if(self->stats) free(self->stats);
+        if(self->misc) free(misc));
         entCount.oc_all--;
         memset(self, 0, sizeof(Ent));
     }
@@ -343,7 +345,7 @@
     **/
 
     void ent_draw(Ent *self){
-
+        int i;
         int xlength = self->collide.c_dim.x;
         int ylength = self->collide.c_dim.y;
 
@@ -353,6 +355,7 @@
 
         gfc_vector2d_sub(position, self->transform.position, offset);
 
+        // base
         if(self->sprite){
         gf2d_sprite_render(
             self->sprite,
@@ -365,6 +368,7 @@
             NULL,
             (Uint32) self->frame);
         }
+
 
         if(!entManager.hitbox) return;
         gf2d_sprite_render(
@@ -380,6 +384,7 @@
 
         gfc_rect_set(self->collide.c_box,position.x,position.y,xlength,ylength);
 
+        if(self->draw)self->draw(self, entManager.hitbox);
     }
 
     void ent_manager_draw_all(){

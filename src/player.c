@@ -5,6 +5,15 @@
 #include "gfc_input.h"
 #include "player.h"
 
+void player_free(){
+    PlayerData *pd = (PlayerData *) player->misc;
+
+    if(pd->head) gf2d_sprite_free(pd->head);
+
+}
+
+
+
 void player_think(Ent *self){
 
 
@@ -66,7 +75,7 @@ void player_update(Ent *self, float deltatime)
 
     if ((self->status & 1) == 0){
 
-        self->transform.velocity.y += 800.0f    *deltatime;
+        self->transform.velocity.y += 800.0f * deltatime;
 
     } else if ((self->status & 3) == 1){
 
@@ -95,6 +104,56 @@ void player_update(Ent *self, float deltatime)
 
 }
 
+void player_draw(Ent *self, Sprite *hitbox){
+
+        int i;
+        int xlength = (self->collide.c_dim.x/2);
+        int ylength = (self->collide.c_dim.y/2);
+
+        if(!self)return;
+        GFC_Vector2D offset, position;
+        offset = camera_get_pos();
+
+        gfc_vector2d_sub(position, self->transform.position, offset);
+        position.y += 45;
+        position.x += 25;
+
+        // base
+        if(self->sprite){
+        gf2d_sprite_render(
+            self->sprite,
+            position,
+            &self->transform.scale,
+            &self->transform.center,
+            &self->transform.rotation,
+            NULL,
+            &self->color,
+            NULL,
+            (Uint32) self->frame);
+        }
+
+
+        if(!entManager.hitbox) return;
+        gf2d_sprite_render(
+            entManager.hitbox,
+            position,
+            &self->collide.c_dim,
+            &self->transform.center,
+            &self->transform.rotation,
+            NULL,
+            &self->collide.c_color,
+            NULL,
+            0);
+
+        gfc_rect_set(self->collide.c_box,position.x,position.y,xlength,ylength);
+
+
+
+
+
+}
+
+
 Ent *player_new(){
 
     Ent *self;
@@ -104,13 +163,32 @@ Ent *player_new(){
         return NULL;
     }
     self->sprite = gf2d_sprite_load_all(
-        "images/ed210.png",
-        128,
-        128,
-        16,
+        "images/body.png",
+        100,
+        100,
+        1,
         0
     );
+    //
+
     // Default Stats
+    PlayerData *pd = (PlayerData *) malloc(sizeof(PlayerData));
+    // set null weapon
+    // empty perks
+    // unreachable charge timer
+    pd->passiveId = 0;
+    pd->activeId = 0;
+    pd->activeCharge = 0;
+    pd->passiveCd = -1;
+    self->misc = pd;
+    pd->head = gf2d_sprite_load_all(
+        "images/head.png",
+        50,
+        50,
+        1,
+        0
+    );
+
     self->stats = (int*) malloc(sizeof(int) * 5);
     self->stats[HEALTH] = 100;
     self->stats[ARMOR] = 0;
@@ -132,6 +210,7 @@ Ent *player_new(){
 
     self->think = player_think;
     self->update = player_update;
+    self->draw = player_draw;
 
     insert_collision_layer(self);
 

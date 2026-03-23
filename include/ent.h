@@ -66,9 +66,12 @@ typedef struct Entity {
     GFC_Color color;
     float frame;
     int* stats;
+    (void*) misc;
     Uint8 status; // Grounded - 1 | Jumping - 2 | Moving - 4 |
+    void (*draw) (struct Entity *self, Sprite *hitbox);
     void (*think) (struct Entity *self);    // called every frame
     void (*update) (struct Entity *self, float deltatime);   // called on deltatime
+    void (*free) (struct Entity *self);
 } Ent;
 
 
