@@ -3,38 +3,56 @@
 
 
 
-    Gun *create_guns(){
-
-        int i, c;
+    PlayerData *load_player_data(Ent *self){
         SJson *json;
         SJson *config, *loadjson;
-        json = sj_load("./def/guns.def");
+        json = sj_load("./def/player.def");
 
         if (!json){
-            slog("bad guns.def");
+            slog("bad player.def");
             return NULL;
         }
 
-        config = sj_object_get_value(json, "guns");
-        c = sj_array_get_count(config);
+        config = sj_object_get_value(json, "player");
+
+        PlayerData *pd = (PlayerData *) self->misc;
+
+            Uint8 gun1,gun2,gun3,melee,team;
+
+            loadjson = sj_array_get_nth(config,0);
+
+            sj_object_get_uint8(loadjson, "passive", &pd->passiveId);
+            sj_object_get_uint8(loadjson, "active", &pd->activeId);
+            sj_object_get_uint8(loadjson, "gun1", &gun1);
+            sj_object_get_uint8(loadjson, "gun2", &gun2);
+            sj_object_get_uint8(loadjson, "gun3", &gun3);
+            sj_object_get_uint8(loadjson, "melee", &melee);
+            sj_object_get_uint8(loadjson, "team", &team);
+
+            pd->guns[0] = copy_gun(gun1);
+            pd->guns[1] = copy_gun(gun2);
+            pd->guns[2] = copy_gun(gun3);
+            pd->melee = copy_melee(melee);
+            if (team == 0){
+                self->collide.c_mask = CM_TEAM1;
+            }
+            if (team == 1) {
+                self->collide.c_mask = CM_TEAM2;
+            }
+            if (team > 1) {
+                self->collide.c_mask = CM_FFA;
+            }
 
 
-        for(i = 0; i < c; i++){
 
-            loadjson = sj_array_get_nth(config,i);
-
-        }
         sj_free(json);
 
-        slog("finished loading defs");
-
-    }
-
-    Melee *create_melees(){
-
+        slog("finished player defs");
+        return pd;
 
 
     }
+
 
 
     PropDef *create_propdef(SJson *prop){
@@ -51,10 +69,7 @@
         sj_object_get_int(prop, "frameheight", &def->frameheight);
         sj_object_get_int(prop, "framesperline", &def->framesperline);
         sj_object_get_uint8(prop, "health", &def->stats[0]);
-        sj_object_get_uint8(prop, "hazardflags", &def->stats[1]);
-        sj_object_get_uint8(prop, "hazardradius", &def->stats[2]);
-        sj_object_get_uint8(prop, "destructable", &def->stats[3]);
-        sj_object_get_uint8(prop, "dynamic", &def->stats[4]);
+        sj_object_get_uint8(prop, "objflag", &def->stats[1]);
 
 
         return def;
@@ -93,7 +108,10 @@
 
         prop = prop_new();
 
+
         if(!prop) return;
+
+        prop->misc = (char*) propdef->name;
 
         prop->sprite = gf2d_sprite_load_all(
             propdef->imagepath,
@@ -118,15 +136,37 @@
         prop->collide.c_dim.x = ((float)propdef->framewidth/10);
         prop->collide.c_dim.y = ((float)propdef->frameheight/10);
 
-        if (propdef->stats[4] > 0){
 
+
+        // 1 is static, 2 is trigger/item, 4 is a blocker, 8 is passthrough,
+        // neither 4 or 8 means the object can be moved through
+
+        prop->_tags = TAG_STATIC;
+
+        if ((prop->stats[1] & 1) == 1){
             prop->_tags = TAG_DYNAMIC;
-            prop->collide.c_mask = CM_TRIGGER;
         } else {
             prop->_tags = TAG_STATIC;
-            prop->collide.c_mask = CM_BLOCKER;
         }
 
+        if ((prop->stats[1] & 2) == 2){
+        prop->collide.c_mask = CM_TRIGGER;
+        }
+        if ((prop->stats[1] & 4) == 4){
+        prop->collide.c_mask = CM_BLOCKER;
+        }
+        if ((prop->stats[1] & 8) == 8){
+        prop->collide.c_mask = CM_PASSTHROUGH;
+        }
+
+        if(strcmp(propdef->name, "t1flag") == 0){
+
+        set_flags(1, prop);
+
+        } else if (strcmp(propdef->name, "t2flag") == 0)  {
+
+        set_flags(2, prop);
+        }
 
         insert_collision_layer(prop);
 

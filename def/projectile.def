@@ -3,32 +3,40 @@
     {
       "id": 0,
       "name": "null",
-      "damage": 0
+      "damage": 0,
+      "lifetime": 0
     },
     {
       "id": 1,
       "name": "light",
-      "damage": 15
+      "damage": 150,
+      "lifetime": 0.75
     },
     {
       "id": 2,
       "name": "pellet",
-      "damage": 7
+      "damage": 70,
+      "lifetime": 0.25
     },
-        {
+    {
       "id": 3,
       "name": "heavy",
-      "damage": 70
+      "damage": 700,
+      "lifetime": 2
     },
     {
       "id": 4,
       "name": "medium",
-      "damage": 20
+      "damage": 200,
+      "lifetime": 0.5
     },
     {
       "id": 5,
       "name": "rocket",
-      "damage": 50
+      "damage": 500,
+      "lifetime": 2,
+      "splash": 50
     }
   ]
 }
+

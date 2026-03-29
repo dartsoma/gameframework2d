@@ -9,6 +9,8 @@
 #include "gfc_text.h"
 #include "gfc_shape.h"
 #include "gf2d_sprite.h"
+#include "gf2d_draw.h"
+#include "level.h"
 
 typedef enum {
 
@@ -17,7 +19,8 @@ typedef enum {
     CM_TRIGGER = 1,
     CM_TEAM1 = 2,
     CM_TEAM2 = 3,
-    CM_FFA = 4
+    CM_FFA = 4,
+    CM_PASSTHROUGH = 5
 
 } CollisionMask;
 
@@ -50,8 +53,8 @@ typedef struct {
     int oc_sprop;
     int oc_dprop;
     int oc_item;
-    int oc_npc;
     int oc_player;
+    int oc_projectile;
 
 } eCOUNT;
 
@@ -66,34 +69,37 @@ typedef struct Entity {
     GFC_Color color;
     float frame;
     int* stats;
-    (void*) misc;
-    Uint8 status; // Grounded - 1 | Jumping - 2 | Moving - 4 |
-    void (*draw) (struct Entity *self, Sprite *hitbox);
+    void* misc;
+    Uint8 status; // Grounded - 1 | Jumping - 2 | Moving - 4 | Reloading - 8 | Attacking - 16 | Dropping - 32 | Flagged - 64
+    void (*draw) (struct Entity *self);
     void (*think) (struct Entity *self);    // called every frame
     void (*update) (struct Entity *self, float deltatime);   // called on deltatime
+    void (*hit) (struct Entity *attacker, struct Entity *self, Uint8 tag);
     void (*free) (struct Entity *self);
 } Ent;
 
-
+#define TAG_NONE 7
 #define TAG_STATIC 0
 #define TAG_DYNAMIC 1
 #define TAG_CONSUMABLE 2
 #define TAG_PLAYER 3
 #define TAG_NPC 4
 #define TAG_PARTICLE 5
+#define TAG_PROJECTILE 6
 
 
 typedef struct {
 
     Ent *entList;
     Uint32 entMax;
-    Sprite *hitbox;
-
+    Level *level;
 } EntManager;
 
 /**
  * @brief frees all entities before freeing the manager
  ***/
+
+void ent_hit(Ent *attacker, Ent *self, Uint8 tag);
 
 void ent_manager_draw_all();
 
@@ -110,6 +116,8 @@ void ent_manager_close();
  ***/
 
 void ent_manager_init(Uint32 max);
+
+void link_level(Level *l);
 
 
 /**
@@ -136,6 +144,10 @@ void ent_think_all();
 void ent_update_all(float deltatime);
 
 void insert_collision_layer(Ent* self);
+
+void ent_score(Uint8 amount, Uint8 team);
+
+Ent *get_player();
 
 Ent *index_ent(int id);
 

@@ -15,6 +15,12 @@ typedef struct{
 
 GFC_Vector2D camera_get_pos();
 
+void set_mouse_state(int x, int y, Uint8 m);
+
+GFC_Vector2D get_mouse_pos();
+
+Uint8 click_status();
+
 void camera_set_pos(GFC_Vector2D pos);
 
 void camera_set_bounds(GFC_Rect bounds);

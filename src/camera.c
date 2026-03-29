@@ -1,9 +1,27 @@
 #include "simple_logger.h"
-
 #include "camera.h"
 
-
 static Camera camera = {0};
+GFC_Vector2D mouse;
+Uint8 mbuttons;
+
+void set_mouse_state(int x, int y, Uint8 m) {
+
+    mouse = gfc_vector2d(x,y);
+    mouse.x += camera.pos.x;
+    mouse.y += camera.pos.y;
+    mbuttons = m;
+}
+
+GFC_Vector2D get_mouse_pos() {
+
+    return mouse;
+}
+
+Uint8 click_status() {
+    return mbuttons;
+}
+
 
 GFC_Vector2D camera_get_pos(){
 
@@ -30,25 +48,30 @@ void camera_set_bounds(GFC_Rect bounds){
 void camera_update(GFC_Vector2D target){
 
     GFC_Vector2D position;
-
+    Ent *player;
+    player = get_player();
     switch(camera.activeTarget){
         case -1:
             // The World Origin
             position.x = camera.size.x*0.5;
             position.y = camera.size.y*0.5;
+            break;
         case 0:
 
             /**
              * Player
-             * @note This may seem redundant but this is a good reminder that the player is supposed to be on index 0
+             * @note Player is no longer always index 0
             */
 
-            position.x = index_ent(0)->transform.position.x - (camera.size.x*0.5);
-            position.y = index_ent(0)->transform.position.y - (camera.size.y*0.5);
+            if (!player) return;
+            position.x = player->transform.position.x - (camera.size.x*0.5);
+            position.y = player->transform.position.y - (camera.size.y*0.5);
+            break;
         default:
             // Other Ent
             position.x = index_ent(camera.activeTarget)->transform.position.x - (camera.size.x*0.5);
             position.y = index_ent(camera.activeTarget)->transform.position.y - (camera.size.y*0.5);
+            break;
     }
 
 

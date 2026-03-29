@@ -7,34 +7,131 @@
       "frameheight": 32,
       "framesperline": 7,
       "health": 100,
-      "hazardflags": 0,
-      "hazardradius": 0,
-      "destructable": 1,
-      "dynamic": 1
+      "objflag": 3
     },
-        {
+    {
       "name": "blocker",
       "imagepath": "images/Blocker.png",
       "framewidth": 128,
       "frameheight": 64,
       "framesperline": 1,
-      "health": 0,
-      "hazardflags": 0,
-      "hazardradius": 0,
-      "destructable": 0,
-      "dynamic": 0
+      "health": 100,
+      "objflag": 4
     },
-            {
+    {
       "name": "wall",
       "imagepath": "images/BrickWall.png",
       "framewidth": 128,
       "frameheight": 64,
       "framesperline": 1,
-      "health": 0,
-      "hazardflags": 0,
-      "hazardradius": 0,
-      "destructable": 0,
-      "dynamic": 0
+      "health": 100,
+      "objflag": 4
+    },
+    {
+      "name": "passthrough",
+      "imagepath": "images/passthrough.png",
+      "framewidth": 100,
+      "frameheight": 30,
+      "framesperline": 1,
+      "health": 100,
+      "objflag": 8
+    },
+    {
+      "name": "t1flag",
+      "imagepath": "images/flag.png",
+      "framewidth": 25,
+      "frameheight": 25,
+      "framesperline": 1,
+      "health": 100,
+      "objflag": 2
+    },
+    {
+      "name": "t2flag",
+      "imagepath": "images/flag.png",
+      "framewidth": 25,
+      "frameheight": 25,
+      "framesperline": 1,
+      "health": 100,
+      "objflag": 2
+    },
+    {
+      "name": "t1zone",
+      "imagepath": "images/acid.png",
+      "framewidth": 100,
+      "frameheight": 50,
+      "framesperline": 1,
+      "health": 100,
+      "objflag": 2
+    },
+    {
+      "name": "t2zone",
+      "imagepath": "images/acid.png",
+      "framewidth": 100,
+      "frameheight": 50,
+      "framesperline": 1,
+      "health": 100,
+      "objflag": 2
+    },
+    {
+      "name": "acid",
+      "imagepath": "images/acid.png",
+      "framewidth": 100,
+      "frameheight": 50,
+      "framesperline": 1,
+      "health": 100,
+      "objflag": 2
+    },
+    {
+      "name": "healzone",
+      "imagepath": "images/acid.png",
+      "framewidth": 100,
+      "frameheight": 50,
+      "framesperline": 1,
+      "health": 100,
+      "objflag": 2
+    },{
+      "name": "hillzone",
+      "imagepath": "images/acid.png",
+      "framewidth": 100,
+      "frameheight": 50,
+      "framesperline": 1,
+      "health": 100,
+      "objflag": 2
+    },
+    {
+      "name": "armorpack",
+      "imagepath": "images/item.png",
+      "framewidth": 100,
+      "frameheight": 50,
+      "framesperline": 1,
+      "health": 100,
+      "objflag": 2
+    },
+    {
+      "name": "healthpack",
+      "imagepath": "images/item.png",
+      "framewidth": 100,
+      "frameheight": 50,
+      "framesperline": 1,
+      "health": 100,
+      "objflag": 2
+    },
+    {
+      "name": "ammocrate",
+      "imagepath": "images/item.png",
+      "framewidth": 100,
+      "frameheight": 50,
+      "framesperline": 1,
+      "health": 100,
+      "objflag": 2
+    },    {
+      "name": "ultcharge",
+      "imagepath": "images/item.png",
+      "framewidth": 100,
+      "frameheight": 50,
+      "framesperline": 1,
+      "health": 100,
+      "objflag": 2
     }
   ]
 }

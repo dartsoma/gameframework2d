@@ -1,0 +1,13 @@
+{
+  "player": [
+    {
+      "gun1": 1,
+      "gun2": 2,
+      "gun3": 3,
+      "melee": 1,
+      "passive": 1,
+      "active": 1,
+      "team": 1
+    }
+  ]
+}

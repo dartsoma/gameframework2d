@@ -4,7 +4,7 @@
 #include "simple_json.h"
 #include "gfc_hashmap.h"
 #include "prop.h"
-#include "Weapon.h"
+#include "player.h"
 
 typedef struct
 {
@@ -20,11 +20,10 @@ typedef struct
 
 }  PropDef;
 
+
 PropDef *create_propdef(SJson *prop);
 
-Gun *create_guns();
-
-Melee *create_melees();
+PlayerData *load_player_data(Ent *self);
 
 void free_propdef(PropDef *def);
 

@@ -1,0 +1,3 @@
+To learn more about the font family and its license, visit https://www.fontmirror.com/bronco
+
+Bronco: A bold, western-inspired typeface, Bronco gallops across the page with confident, strong serifs.  Its slightly condensed letters evoke a sense of rugged individualism and timeless appeal, perfect for branding projects needing a touch of classic Americana grit.  The design is both powerful and approachable.

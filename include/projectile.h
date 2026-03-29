@@ -1,19 +1,29 @@
 #ifndef __PROJECTILE_H__
 #define __PROJECTILE_H__
 
+#include "simple_json.h"
+#include "weapon.h"
 #include "ent.h"
 
 typedef struct {
 
-    int damage;
-    GFC_VECTOR2D vel;
-    self* owner;
+    Uint8 projectileId;
+    Uint8 damage;
+    Uint8 speed;
+    float splash;
+    float lifetime;
+    float hitCooldown;
+    Ent *owner;
 
-} PROJECTILE;
+} Projectile;
 
-Projectile projectile_create(); // define the projectile
+void instance_projectile(Ent* owner, Gun *gun, float rotation);
 
-Ent *instance_projectile(Ent* owner, Projectile *projectile); // fire instances of a defined projectile
+void unload_projectiles();
+
+void load_projectiles();
+
+void projectile_hit(Ent *self, Ent *other);
 
 void projectile_think(Ent *self);
 

@@ -4,20 +4,17 @@
       "name": "test",
       "width": 1920,
       "height": 1080,
-      "imagepath": "./images/backgrounds/TerrariaJungle.png",
+      "imagepath": "./images/backgrounds/coolbackground.png",
+      "gamemode": 0,
+      "winscore": 10,
+      "spawns": [
+        [
+          0,
+          0
+        ]
+      ],
       "props": [
         {
-          "name": "barrel",
-          "xpos": 600,
-          "ypos": 600,
-          "xscale": 1,
-          "yscale": 4,
-          "rcolor": 1,
-          "gcolor": 0,
-          "bcolor": 0,
-          "acolor": 1,
-          "z-index": 1
-        },        {
           "name": "wall",
           "xpos": -140,
           "ypos": 600,
@@ -28,7 +25,116 @@
           "bcolor": 0,
           "acolor": 1,
           "z-index": 1
-        }, {
+        },
+        {
+          "name": "wall",
+          "xpos": -140,
+          "ypos": 600,
+          "xscale": 1,
+          "yscale": 4,
+          "rcolor": 1,
+          "gcolor": 0,
+          "bcolor": 0,
+          "acolor": 1,
+          "z-index": 1
+        },
+        {
+          "name": "blocker",
+          "xpos": 0,
+          "ypos": 1000,
+          "xscale": 20,
+          "yscale": 2,
+          "rcolor": 1,
+          "gcolor": 0,
+          "bcolor": 0,
+          "acolor": 1,
+          "z-index": 1
+        },
+        {
+          "name": "blocker",
+          "xpos": 0,
+          "ypos": 560,
+          "xscale": 6,
+          "yscale": 1,
+          "rcolor": 1,
+          "gcolor": 0,
+          "bcolor": 0,
+          "acolor": 1,
+          "z-index": 1
+        },
+        {
+          "name": "blocker",
+          "xpos": 1200,
+          "ypos": 560,
+          "xscale": 6,
+          "yscale": 1,
+          "rcolor": 1,
+          "gcolor": 0,
+          "bcolor": 0,
+          "acolor": 1,
+          "z-index": 1
+        },
+        {
+          "name": "passthrough",
+          "xpos": 760,
+          "ypos": 560,
+          "xscale": 4.5,
+          "yscale": 1,
+          "rcolor": 1,
+          "gcolor": 0,
+          "bcolor": 0,
+          "acolor": 1,
+          "z-index": 1
+        },
+        {
+          "name": "hillzone",
+          "xpos": 760,
+          "ypos": 910,
+          "xscale": 4.5,
+          "yscale": 3,
+          "rcolor": 1,
+          "gcolor": 0,
+          "bcolor": 0,
+          "acolor": 1,
+          "z-index": 1
+        },
+        {
+          "name": "passthrough",
+          "xpos": 760,
+          "ypos": 760,
+          "xscale": 4.5,
+          "yscale": 1,
+          "rcolor": 1,
+          "gcolor": 0,
+          "bcolor": 0,
+          "acolor": 1,
+          "z-index": 1
+        },
+        {
+          "name": "blocker",
+          "xpos": 0,
+          "ypos": 260,
+          "xscale": 3,
+          "yscale": 1,
+          "rcolor": 1,
+          "gcolor": 0,
+          "bcolor": 0,
+          "acolor": 1,
+          "z-index": 1
+        },
+        {
+          "name": "passthrough",
+          "xpos": 1500,
+          "ypos": 260,
+          "xscale": 4.5,
+          "yscale": 1,
+          "rcolor": 1,
+          "gcolor": 0,
+          "bcolor": 0,
+          "acolor": 1,
+          "z-index": 1
+        },
+        {
           "name": "wall",
           "xpos": 1920,
           "ypos": 600,
@@ -39,39 +145,124 @@
           "bcolor": 0,
           "acolor": 1,
           "z-index": 1
-        }, {
-          "name": "blocker",
-          "xpos": 0,
-          "ypos": 860,
-          "xscale": 20,
-          "yscale": 4,
+        },
+        {
+          "name": "healzone",
+          "xpos": 1720,
+          "ypos": 520,
+          "xscale": 2,
+          "yscale": 1,
           "rcolor": 1,
           "gcolor": 0,
           "bcolor": 0,
           "acolor": 1,
           "z-index": 1
         },
-                {
-          "name": "barrel",
-          "xpos": 100,
-          "ypos": 100,
+        {
+          "name": "acid",
+          "xpos": 0,
+          "ypos": 520,
           "xscale": 2,
-          "yscale": 2,
-          "rcolor": 1,
+          "yscale": 1,
+          "rcolor": 0,
           "gcolor": 1,
           "bcolor": 0,
           "acolor": 1,
           "z-index": 1
         },
-                {
-          "name": "barrel",
+        {
+          "name": "armorpack",
           "xpos": 200,
           "ypos": 500,
+          "xscale": 1,
+          "yscale": 1,
+          "rcolor": 0.3,
+          "gcolor": 0.3,
+          "bcolor": 0.3,
+          "acolor": 1,
+          "z-index": 1
+        },
+        {
+          "name": "healthpack",
+          "xpos": 400,
+          "ypos": 500,
+          "xscale": 1,
+          "yscale": 1,
+          "rcolor": 1,
+          "gcolor": 0,
+          "bcolor": 0,
+          "acolor": 1,
+          "z-index": 1
+        },
+        {
+          "name": "ultcharge",
+          "xpos": 1500,
+          "ypos": 210,
+          "xscale": 1,
+          "yscale": 1,
+          "rcolor": 1,
+          "gcolor": 0,
+          "bcolor": 0,
+          "acolor": 1,
+          "z-index": 1
+        },
+        {
+          "name": "ammocrate",
+          "xpos": 500,
+          "ypos": 500,
+          "xscale": 1,
+          "yscale": 1,
+          "rcolor": 1,
+          "gcolor": 0.67,
+          "bcolor": 0,
+          "acolor": 1,
+          "z-index": 1
+        },
+        {
+          "name": "t1flag",
+          "xpos": 60,
+          "ypos": 920,
           "xscale": 2,
           "yscale": 2,
           "rcolor": 0,
-          "gcolor": 1,
+          "gcolor": 0,
           "bcolor": 1,
+          "acolor": 1,
+          "z-index": 1
+        },
+        {
+          "name": "t1zone",
+          "xpos": 40,
+          "ypos": 920,
+          "xscale": 2,
+          "yscale": 2,
+          "rcolor": 0,
+          "gcolor": 0,
+          "bcolor": 1,
+          "acolor": 1,
+          "z-index": 1
+        },
+        {
+          "name": "t2zone",
+          "xpos": 1720,
+          "ypos": 950,
+          "xscale": 2,
+          "yscale": 1,
+          "rcolor": 1,
+          "gcolor": 0.67,
+          "bcolor": 0,
+          "acolor": 1,
+          "z-index": 1
+        },
+        {
+          "name": "t2flag",
+          "xpos": 1730,
+          "ypos": 975,
+          "xscale": 2,
+          "yscale": 1,
+          "rcolor": 1,
+          "gcolor": 0.67,
+          "bcolor": 0,
           "acolor": 1,
           "z-index": 1
         }

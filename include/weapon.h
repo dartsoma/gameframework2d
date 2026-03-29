@@ -1,45 +1,47 @@
 #ifndef __WEAPON_H__
 #define __WEAPON_H__
 
-#include "projectile.h"
+
+#include "ent.h"
 
 
-
-typdef enum {
-
-  SHOTGUN = 1,
-  SNIPER = 2,
-  RIFLE = 3,
-  PISTOL = 4,
-  BLAST = 5,
-  MELEE = 6
-
-} WeaponType;
+#define NONE 0
+#define SHOTGUN 1
+#define SNIPER 2
+#define RIFLE 3
+#define PISTOL 4
+#define BLAST 5
+#define MELEE 6
 
 typedef struct {
-  int gunId;
+  Uint8 gunId;
   char* name;
-  Sprite sprite;
+  Sprite *sprite;
   float firerate;
   float spread;
   float accuracy;
-  int reserve; // in inventory
-  int ammo; // in mag
-  Projectile projectile; // store a copy and then every fire will use an instance of this as an entity
-  WeaponType type;
+  Uint8 reserve; // in inventory
+  Uint8 ammo; // in mag
+  Uint8 apr; // max in round
+  Uint8 maxammo; // max a weapon can hold
+  Uint8 projectileId; // index of bullet type
+  float fdebounce; // fire debounce
+  float rdebounce; // reload debounce
+  Uint8 type;
 } Gun;
 
-typedef struct {
-  int meleeId;
-  char* name;
-  Sprite sprite;
-  float speed;
-  int damage;
-  float resist;
-  WeaponType type;
-} Melee;
 
-void load_weapons();
+
+typedef struct {
+  Uint8 meleeId;
+  char* name;
+  Sprite *sprite;
+  float speed;
+  Uint8 damage;
+  float resist;
+  Uint8 type;
+  float debounce;
+} Melee;
 
 // for guns
 
@@ -50,11 +52,17 @@ void load_weapons();
 // send out projectile
 
 // put firing on cooldown
+void unload_weapons();
 
-void fire(Gun *g);
+void load_weapons();
 
-void hit(Melee *m);
+void fire(Gun *g, Ent *owner);
 
+void attack(Melee *m);
+
+Gun copy_gun(Uint8 id);
+
+Melee copy_melee(Uint8 id);
 
 
 #endif

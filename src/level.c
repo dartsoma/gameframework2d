@@ -1,6 +1,8 @@
 
 #include "simple_logger.h"
 #include "world_def.h"
+#include "projectile.h"
+#include "weapon.h"
 #include "level.h"
 
 Level* level_new(){
@@ -13,6 +15,8 @@ Level* level_new(){
 void level_free(Level *level){
     if(!level)return;
     gf2d_sprite_free(level->background);
+    unload_weapons();
+    unload_projectiles();
     memset(level, 0, sizeof(Level));
     free(level);
 }
@@ -22,6 +26,8 @@ Level *level_create(const char *levelname){
     level = level_new();
     level->width = 1200;
     level->height = 720;
+    level->game.max_points = 0;
+    level->game.win = 0;
     if(!level) {
         slog("no level init");
         return NULL;
@@ -46,7 +52,12 @@ Level *level_create(const char *levelname){
 
             slog("bad propdef");
         }
+
         // lolololololol
+
+        load_weapons();
+        load_projectiles();
+
         config = sj_object_get_value(json, "props");
         c = sj_array_get_count(config);
         level->prop_map = gfc_hashmap_new();
@@ -71,7 +82,7 @@ Level *level_create(const char *levelname){
 
 
 
-        int i, c;
+        int i, j, c;
         if(!level) return;
         SJson *json;
         json = sj_load("./def/levels.def");
@@ -89,16 +100,39 @@ Level *level_create(const char *levelname){
         for(i = 0; i < c; i++){
 
             leveljson = sj_array_get_nth(config,i);
-            if(strcmp(levelname,  sj_object_get_string(leveljson, "name")) == 0){
+            if(strcmp(levelname,  sj_object_get_string(leveljson, "name")) != 0) continue;
 
                 // level defaults
             sj_object_get_int(leveljson, "width", &level->width );
             sj_object_get_int(leveljson, "height", &level->height );
             level->background = gf2d_sprite_load_image(sj_object_get_string(leveljson, "imagepath"));
-                // spawn functions
+            sj_object_get_uint8(leveljson, "gamemode", &level->game.mode);
+            sj_object_get_int(leveljson, "winscore", &level->game.win_count);
+
+            // get spawnpoints
+
+
+            SJson *spawnarray, *array;
+            spawnarray = sj_object_get_value(leveljson, "spawns");
+            int spawnCount = sj_array_get_count(spawnarray);
+            level->spawns = (GFC_Vector2D *) malloc(sizeof(GFC_Vector2D)*spawnCount);
+
+
             instance_props(leveljson, level->prop_map);
-                break;
+
+            for (j = 0; j < spawnCount; j++ ){
+
+                array = sj_array_get_nth(spawnarray, j);
+                array = sj_array_get_nth(spawnarray, 0);
+                sj_get_float_value(array, &level->spawns[j].x);
+
+                array = sj_array_get_nth(spawnarray, j);
+                array = sj_array_get_nth(spawnarray, 1);
+                sj_get_float_value(array, &level->spawns[j].y);
             }
+            slog("hello");
+            // spawn functions
+                break;
         }
 
         sj_free(json);
@@ -121,6 +155,54 @@ void level_draw(Level *level){
     } else {
        // slog("no background");
     }
+}
+
+void level_update(Level *level) {
+
+    switch(level->game.mode){
+
+        case 0:
+            // Zone
+
+            if(level->game.max_points >= (level->game.win_count*100) ) {
+                // win
+
+                level->game.win = 1;
+
+            }
+
+
+            break;
+
+        case 1:
+            // flag
+
+            if(level->game.t1_points >= level->game.win_count ) {
+                // win team 1
+                level->game.win = 1;
+            }
+            if(level->game.t2_points >= level->game.win_count) {
+                // win team 2
+                level->game.win = 1;
+
+            }
+
+
+            break;
+        case 2:
+            // deathmatch
+
+            if(level->game.max_points >= level->game.win_count ) {
+                // win
+                level->game.win = 1;
+            }
+
+            break;
+
+
+    }
+
+
 }
 
 
