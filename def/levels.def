@@ -5,8 +5,8 @@
       "width": 1920,
       "height": 1080,
       "imagepath": "./images/backgrounds/coolbackground.png",
-      "gamemode": 0,
-      "winscore": 10,
+      "gamemode": 2,
+      "winscore": 1,
       "spawns": [
         [
           0,
@@ -17,9 +17,9 @@
         {
           "name": "wall",
           "xpos": -140,
-          "ypos": 600,
+          "ypos": 0,
           "xscale": 1,
-          "yscale": 4,
+          "yscale": 30,
           "rcolor": 1,
           "gcolor": 0,
           "bcolor": 0,
@@ -28,10 +28,10 @@
         },
         {
           "name": "wall",
-          "xpos": -140,
-          "ypos": 600,
+          "xpos": 1920,
+          "ypos": 0,
           "xscale": 1,
-          "yscale": 4,
+          "yscale": 30,
           "rcolor": 1,
           "gcolor": 0,
           "bcolor": 0,

@@ -125,25 +125,23 @@ void fire(Gun *g, Ent *owner){
 
     if(g->fdebounce > 0 || g->rdebounce > 0) return;
 
-    if (g->ammo == 0 && g->reserve >= 0) {
-
-    if (((g->reserve - g->apr ) < 0 ) && g->reserve != 0){
-        slog("reloading");
-        g->ammo = g->reserve;
-        g->reserve = 0;
-    } else {
-        slog("reloading");
-        g->reserve -=g->apr;
-        g->ammo += g->apr;
-    }
-    if(g->reserve == 0 ){
-        slog("empty");
-        return;
-    }
-    owner->status |= 8;
-    // a genius idea, most guns have a relatively stable apr other than snipers and rpgs
-    g->rdebounce = g->maxammo/g->apr;
-    return;
+    if (g->ammo == 0 ){
+        if (g->reserve <= 0) {
+            slog("empty");
+        }
+            if (g->reserve < g->apr) {
+                slog("reloading");
+                g->ammo = g->reserve;
+                g->reserve = 0;
+            } else {
+                slog("reloading");
+                g->reserve -= g->apr;
+                g->ammo += g->apr;
+            }
+            // still a genius idea, however will need to be changed for the sake of gun diversity
+            g->rdebounce = g->maxammo / g->apr;
+            owner->status |= 8;
+            return;
     }
 
     GFC_Vector2D offset = gfc_vector2d(owner->transform.position.x + 25, owner->transform.position.y+25);
