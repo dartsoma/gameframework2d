@@ -19,6 +19,8 @@ typedef struct {
 
 void instance_projectile(Ent* owner, Gun *gun, float rotation);
 
+void instance_melee(Ent* owner, Melee *m, float rotation);
+
 void unload_projectiles();
 
 void load_projectiles();

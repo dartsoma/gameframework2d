@@ -476,6 +476,7 @@
                     entManager.level->game.max_points = get_points(&entManager.entList[i]);
                 }
             }
+            entManager.entList[i].collide.c_color = GFC_COLOR_RED;
         }
         level_update(entManager.level);
         ent_collide_all();

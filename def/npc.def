@@ -6,7 +6,7 @@
       "gun3": 3,
       "melee": 1,
       "passive": 1,
-      "active": 1,
+      "active": 2,
       "team": 2
     },
   ]

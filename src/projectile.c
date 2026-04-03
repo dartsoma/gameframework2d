@@ -6,7 +6,7 @@
 Projectile *projectiles;
 
 #define AIM_RAD 100.0f
-#define BULLET_SPEED 2000.0f
+#define BULLET_SPEED 5000.0f
 
 void unload_projectiles(){
 
@@ -110,6 +110,57 @@ void instance_projectile(Ent* owner, Gun *gun, float rotation) {
 
 } // fire instances of a defined projectile
 
+void instance_melee(Ent* owner, Melee *m, float rotation) {
+
+    Ent *self = ent_new_rev();
+
+    self->sprite = gf2d_sprite_load_all(
+        "images/hit.png",
+        25,
+        50,
+        8,
+        0
+    );
+
+    self->transform.scale = gfc_vector2d(1,1);
+    self->transform.center = gfc_vector2d(16,7.5);
+    self->color = GFC_COLOR_ORANGE;
+
+    Projectile *p = (Projectile*) malloc(sizeof(Projectile));
+
+
+    *p = projectiles[0];
+    self->transform.scale = gfc_vector2d(2,6);
+    self->collide.c_dim.x *= 2;
+    self->collide.c_dim.y *= 6;
+    self->misc = (Projectile *) p;
+    self->_tags = TAG_PROJECTILE;
+    insert_collision_layer(self);
+    GFC_Vector2D offset = gfc_vector2d(owner->transform.position.x + 50, owner->transform.position.y+25);
+    p->damage = m->damage;
+    p->lifetime = 1;
+    p->owner = owner;
+    p->hitCooldown = 0;
+    // radians
+
+
+    self->transform.position.x = offset.x + (AIM_RAD*cos(rotation));
+    self->transform.position.y = offset.y + (AIM_RAD*sin(rotation));
+
+    // unit vector
+    self->transform.velocity = gfc_vector2d(0,0);
+    self->transform.rotation = rotation * (180.0f / M_PI); // back to deg
+
+
+    // this allows guns with lower fire rate to wallbang and shotguns to stop short
+
+    self->update = projectile_update;
+    self->think = projectile_think;
+
+
+} // fire instances of a defined projectile
+
+
 void projectile_hit(Ent* self, Ent* other){
 
     Projectile *proj = (Projectile *) self->misc;
@@ -143,6 +194,10 @@ void projectile_update(Ent *self, float deltatime) {
 
     self->transform.position.x += self->transform.velocity.x*deltatime;
     self->transform.position.y += self->transform.velocity.y*deltatime;
+
+    if(proj->projectileId == 0){
+    self->frame += deltatime*4;
+    }
 
     if (proj->hitCooldown > 0){
         proj->hitCooldown -= 0.016;

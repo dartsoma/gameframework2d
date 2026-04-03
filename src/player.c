@@ -52,11 +52,11 @@ void player_think(Ent *self){
     float dy = mouse.y - offset.y;
 
 
-    if (pd->hand->fdebounce <0 || pd->melee.debounce ){
-        self->status ^= 16; // flips of attacking/shooting bit
+    if (pd->hand->fdebounce <0 || pd->melee.debounce < 0 ){
+        self->status &= ~(16U); // flips of attacking/shooting bit
     }
     if (pd->hand->rdebounce <0){
-        self->status ^= 8; // flips of reloading bit
+        self->status &= ~(8U); // flips of reloading bit
     }
 
 if(self->_tags != TAG_PLAYER) return;
@@ -83,10 +83,20 @@ if(gfc_input_key_down(" ")){
 
 if(click_status()==1){
 
-    if (self->status & 24) {
+    if ((self->status & 24) == 0){
 
     fire(pd->hand, self);
 
+    }
+
+}
+
+
+if (gfc_input_key_down("f")){
+
+    // attacking or melee
+    if ((self->status & 24) == 0) {
+        attack(&(pd->melee), self);
     }
 
 }
@@ -114,15 +124,8 @@ if(gfc_input_key_down("3")){
     pd->hand = pd->guns+2;
     }
 }
-
-if (gfc_input_key_down("f"))
-
-    // attacking or melee
-    if (self->status & 24) {
-        attack(&(pd->melee));
-    }
-
 }
+
 
 void move(Ent *self, int dir){
     if(!self)return;
@@ -171,6 +174,8 @@ void player_update(Ent *self, float deltatime)
     if (pd->hand->rdebounce > 0){
         pd->hand->rdebounce -= deltatime;
     }
+
+
 
     if ((self->status & 1) == 0){
         if ((self->status & 2) == 2){

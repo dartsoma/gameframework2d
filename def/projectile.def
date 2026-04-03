@@ -16,7 +16,7 @@
       "id": 2,
       "name": "pellet",
       "damage": 70,
-      "lifetime": 0.25
+      "lifetime": 0.02
     },
     {
       "id": 3,

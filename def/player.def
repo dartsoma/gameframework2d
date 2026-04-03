@@ -1,11 +1,17 @@
 {
   "player": [
     {
+<<<<<<< Updated upstream
       "gun1": 1,
       "gun2": 2,
       "gun3": 3,
+=======
+      "gun1": 3,
+      "gun2": 4,
+      "gun3": 6,
+>>>>>>> Stashed changes
       "melee": 1,
-      "passive": 1,
+      "passive": 2,
       "active": 1,
       "team": 1
     }

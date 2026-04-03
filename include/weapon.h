@@ -54,11 +54,13 @@ typedef struct {
 // put firing on cooldown
 void unload_weapons();
 
+
+
 void load_weapons();
 
 void fire(Gun *g, Ent *owner);
 
-void attack(Melee *m);
+void attack(Melee *m, Ent *owner);
 
 Gun copy_gun(Uint8 id);
 

@@ -163,7 +163,7 @@ void fire(Gun *g, Ent *owner){
 
     }
     g->ammo--;
-    g->fdebounce = 1/g->firerate;
+    g->fdebounce = g->firerate;
     owner->status |= 8;
 }
 
@@ -179,16 +179,24 @@ Melee copy_melee(Uint8 id) {
 
 }
 
-void attack(Melee *m){
+void attack(Melee *m, Ent *owner){
 
     // cast ray
-
-    GFC_Color c = GFC_COLOR_GREEN;
-
+    if(m->debounce > 0) return;
 
 
-    GFC_Rect r = gfc_rect(100,140, 100, 140);
+    GFC_Vector2D offset = gfc_vector2d(owner->transform.position.x + 25, owner->transform.position.y+25);
 
-    gf2d_draw_rect_filled(r, c);
+    GFC_Vector2D mouse = get_mouse_pos();
+
+    float dx = mouse.x - offset.x;
+    float dy = mouse.y - offset.y;
+
+    float rotation = atan2f(dy,dx);
+
+    m->debounce = m->speed;
+    owner->status |= 8;
+
+    instance_melee(owner, m, rotation);
 
 }

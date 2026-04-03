@@ -164,7 +164,7 @@ void level_update(Level *level) {
         case 0:
             // Zone
 
-            if(level->game.max_points >= (level->game.win_count*100) ) {
+            if(level->game.max_points >= (level->game.win_count) ) {
                 // win
 
                 level->game.win = 1;
