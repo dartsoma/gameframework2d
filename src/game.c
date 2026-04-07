@@ -1,6 +1,6 @@
 #include <SDL.h>
 #include "simple_logger.h"
-#include "rgbStep.h"
+#include "rgbstep.h"
 
 #include "font.h"
 #include "camera.h"
@@ -24,6 +24,7 @@ int main(int argc, char * argv[])
     Sprite *sprite;
     Ent *player, *npc;
     Level *level;
+    char points[256] = "";
 
     // deltatime
     int lastUpdate = SDL_GetTicks();
@@ -81,6 +82,8 @@ int main(int argc, char * argv[])
         /*update things here*/
         gfc_input_update();
 
+        player = get_player();
+
         // physics
         current = SDL_GetTicks();
 
@@ -91,8 +94,10 @@ int main(int argc, char * argv[])
         }
 
         deltastep += deltatime;
+
         while (deltastep >= 0.016){
-            ent_update_all(deltastep);
+            ent_update_all(0.016);
+            strcpy(points, display_points(player) ? display_points(player) : "");
             deltastep -= 0.016;
         }
 
@@ -100,6 +105,7 @@ int main(int argc, char * argv[])
 
         ent_think_all();
         camera_update(player->transform.position);
+
         mf+=0.1;
         if (mf >= 16.0)mf = 0;
         
@@ -113,7 +119,7 @@ int main(int argc, char * argv[])
             ent_manager_draw_all();
             //UI elements last
 
-            font_draw_test(display_points(player), FS_large, GFC_COLOR_BLACK, gfc_vector2d(0,0));
+            font_draw_test(points, FS_large, GFC_COLOR_BLACK, gfc_vector2d(0,0));
 
             if (level->game.win == 1){
                 gf2d_sprite_draw_image(sprite,gfc_vector2d(0,0));

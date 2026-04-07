@@ -1,5 +1,5 @@
-#ifndef __camera_h__
-#define __camera_h__
+#ifndef __CAMERA_H__
+#define __CAMERA_H__
 
 #include "gfc_shape.h"
 #include "ent.h"

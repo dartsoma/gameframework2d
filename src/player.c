@@ -261,6 +261,8 @@ void player_update(Ent *self, float deltatime)
 
 int get_points(Ent *self){
 
+    if(!self || !self->misc) return 0;
+
     PlayerData *pd = (PlayerData *) self->misc;
 
     return pd->points;
@@ -321,15 +323,28 @@ void player_respawn(Ent *self){
     Ent *player = player_new();
     PlayerData *pd1 = (PlayerData *) self->misc;
     PlayerData *pd2 = (PlayerData *) player->misc;
-    *pd2 = *pd1;
     self->_tags = TAG_NONE;
     self->_inuse = 0;
-    pd2->guns[0].reserve = pd2->guns[0].maxammo;
-    pd2->guns[1].reserve = pd2->guns[1].maxammo;
-    pd2->guns[2].reserve = pd2->guns[2].maxammo;
-    pd2->guns[0].ammo = pd2->guns[0].apr;
-    pd2->guns[1].ammo = pd2->guns[1].apr;
-    pd2->guns[2].ammo = pd2->guns[2].apr;
+    pd2->passiveId = pd1->passiveId;
+    pd2->activeId = pd1->activeId;
+    pd2->activeCharge = pd1->activeCharge;
+    pd2->passiveCd = pd1->passiveCd;
+    pd2->hillTimer = pd1->hillTimer;
+    pd2->points = pd1->points;
+    pd2->melee = pd1->melee;
+
+    pd2->head = pd1->head;
+
+
+    pd2->hTransform = pd1->hTransform;
+    pd2->hCollide = pd1->hCollide;
+
+    if(pd1->guns && pd2->guns) {
+        for(int i = 0; i < 3; i++) {
+            pd2->guns[i] = pd1->guns[i];
+        }
+    }
+
     ent_free(self);
 }
 
@@ -440,7 +455,8 @@ void activate_ability(Ent *self, Uint8 id){
 }
 
 char* display_points(Ent *self){
-    char *buff = malloc(50);
+    if(!self)return NULL;
+    char *buff = malloc(sizeof(char)*50);
 
     if (!buff) return NULL;
 

@@ -37,6 +37,7 @@ typedef struct {
     int points;
 } PlayerData;
 
+
 void player_think(Ent *self);
 
 void player_free(Ent *self);

@@ -54,8 +54,6 @@ typedef struct {
 // put firing on cooldown
 void unload_weapons();
 
-
-
 void load_weapons();
 
 void fire(Gun *g, Ent *owner);

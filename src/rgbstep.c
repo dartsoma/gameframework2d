@@ -1,5 +1,5 @@
 
-#include "rgbStep.h"
+#include "rgbstep.h"
 
 
 /* Start your object in at least one of the phases before using

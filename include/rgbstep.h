@@ -1,3 +1,5 @@
+#ifndef __RGBSTEP_h__
+#define __RGBSTEP_h__
 
 typedef struct{
 
@@ -9,3 +11,5 @@ typedef struct{
 } rgbVal;
 
 void rainbowStep(rgbVal *val, int minValue, int maxValue);
+
+#endif

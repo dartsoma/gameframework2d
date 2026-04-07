@@ -1,0 +1,73 @@
+{
+  "ui": [
+    {
+      "name": "mainmenu",
+      "size": [
+        1000,
+        1000
+      ],
+      "position": [
+        1000,
+        1000
+      ],
+      "elements": [
+        {
+          "type": 1,
+          "size": [
+            100,
+            25
+          ],
+          "position": [
+            200,
+            200
+          ],
+          "eventid": 0,
+          "sprite": "n/a",
+          "z-index": 0
+        },
+        {
+          "type": 2,
+          "size": [
+            100,
+            25
+          ],
+          "position": [
+            200,
+            200
+          ],
+          "sprite": "n/a",
+          "z-index": 0
+        },
+        {
+          "type": 3,
+          "size": [
+            100,
+            25
+          ],
+          "position": [
+            200,
+            200
+          ],
+          "sprite": "n/a",
+          "placeholder": "Enter Text",
+          "z-index": 0
+        },
+        {
+          "type": 4,
+          "size": [
+            100,
+            25
+          ],
+          "position": [
+            200,
+            200
+          ],
+          "elements": [
+            {}
+          ]
+        }
+      ]
+    },
+    {}
+  ]
+}
