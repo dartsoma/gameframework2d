@@ -186,7 +186,7 @@ W_Element *create_container(SJson *j, W_Element *parent){
 
 // Reads json and populates ui elements
 
-void update_container(W_Element *w, GFC_Circle *click_loc, Uint8 *clicking){
+void update_container(W_Element *w, GFC_Circle *click_loc, Uint8 *clicking, Uint8 *gamestate){
 
     int i;
 
@@ -203,7 +203,7 @@ void update_container(W_Element *w, GFC_Circle *click_loc, Uint8 *clicking){
                 GFC_Vector2D position = gfc_vector2d(0,0);
                 position.x = win->position.x + butt->pos.x;
                 position.y = win->position.y + butt->pos.y;
-                GFC_Rect box = gfc_rect(position.x, position.y, butt->size.x, butt->size.y);
+                GFC_Rect box = gfc_rect(position.x, position.y, butt->dim.x, butt->dim.y);
 
                 if(butt->sprite){
                     gf2d_sprite_render(
@@ -220,8 +220,8 @@ void update_container(W_Element *w, GFC_Circle *click_loc, Uint8 *clicking){
 
                 if (*clicking) {
                     if (gfc_circle_rect_overlap(*click_loc, box)){
-                        // do event
-                        slog("button clicked");
+                        event_activate(butt->eventId, gamestate);
+                        slog("event %d", butt->eventId);
                     }
                 }
 
@@ -261,7 +261,7 @@ void update_container(W_Element *w, GFC_Circle *click_loc, Uint8 *clicking){
                 GFC_Vector2D position = gfc_vector2d(0,0);
                 position.x = win->position.x + ta->pos.x;
                 position.y = win->position.y + ta->pos.y;
-                GFC_Rect box = gfc_rect(position.x, position.y, ta->size.x, ta->size.y);
+                GFC_Rect box = gfc_rect(position.x, position.y, ta->dim.x, ta->dim.y);
 
                 if(ta->sprite){
                     gf2d_sprite_render(
@@ -288,7 +288,7 @@ void update_container(W_Element *w, GFC_Circle *click_loc, Uint8 *clicking){
             }
 
             case 4:{
-                update_container(win->objs[i], click_loc, clicking);
+                update_container(win->objs[i], click_loc, clicking, gamestate);
                 break;
             }
             case 5:{
@@ -318,7 +318,46 @@ void update_container(W_Element *w, GFC_Circle *click_loc, Uint8 *clicking){
     }
 }
 
-void update_windows(){
+
+void event_activate(Uint8 id, Uint8 *gamestate){
+
+switch (id) {
+
+    case 0:
+    // do nothing
+    break;
+
+    case 1:
+    // exit game
+    *gamestate = 0;
+    break;
+
+    case 2:
+        // turn off main menu and boot up game
+
+    toggle_windows(gfc_hashmap_get(hash, "mainmenu"));
+    // toggle_windows(gfc_hashmap_get(hash, "mapselect"));
+    *gamestate = 2;
+    break;
+
+    case 3:
+    toggle_windows(gfc_hashmap_get(hash, "mainmenu"));
+    // toggle_windows(gfc_hashmap_get(hash, "shop"));
+    *gamestate = 3;
+    break;
+
+    case 4:
+    toggle_windows(gfc_hashmap_get(hash, "mainmenu"));
+    // toggle_windows(gfc_hashmap_get(hash, "editor"));
+    *gamestate = 6;
+    break;
+}
+
+
+}
+
+
+void update_windows(Uint8 *gamestate){
 
     int i, j;
     Uint8 clicking = click_status();
@@ -346,7 +385,7 @@ void update_windows(){
                     GFC_Vector2D position = gfc_vector2d(0,0);
                     position.x = win->position.x + butt->pos.x;
                     position.y = win->position.y + butt->pos.y;
-                    GFC_Rect box = gfc_rect(position.x, position.y, butt->size.x, butt->size.y);
+                    GFC_Rect box = gfc_rect(position.x, position.y, butt->dim.x, butt->dim.y);
 
                     if(butt->sprite){
                         gf2d_sprite_render(
@@ -363,8 +402,8 @@ void update_windows(){
 
                     if (clicking) {
                         if (gfc_circle_rect_overlap(click_loc, box)){
-                            // do event
-                            slog("button clicked");
+                            event_activate(butt->eventId, gamestate);
+                            slog("event %d", butt->eventId);
                         }
                     }
 
@@ -404,7 +443,7 @@ void update_windows(){
                     GFC_Vector2D position = gfc_vector2d(0,0);
                     position.x = win->position.x + ta->pos.x;
                     position.y = win->position.y + ta->pos.y;
-                    GFC_Rect box = gfc_rect(position.x, position.y, ta->size.x, ta->size.y);
+                    GFC_Rect box = gfc_rect(position.x, position.y, ta->dim.x, ta->dim.y);
 
                     if(ta->sprite){
                         gf2d_sprite_render(
@@ -433,7 +472,7 @@ void update_windows(){
                 }
 
                 case 4:{
-                    update_container(win->objs[j], &click_loc, &clicking);
+                    update_container(win->objs[j], &click_loc, &clicking, gamestate);
                     break;
                 }
                 case 5:{
@@ -467,7 +506,7 @@ void update_windows(){
 W_Element *create_image(SJson *j, W_Element *parent){
 
     SJson *value;
-    char gamesprite[50] ="";
+    char gamesprite[50] = "";
     int framewidth, frameheight;
     W_Image *img = (W_Image *) malloc(sizeof(W_Image));
     W_Element *ele = (W_Element *) malloc(sizeof(W_Element));
@@ -495,6 +534,9 @@ W_Element *create_image(SJson *j, W_Element *parent){
     sj_object_get_int(j, "sprite_h", &frameheight);
     sj_object_get_int(j, "sprite_w", &framewidth);
 
+    img->dim.x = framewidth;
+    img->dim.y = frameheight;
+
     img->sprite = gf2d_sprite_load_all(
         gamesprite,
         framewidth,
@@ -506,8 +548,6 @@ W_Element *create_image(SJson *j, W_Element *parent){
     return ele;
 
 }
-
-
 
 
 W_Element *create_button(SJson *j, W_Element *parent){
@@ -538,9 +578,12 @@ W_Element *create_button(SJson *j, W_Element *parent){
 
     strcpy(gamesprite, sj_object_get_string(j, "sprite"));
     sj_object_get_uint8(j, "type", &ele->type);
-    sj_object_get_uint8(j, "event", &butt->eventId);
+    sj_object_get_uint8(j, "eventid", &butt->eventId);
     sj_object_get_int(j, "sprite_h", &frameheight);
     sj_object_get_int(j, "sprite_w", &framewidth);
+
+    butt->dim.x = framewidth;
+    butt->dim.y = frameheight;
 
     butt->sprite = gf2d_sprite_load_all(
         gamesprite,
@@ -553,11 +596,13 @@ W_Element *create_button(SJson *j, W_Element *parent){
     return ele;
 }
 
+
+
 W_Element *create_textarea(SJson *j, W_Element *parent){
 
 
     SJson *value;
-    char gamesprite[50] ="";
+    char gamesprite[50] = "";
     int framewidth, frameheight;
     W_TextArea *ta /* ha */ = (W_TextArea *) malloc(sizeof(W_TextArea));
     W_Element *ele = (W_Element *) malloc(sizeof(W_Element));
@@ -588,6 +633,9 @@ W_Element *create_textarea(SJson *j, W_Element *parent){
     sj_object_get_int(j, "sprite_h", &frameheight);
     sj_object_get_int(j, "sprite_w", &framewidth);
 
+    ta->dim.x = framewidth;
+    ta->dim.y = frameheight;
+
     ta->sprite = gf2d_sprite_load_all(
         gamesprite,
         framewidth,
@@ -595,6 +643,7 @@ W_Element *create_textarea(SJson *j, W_Element *parent){
         1,
         0
     );
+
     return ele;
 }
 
@@ -642,6 +691,8 @@ W_Element *create_label(SJson *j, W_Element *parent){
     sj_object_get_int(j, "sprite_h", &frameheight);
     sj_object_get_int(j, "sprite_w", &framewidth);
 
+    la->dim.x = framewidth;
+    la->dim.y = frameheight;
 
     la->sprite = gf2d_sprite_load_all(
         gamesprite,

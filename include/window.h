@@ -37,6 +37,7 @@ typedef struct {
 typedef struct {
     GFC_Vector2D pos;
     GFC_Vector2D size;
+    GFC_Vector2D dim;
     Sprite *sprite;
     Uint8 eventId;
 } W_Button;
@@ -45,6 +46,7 @@ typedef struct {
 typedef struct {
     GFC_Vector2D pos;
     GFC_Vector2D size;
+        GFC_Vector2D dim;
     Sprite *sprite;
     char text[255];
     Uint8 f_size;
@@ -53,12 +55,14 @@ typedef struct {
 typedef struct {
     GFC_Vector2D pos;
     GFC_Vector2D size;
+    GFC_Vector2D dim;
     Sprite *sprite;
 } W_Image;
 
 typedef struct {
     GFC_Vector2D pos;
     GFC_Vector2D size;
+    GFC_Vector2D dim;
     Sprite *sprite;
     char text[255];
     Uint8 f_size;
@@ -70,9 +74,11 @@ void define_windows();
 
 void toggle_windows(W_Element *w);
 
-void update_container(W_Element *w, GFC_Circle *click_loc, Uint8 *clicking);
+void update_container(W_Element *w, GFC_Circle *click_loc, Uint8 *clicking, Uint8 *gamestate);
 
-void update_windows();
+void update_windows(Uint8 *gamestate);
+
+void event_activate(Uint8 id, Uint8 *gamestate);
 
 void free_window(W_Element *w);
 

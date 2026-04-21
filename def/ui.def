@@ -1,82 +1,208 @@
-{
-  "ui": [
-    {
-      "name": "mainmenu",
-      "size": [
-        1000,
-        1000
-      ],
-      "position": [
-        1000,
-        1000
-      ],
-      "elements": [
-        {
-          "type": 1,
-          "size": [
-            100,
-            25
-          ],
-          "position": [
-            200,
-            200
-          ],
-          "eventid": 0,
-          "sprite": "n/a",
-          "sprite_w": 50,
-          "sprite_h": 50,
-          "z-index": 0
-        },
-        {
-          "type": 2,
-          "size": [
-            100,
-            25
-          ],
-          "position": [
-            200,
-            200
-          ],
-          "sprite": "n/a",
-          "text": "hello",
-          "sprite_w": 50,
-          "sprite_h": 50,
-          "fontsize": 20,
-          "z-index": 0
-        },
-        {
-          "type": 3,
-          "size": [
-            100,
-            25
-          ],
-          "position": [
-            200,
-            200
-          ],
-          "sprite": "n/a",
-          "sprite_w": 50,
-          "sprite_h": 50,
-          "placeholder": "Enter Text",
-          "fontsize": 20,
-          "z-index": 0
-        },
-        {
-          "type": 4,
-          "name": "buttons",
-          "size": [
-            100,
-            25
-          ],
-          "position": [
-            200,
-            200
-          ],
-          "elements": [
-            {}
-          ]
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    "ui": [
+      {
+        "name": "mainmenu",
+        "size": [
+          1200,
+          720
+        ],
+        "position": [
+          0,
+          0
+        ],
+        "elements": [
+          {
+            "type": 5,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              385,
+              50
+            ],
+            "sprite": "images/mm_logo.png",
+            "sprite_w": 470,
+            "sprite_h": 240,
+            "z-index": 0
+          },
+          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              438,
+              360
+            ],
+            "eventid": 2,
+            "sprite": "images/mm_play.png",
+            "sprite_w": 324,
+            "sprite_h": 90,
+            "z-index": 0
+          },
+          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              438,
+              471
+            ],
+            "eventid": 3,
+            "sprite": "images/mm_store.png",
+            "sprite_w": 324,
+            "sprite_h": 90,
+            "z-index": 0
+          },
+          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              438,
+              582
+            ],
+            "eventid": 4,
+            "sprite": "images/mm_editor.png",
+            "sprite_w": 324,
+            "sprite_h": 90,
+            "z-index": 0
+          },
+          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              31,
+              582
+            ],
+            "eventid": 1,
+            "sprite": "images/mm_exit.png",
+            "sprite_w": 96,
+            "sprite_h": 90,
+            "z-index": 0
+          }
+        ]
+      },
+      {
+        "name": "shop",
+        "size": [
+          1200,
+          720
+        ],
+        "position": [
+          0,
+          0
+        ],
+        "elements": []
+      },
+      {
+        "name": "editor",
+        "size": [
+          1200,
+          720
+        ],
+        "position": [
+          0,
+          0
+        ],
+        "elements": []
+      },
+      {
+        "name": "mapselect",
+        "size": [
+          1200,
+          720
+        ],
+        "position": [
+          0,
+          0
+        ],
+        "elements": []
+      },
+      {
+        "name": "hud",
+        "size": [
+          1200,
+          720
+        ],
+        "position": [
+          0,
+          0
+        ],
+        "elements": []
+      },
+      {
+        "name": "example",
+        "size": [
+          1200,
+          720
+        ],
+        "position": [
+          0,
+          0
+        ],
+        "elements": [
+          {
+            "type": 2,
+            "size": [
+              100,
+              25
+            ],
+            "position": [
+              200,
+              200
+            ],
+            "sprite": "n/a",
+            "text": "hello",
+            "sprite_w": 50,
+            "sprite_h": 50,
+            "fontsize": 20,
+            "z-index": 0
+          },
+          {
+            "type": 3,
+            "size": [
+              100,
+              25
+            ],
+            "position": [
+              200,
+              200
+            ],
+            "sprite": "n/a",
+            "sprite_w": 50,
+            "sprite_h": 50,
+            "placeholder": "Enter Text",
+            "fontsize": 20,
+            "z-index": 0
+          },
+          {
+            "type": 4,
+            "name": "buttons",
+            "size": [
+              100,
+              25
+            ],
+            "position": [
+              200,
+              200
+            ],
+            "elements": [
+              {}
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

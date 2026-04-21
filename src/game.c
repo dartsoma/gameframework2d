@@ -20,6 +20,7 @@
 #define GS_SHOP 3
 #define GS_GAME 4
 #define GS_GAMEEND 5
+#define GS_EDITOR 6
 
 int main(int argc, char * argv[])
 {
@@ -27,10 +28,10 @@ int main(int argc, char * argv[])
 
 
     /*variable declarations*/
-    int gamestate = 1;
+    Uint8 gamestate = 1;
     const Uint8 * keys;
-    Sprite *sprite;
-    Ent *player, *npc;
+    Sprite *background;
+    Ent *player;
     Level *level;
     char points[256] = "";
 
@@ -71,7 +72,7 @@ int main(int argc, char * argv[])
     gfc_input_init("./gfc/sample_config/input.cfg");
     SDL_ShowCursor(SDL_DISABLE);
     /*demo setup*/
-    sprite = gf2d_sprite_load_image("images/backgrounds/win.png");
+    background = gf2d_sprite_load_image("images/backgrounds/background-1.png");
     mouse = gf2d_sprite_load_all("images/pointer.png",32,32,16,0);
     slog("press [escape] to quit");
     /*main game loop*/
@@ -94,11 +95,13 @@ int main(int argc, char * argv[])
 
         gf2d_graphics_clear_screen();
 
-        update_windows();
-
         switch (gamestate){
 
+            case GS_MAINMENU:
 
+            gf2d_sprite_draw_image(background,gfc_vector2d(0,0));
+
+            break;
             case GS_GAME: {
 
 
@@ -126,9 +129,6 @@ int main(int argc, char * argv[])
         ent_think_all();
         camera_update(0);
 
-        mf+=0.1;
-        if (mf >= 16.0)mf = 0;
-        
         // clears drawing buffers
         // all drawing should happen betweem clear_screen and next_frame
             //backgrounds drawn first
@@ -143,11 +143,17 @@ int main(int argc, char * argv[])
             font_draw_test(points, FS_large, GFC_COLOR_BLACK, gfc_vector2d(0,0));
 
             if (level->game.win == 1){
-                gf2d_sprite_draw_image(sprite,gfc_vector2d(0,0));
+                gamestate = GS_MAINMENU;
             }
             break;
         }
     }
+
+    update_windows(&gamestate);
+
+    mf+=0.1;
+    if (mf >= 16.0)mf = 0;
+
             gf2d_sprite_draw(
                 mouse,
                 gfc_vector2d(mx,my),
@@ -165,6 +171,7 @@ int main(int argc, char * argv[])
         if (keys[SDL_SCANCODE_ESCAPE])gamestate = GS_EXIT; // exit condition
         // slog("Rendering at %f FPS",gf2d_graphics_get_frames_per_second());
     }
+
     font_close();
     ent_clear();
     ent_manager_close();
