@@ -89,7 +89,7 @@ void prop_trigger (Ent *trigger, Ent *prop, Level *level) {
     // slog("%s", n);
     if (strcmp(n, "acid") == 0){
 
-    trigger->stats[0] -= 1;
+    trigger->stats[0] -= 10;
     } else
     // flags
     if (strcmp(n, "t1flag") == 0 && (trigger->collide.c_mask == CM_TEAM2)){
@@ -126,24 +126,18 @@ void prop_trigger (Ent *trigger, Ent *prop, Level *level) {
 
     // Heal Zone
     else if (strcmp(n, "healzone") == 0){
-
     if (trigger->stats[0] <= 1000){
-        trigger->stats[0] += 1;
-    } else {
-        trigger->stats[0] = 100;
+        trigger->stats[0] += 10;
     }
     } else if(strcmp(n, "healthpack") == 0){
-
+        if(trigger->stats[0] >= 1000) return;
         trigger->stats[0] = 1000;
         ent_free(prop);
     } else if(strcmp(n, "armorpack") == 0){
-
+        if(trigger->stats[1] >= 100) return;
         trigger->stats[1] = 100;
         ent_free(prop);
-
     } else if(strcmp(n, "ammocrate") == 0){
-
-
         // full ammo restock
         pd->guns[0].reserve = pd->guns[0].maxammo;
         pd->guns[1].reserve = pd->guns[1].maxammo;

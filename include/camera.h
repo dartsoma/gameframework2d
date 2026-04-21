@@ -1,6 +1,7 @@
 #ifndef __CAMERA_H__
 #define __CAMERA_H__
 
+#include "gfc_types.h"
 #include "gfc_shape.h"
 #include "ent.h"
 
@@ -16,6 +17,8 @@ typedef struct{
 GFC_Vector2D camera_get_pos();
 
 void set_mouse_state(int x, int y, Uint8 m);
+
+GFC_Vector2D absolute_mouse_pos();
 
 GFC_Vector2D get_mouse_pos();
 

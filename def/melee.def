@@ -12,16 +12,16 @@
       "id": 1,
       "name": "knife",
       "sprite": "images/knife.png",
-      "speed": 0.5,
-      "damage": 20,
+      "speed": 1,
+      "damage": 400,
       "resist": 0.25
     },
     {
       "id": 2,
       "name": "sword",
       "sprite": "images/sword.png",
-      "speed": 1,
-      "damage": 30,
+      "speed": 2,
+      "damage": 600,
       "resist": 0.35
     }
   ]

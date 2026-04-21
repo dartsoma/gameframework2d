@@ -6,7 +6,7 @@
 Projectile *projectiles;
 
 #define AIM_RAD 100.0f
-#define BULLET_SPEED 5000.0f
+#define BULLET_SPEED 1000.0f
 
 void unload_projectiles(){
 
@@ -124,7 +124,6 @@ void instance_melee(Ent* owner, Melee *m, float rotation) {
 
     self->transform.scale = gfc_vector2d(1,1);
     self->transform.center = gfc_vector2d(16,7.5);
-    self->color = GFC_COLOR_ORANGE;
 
     Projectile *p = (Projectile*) malloc(sizeof(Projectile));
 
@@ -138,7 +137,7 @@ void instance_melee(Ent* owner, Melee *m, float rotation) {
     insert_collision_layer(self);
     GFC_Vector2D offset = gfc_vector2d(owner->transform.position.x + 50, owner->transform.position.y+25);
     p->damage = m->damage;
-    p->lifetime = 1;
+    p->lifetime = 5;
     p->owner = owner;
     p->hitCooldown = 0;
     // radians

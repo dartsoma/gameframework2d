@@ -7,19 +7,27 @@
 #include "gfc_input.h"
 #include "gf2d_graphics.h"
 #include "gf2d_sprite.h"
+#include "window.h"
 #include "ent.h"
 #include "player.h"
 #include "npc.h"
 #include "prop.h"
 #include "level.h"
 
+#define GS_EXIT 0
+#define GS_MAINMENU 1
+#define GS_MAPSELECT 2
+#define GS_SHOP 3
+#define GS_GAME 4
+#define GS_GAMEEND 5
 
 int main(int argc, char * argv[])
 {
 
 
+
     /*variable declarations*/
-    int done = 0;
+    int gamestate = 1;
     const Uint8 * keys;
     Sprite *sprite;
     Ent *player, *npc;
@@ -59,7 +67,6 @@ int main(int argc, char * argv[])
     link_level(level);
     setup_camera(level);
     player = player_new();
-    npc = npc_new();
 
     gfc_input_init("./gfc/sample_config/input.cfg");
     SDL_ShowCursor(SDL_DISABLE);
@@ -70,7 +77,9 @@ int main(int argc, char * argv[])
     /*main game loop*/
     font_init();
 
-    while(!done)
+    define_windows();
+
+    while(gamestate != GS_EXIT)
     {
         SDL_PumpEvents();   // update SDL's internal event structures
         keys = SDL_GetKeyboardState(NULL); // get the keyboard state for this frame
@@ -81,6 +90,17 @@ int main(int argc, char * argv[])
         }
         /*update things here*/
         gfc_input_update();
+
+
+        gf2d_graphics_clear_screen();
+
+        update_windows();
+
+        switch (gamestate){
+
+
+            case GS_GAME: {
+
 
         player = get_player();
 
@@ -104,12 +124,12 @@ int main(int argc, char * argv[])
         lastUpdate = current;
 
         ent_think_all();
-        camera_update(player->transform.position);
+        camera_update(0);
 
         mf+=0.1;
         if (mf >= 16.0)mf = 0;
         
-        gf2d_graphics_clear_screen();// clears drawing buffers
+        // clears drawing buffers
         // all drawing should happen betweem clear_screen and next_frame
             //backgrounds drawn first
             level_draw(level);
@@ -117,14 +137,17 @@ int main(int argc, char * argv[])
             rainbowStep(&mRgbVal,0,255);
             mouseGFC_Color = gfc_color8(mRgbVal.red,mRgbVal.green,mRgbVal.blue, 255);
             ent_manager_draw_all();
-            //UI elements last
+
+            // UI elements last
 
             font_draw_test(points, FS_large, GFC_COLOR_BLACK, gfc_vector2d(0,0));
 
             if (level->game.win == 1){
                 gf2d_sprite_draw_image(sprite,gfc_vector2d(0,0));
             }
-
+            break;
+        }
+    }
             gf2d_sprite_draw(
                 mouse,
                 gfc_vector2d(mx,my),
@@ -139,10 +162,9 @@ int main(int argc, char * argv[])
 
         gf2d_graphics_next_frame();// render current draw frame and skip to the next frame
         
-        if (keys[SDL_SCANCODE_ESCAPE])done = 1; // exit condition
+        if (keys[SDL_SCANCODE_ESCAPE])gamestate = GS_EXIT; // exit condition
         // slog("Rendering at %f FPS",gf2d_graphics_get_frames_per_second());
     }
-    ent_free(npc);
     font_close();
     ent_clear();
     ent_manager_close();

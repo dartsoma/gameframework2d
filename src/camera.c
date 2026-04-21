@@ -3,14 +3,20 @@
 
 static Camera camera = {0};
 GFC_Vector2D mouse;
+GFC_Vector2D abs_mouse;
 Uint8 mbuttons;
 
 void set_mouse_state(int x, int y, Uint8 m) {
 
+    abs_mouse = gfc_vector2d(x,y);
     mouse = gfc_vector2d(x,y);
     mouse.x += camera.pos.x;
     mouse.y += camera.pos.y;
     mbuttons = m;
+}
+
+GFC_Vector2D absolute_mouse_pos(){
+    return abs_mouse;
 }
 
 GFC_Vector2D get_mouse_pos() {
@@ -45,11 +51,13 @@ void camera_set_bounds(GFC_Rect bounds){
 }
 
 
-void camera_update(GFC_Vector2D target){
+void camera_update(){
 
     GFC_Vector2D position;
+    GFC_Vector2D midpoint;
     Ent *player;
     player = get_player();
+
     switch(camera.activeTarget){
         case -1:
             // The World Origin
@@ -57,16 +65,24 @@ void camera_update(GFC_Vector2D target){
             position.y = camera.size.y*0.5;
             break;
         case 0:
-
             /**
              * Player
              * @note Player is no longer always index 0
             */
 
             if (!player) return;
-            position.x = player->transform.position.x - (camera.size.x*0.5);
-            position.y = player->transform.position.y - (camera.size.y*0.5);
+
+
+            midpoint.x = (player->transform.position.x + get_mouse_pos().x) / 2.0f;
+            midpoint.y = (player->transform.position.y + get_mouse_pos().y) / 2.0f;
+
+            midpoint.x = MAX(player->transform.position.x - 200, MIN(midpoint.x, player->transform.position.x + 200));
+            midpoint.y = MAX(player->transform.position.y - 200, MIN(midpoint.y, player->transform.position.y + 200));
+
+            position.x = midpoint.x - (camera.size.x*0.5);
+            position.y = midpoint.y - (camera.size.y*0.5);
             break;
+
         default:
             // Other Ent
             position.x = index_ent(camera.activeTarget)->transform.position.x - (camera.size.x*0.5);

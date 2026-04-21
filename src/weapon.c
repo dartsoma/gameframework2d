@@ -108,7 +108,7 @@ void load_weapons(){
         }
 
         sj_object_get_float(loadjson, "speed", &m[i].speed);
-        sj_object_get_uint8(loadjson, "damage", &m[i].damage);
+        sj_object_get_int(loadjson, "damage", &m[i].damage);
         sj_object_get_float(loadjson, "resist", &m[i].resist);
 
     }
@@ -164,7 +164,7 @@ void fire(Gun *g, Ent *owner){
     }
     g->ammo--;
     g->fdebounce = g->firerate;
-    owner->status |= 8;
+    owner->status |= 16;
 }
 
 
@@ -181,9 +181,10 @@ Melee copy_melee(Uint8 id) {
 
 void attack(Melee *m, Ent *owner){
 
-    // cast ray
+    // cast ra
     if(m->debounce > 0) return;
 
+    slog("melee");
 
     GFC_Vector2D offset = gfc_vector2d(owner->transform.position.x + 25, owner->transform.position.y+25);
 
@@ -195,7 +196,7 @@ void attack(Melee *m, Ent *owner){
     float rotation = atan2f(dy,dx);
 
     m->debounce = m->speed;
-    owner->status |= 8;
+    owner->status |= 16;
 
     instance_melee(owner, m, rotation);
 

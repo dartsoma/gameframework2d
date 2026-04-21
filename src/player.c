@@ -52,11 +52,11 @@ void player_think(Ent *self){
     float dy = mouse.y - offset.y;
 
 
-    if (pd->hand->fdebounce <0 || pd->melee.debounce < 0 ){
-        self->status &= ~(16U); // flips of attacking/shooting bit
+    if (pd->hand->fdebounce <= 0 || pd->melee.debounce <= 0 ){
+        self->status &= ~(16U);
     }
-    if (pd->hand->rdebounce <0){
-        self->status &= ~(8U); // flips of reloading bit
+    if (pd->hand->rdebounce <= 0){
+        self->status &= ~(8U);
     }
 
 if(self->_tags != TAG_PLAYER) return;
@@ -95,7 +95,7 @@ if(click_status()==1){
 if (gfc_input_key_down("f")){
 
     // attacking or melee
-    if ((self->status & 24) == 0) {
+    if ((self->status & 16) == 0) {
         attack(&(pd->melee), self);
     }
 

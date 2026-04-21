@@ -184,22 +184,16 @@ void level_update(Level *level) {
             if(level->game.t2_points >= level->game.win_count) {
                 // win team 2
                 level->game.win = 1;
-
             }
-
 
             break;
         case 2:
             // deathmatch
-
             if(level->game.max_points >= level->game.win_count ) {
                 // win
                 level->game.win = 1;
             }
-
             break;
-
-
     }
 
 
@@ -207,6 +201,7 @@ void level_update(Level *level) {
 
 
 void setup_camera(Level *level){
+
     camera_set_target(0); // Default Player
     camera_set_pos(gfc_vector2d(0,0));
     camera_set_bounds(gfc_rect(0,0, level->width, level->height-100));

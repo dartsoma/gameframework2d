@@ -37,7 +37,7 @@ typedef struct {
   char* name;
   Sprite *sprite;
   float speed;
-  Uint8 damage;
+  int damage;
   float resist;
   Uint8 type;
   float debounce;

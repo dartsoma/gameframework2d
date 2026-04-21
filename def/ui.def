@@ -23,6 +23,8 @@
           ],
           "eventid": 0,
           "sprite": "n/a",
+          "sprite_w": 50,
+          "sprite_h": 50,
           "z-index": 0
         },
         {
@@ -36,6 +38,10 @@
             200
           ],
           "sprite": "n/a",
+          "text": "hello",
+          "sprite_w": 50,
+          "sprite_h": 50,
+          "fontsize": 20,
           "z-index": 0
         },
         {
@@ -49,11 +55,15 @@
             200
           ],
           "sprite": "n/a",
+          "sprite_w": 50,
+          "sprite_h": 50,
           "placeholder": "Enter Text",
+          "fontsize": 20,
           "z-index": 0
         },
         {
           "type": 4,
+          "name": "buttons",
           "size": [
             100,
             25
@@ -67,7 +77,6 @@
           ]
         }
       ]
-    },
-    {}
+    }
   ]
 }
