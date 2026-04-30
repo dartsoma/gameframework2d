@@ -81,8 +81,8 @@ void font_draw_test(const char *text, FontStyles style, GFC_Color color, GFC_Vec
         slog("texure error");
         return;
     }
-    rect.x = position.y;
-    rect.y = position.x;
+    rect.x = position.x;
+    rect.y = position.y;
     rect.w = surface->w;
     rect.h = surface->h;
 

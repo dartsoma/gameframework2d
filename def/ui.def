@@ -11,6 +11,7 @@
           0,
           0
         ],
+        "sprite": "images/backgrounds/background-1.png",
         "elements": [
           {
             "type": 5,
@@ -25,7 +26,7 @@
             "sprite": "images/mm_logo.png",
             "sprite_w": 470,
             "sprite_h": 240,
-            "z-index": 0
+            "active": 1
           },
           {
             "type": 1,
@@ -41,7 +42,7 @@
             "sprite": "images/mm_play.png",
             "sprite_w": 324,
             "sprite_h": 90,
-            "z-index": 0
+            "active": 1
           },
           {
             "type": 1,
@@ -57,7 +58,7 @@
             "sprite": "images/mm_store.png",
             "sprite_w": 324,
             "sprite_h": 90,
-            "z-index": 0
+            "active": 1
           },
           {
             "type": 1,
@@ -73,7 +74,7 @@
             "sprite": "images/mm_editor.png",
             "sprite_w": 324,
             "sprite_h": 90,
-            "z-index": 0
+            "active": 1
           },
           {
             "type": 1,
@@ -89,7 +90,7 @@
             "sprite": "images/mm_exit.png",
             "sprite_w": 96,
             "sprite_h": 90,
-            "z-index": 0
+            "active": 1
           }
         ]
       },
@@ -115,7 +116,321 @@
           0,
           0
         ],
-        "elements": []
+        "sprite": "images/backgrounds/blank_background.png",
+        "elements": [
+          {
+            "type": 5,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              900,
+              0
+            ],
+            "sprite": "images/ed_backdrop1.png",
+            "sprite_w": 300,
+            "sprite_h": 180,
+            "active": 1
+          },
+          {
+            "type": 5,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              900,
+              180
+            ],
+            "sprite": "images/ed_backdrop2.png",
+            "sprite_w": 300,
+            "sprite_h": 187,
+            "active": 1
+          },
+          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              18,
+              17
+            ],
+            "eventid": 1,
+            "sprite": "images/ed_exit.png",
+            "sprite_w": 69,
+            "sprite_h": 69,
+            "active": 1
+          },
+          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              18,
+              104
+            ],
+            "eventid": 6,
+            "sprite": "images/ed_save.png",
+            "sprite_w": 69,
+            "sprite_h": 69,
+            "active": 1
+          },
+          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              18,
+              191
+            ],
+            "eventid": 7,
+            "sprite": "images/ed_delete.png",
+            "sprite_w": 69,
+            "sprite_h": 69,
+            "active": 1
+          },
+          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              1000,
+              26
+            ],
+            "eventid": 3,
+            "sprite": "images/ed_nameplate.png",
+            "sprite_w": 100,
+            "sprite_h": 50,
+            "active": 1
+          },
+          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              993,
+              133
+            ],
+            "eventid": 5,
+            "sprite": "images/ed_spawn.png",
+            "sprite_w": 120,
+            "sprite_h": 40,
+            "active": 1
+          },
+          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              945,
+              34
+            ],
+            "eventid": 10,
+            "sprite": "images/ed_arrowl.png",
+            "sprite_w": 34,
+            "sprite_h": 34,
+            "active": 1
+          },
+          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              1121,
+              34
+            ],
+            "eventid": 11,
+            "sprite": "images/ed_arrowr.png",
+            "sprite_w": 34,
+            "sprite_h": 34,
+            "active": 1
+          },
+          {
+            "type": 3,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              928,
+              93
+            ],
+            "id": 1,
+            "sprite": "images/ed_textbox.png",
+            "sprite_w": 100,
+            "sprite_h": 30,
+            "placeholder": "X",
+            "fontsize": 4,
+            "active": 1
+          },
+          {
+            "type": 3,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              1071,
+              93
+            ],
+            "id": 2,
+            "sprite": "images/ed_textbox.png",
+            "sprite_w": 100,
+            "sprite_h": 30,
+            "placeholder": "Y",
+            "fontsize": 4,
+            "active": 1
+          },
+          {
+            "type": 4,
+            "name": "ed_popup",
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              0,
+              0
+            ],
+            "active": 0,
+            "elements": [
+              {
+                "type": 5,
+                "size": [
+                  1,
+                  1
+                ],
+                "position": [
+                  176,
+                  17
+                ],
+                "sprite": "images/ed_popup.png",
+                "sprite_w": 635,
+                "sprite_h": 260,
+                "active": 1
+              },
+              {
+                "type": 1,
+                "size": [
+                  1,
+                  1
+                ],
+                "position": [
+                  265,
+                  220
+                ],
+                "eventid": 8,
+                "sprite": "images/ed_confirm.png",
+                "sprite_w": 120,
+                "sprite_h": 40,
+                "active": 1
+              },
+              {
+                "type": 1,
+                "size": [
+                  1,
+                  1
+                ],
+                "position": [
+                  602,
+                  220
+                ],
+                "eventid": 9,
+                "sprite": "images/ed_cancel.png",
+                "sprite_w": 120,
+                "sprite_h": 40,
+                "active": 1
+              },
+              {
+                "type": 3,
+                "size": [
+                  1,
+                  1
+                ],
+                "position": [
+                  224,
+                  47
+                ],
+                "id": 3,
+                "sprite": "n/a",
+                "sprite_w": 540,
+                "sprite_h": 30,
+                "placeholder": "Name:",
+                "fontsize": 4,
+                "active": 1
+              },
+              {
+                "type": 3,
+                "size": [
+                  1,
+                  1
+                ],
+                "position": [
+                  224,
+                  90
+                ],
+                "id": 4,
+                "sprite": "n/a",
+                "sprite_w": 540,
+                "sprite_h": 30,
+                "placeholder": "Background Path:",
+                "fontsize": 4,
+                "active": 1
+              },
+              {
+                "type": 3,
+                "size": [
+                  1,
+                  1
+                ],
+                "position": [
+                  224,
+                  133
+                ],
+                "id": 5,
+                "sprite": "n/a",
+                "sprite_w": 540,
+                "sprite_h": 30,
+                "placeholder": "Width:",
+                "fontsize": 4,
+                "active": 1
+              },
+              {
+                "type": 3,
+                "size": [
+                  1,
+                  1
+                ],
+                "position": [
+                  224,
+                  176
+                ],
+                "id": 6,
+                "sprite": "n/a",
+                "sprite_w": 540,
+                "sprite_h": 30,
+                "placeholder": "Height:",
+                "fontsize": 4,
+                "active": 1
+              }
+            ]
+          }
+        ]
       },
       {
         "name": "mapselect",
@@ -159,15 +474,15 @@
               25
             ],
             "position": [
-              200,
-              200
+              -1000,
+              -1000
             ],
             "sprite": "n/a",
             "text": "hello",
             "sprite_w": 50,
             "sprite_h": 50,
             "fontsize": 20,
-            "z-index": 0
+            "active": 1
           },
           {
             "type": 3,
@@ -176,15 +491,15 @@
               25
             ],
             "position": [
-              200,
-              200
+              -1000,
+              -1000
             ],
             "sprite": "n/a",
             "sprite_w": 50,
             "sprite_h": 50,
             "placeholder": "Enter Text",
             "fontsize": 20,
-            "z-index": 0
+            "active": 1
           },
           {
             "type": 4,
@@ -197,6 +512,7 @@
               200,
               200
             ],
+            "active": 0,
             "elements": [
               {}
             ]

@@ -6,6 +6,7 @@ GFC_Vector2D mouse;
 GFC_Vector2D abs_mouse;
 Uint8 mbuttons;
 
+
 void set_mouse_state(int x, int y, Uint8 m) {
 
     abs_mouse = gfc_vector2d(x,y);

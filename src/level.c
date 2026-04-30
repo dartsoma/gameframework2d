@@ -5,6 +5,7 @@
 #include "weapon.h"
 #include "level.h"
 
+
 Level* level_new(){
     Level *level;
     level = gfc_allocate_array(sizeof(Level),1);
