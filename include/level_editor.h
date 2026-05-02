@@ -50,6 +50,8 @@ typedef struct {
 
     void editor_draw_all();
 
+    char* get_def_name();
+
     void free_defs();
 
     void delete_prop();

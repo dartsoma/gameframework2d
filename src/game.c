@@ -42,7 +42,6 @@ int main(int argc, char * argv[]) {
 
     /*variable declarations*/
     Uint8 gamestate = 1;
-    const Uint8 * keys;
     Ent * player;
     Level * level;
     char points[256] = "";
@@ -97,9 +96,11 @@ int main(int argc, char * argv[]) {
     current = SDL_GetTicks();
 
     while (gamestate != GS_EXIT) {
-        SDL_PumpEvents(); // update SDL's internal event structures
-        keys = SDL_GetKeyboardState(NULL); // get the keyboard state for this frame
         gfc_input_update();
+
+        if(is_quit_pressed() == 1){
+            gamestate = GS_EXIT;
+        }
 
         if (SDL_GetMouseState( & mx, & my) & is_mouse_pressed()) {
             set_mouse_state(mx, my, 1);
@@ -124,16 +125,27 @@ int main(int argc, char * argv[]) {
                 editor_think();
                 editor_draw_all();
 
+                if (gfc_input_key_pressed("ESCAPE")) {
+                    slog("back from editor");
+                    toggle_windows("editor");
+                    toggle_windows("mainmenu");
+                    gamestate = GS_MAINMENU;
+                }
+
+
                 break;
             }
             case GS_MAINMENU:{
 
                 W_Element *el = get_window("mainmenu");
+
                 W_Window *win = (W_Window *) el->data;
 
                 if (win->sprite){
                     gf2d_sprite_draw_image(win->sprite, gfc_vector2d(0,0));
                 }
+
+                if (gfc_input_key_pressed("ESCAPE")) gamestate = GS_EXIT;
 
                 break;
 
@@ -200,10 +212,8 @@ int main(int argc, char * argv[]) {
                          (int) mf);
         // GFC_Vector2D c = get_mouse_pos();
         // slog("Mouse (%f,%f) center, Player (%f,%f) center", c.x, c.y, player->transform.position.x, player->transform.position.y);
-
         gf2d_graphics_next_frame(); // render current draw frame and skip to the next frame
 
-        if (keys[SDL_SCANCODE_ESCAPE]) gamestate = GS_EXIT; // exit condition
         // slog("Rendering at %f FPS",gf2d_graphics_get_frames_per_second());
     }
     clean_ui();

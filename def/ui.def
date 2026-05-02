@@ -277,6 +277,22 @@
             "placeholder": "X",
             "fontsize": 4,
             "active": 1
+          },          {
+            "type": 2,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              1002,
+              42
+            ],
+            "id": 1,
+            "sprite": "n/a",
+            "sprite_w": 86,
+            "sprite_h": 18,
+            "fontsize": 4,
+            "active": 1
           },
           {
             "type": 3,

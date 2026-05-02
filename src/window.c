@@ -91,6 +91,7 @@ void define_windows(){
         win = sj_object_get_value(win, "elements");
         k = sj_array_get_count(win);
         root->objs = (W_Element**) malloc(sizeof(W_Element*)*k);
+        memset(root->objs, 0, sizeof(W_Element*) * k);
 
         // must be uint8
         root->obj_count = k;
@@ -170,6 +171,8 @@ W_Element *create_container(SJson *j, W_Element *parent){
     j = sj_object_get_value(j, "elements");
     k = sj_array_get_count(j);
     cont->objs = (W_Element**) malloc(sizeof(W_Element*)*k);
+    memset(cont->objs, 0, sizeof(W_Element*) * k);
+
     cont->obj_count = k;
     for (i = 0; i < k; i++) {
         SJson *el;
@@ -177,8 +180,6 @@ W_Element *create_container(SJson *j, W_Element *parent){
         el = sj_array_get_nth(j,i);
 
         sj_object_get_int(el, "type", &type);
-
-
 
         switch (type){
             case EL_BUTTON:
@@ -205,7 +206,24 @@ W_Element *create_container(SJson *j, W_Element *parent){
     return element;
 }
 
+void update_label(W_Label *l){
 
+    if (l->id == 0 ){
+
+    }
+    switch (l->id){
+        // editor
+        case 1:
+
+        if(get_def_name()){
+        strcpy(l->text, get_def_name());
+        }
+        break;
+        case 2:
+        break;
+    }
+
+}
 
 void update_text (float deltatime){
 
@@ -924,7 +942,6 @@ W_Element *create_label(SJson *j, W_Element *parent){
     int framewidth, frameheight;
     W_Label *la /* ha */ = (W_Label *) malloc(sizeof(W_Label));
     W_Element *ele = (W_Element *) malloc(sizeof(W_Element));
-    memset(la->text, 0, 255);
     la->text[0] = '\0';
     ele->data = (W_Label*) la;
     ele->parent = parent;
@@ -944,7 +961,8 @@ W_Element *create_label(SJson *j, W_Element *parent){
     sj_get_float_value(value, &la->pos.y);
 
     strcpy(gamesprite, sj_object_get_string(j, "sprite"));
-    strcpy(la->text, sj_object_get_string(j, "text"));
+    if(sj_object_get_string(j, "text")!= NULL)strcpy(la->text, sj_object_get_string(j, "text"));
+
     sj_object_get_uint8(j, "fontsize", &la->f_size);
     sj_object_get_uint8(j, "type", &ele->type);
     sj_object_get_uint8(j, "id", &la->id);
@@ -971,9 +989,15 @@ void free_window(W_Element *w){
 
     int j;
 
+    if (!w)  return;
+
     W_Window *win = (W_Window *) w->data;
 
+    if(!win) return;
+
     for (j = 0; j < win->obj_count; j++){
+
+        if (!win->objs[j]) continue;
 
         switch (win->objs[j]->type){
             case 1:{
@@ -1013,6 +1037,7 @@ void free_window(W_Element *w){
 
     }
 
+    free(win->objs);
     free(win);
     free(w);
 

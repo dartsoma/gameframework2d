@@ -86,7 +86,7 @@ void free_window(W_Element *w);
 
 void update_text(float deltatime);
 
-void update_labal(W_Element *el);
+void update_labal(W_Label *l);
 
 void submit_text(Uint8 id);
 

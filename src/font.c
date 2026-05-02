@@ -41,9 +41,9 @@ void font_init (){
     }
     font_manager.fonts = gfc_list_new();
     for (i=0; i < FS_MAX; i++){
-    font = TTF_OpenFont("fonts/Bronco.ttf", 10 + (i * 4));
+    font = TTF_OpenFont("fonts/Inter.ttf", 10 + (i * 4));
     if (!font){
-    slog("failed to open font fonts/Bronco.ttf");
+    slog("failed to open font fonts/Inter.ttf");
     continue;
     }
     gfc_list_append(font_manager.fonts, font);
@@ -78,7 +78,7 @@ void font_draw_test(const char *text, FontStyles style, GFC_Color color, GFC_Vec
     texture = SDL_CreateTextureFromSurface(gf2d_graphics_get_renderer(), surface);
     if(!texture){
         SDL_FreeSurface(surface);
-        slog("texure error");
+        slog("texture error");
         return;
     }
     rect.x = position.x;

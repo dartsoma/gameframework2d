@@ -228,6 +228,10 @@ void editor_draw_all(){
 }
 
 
+char* get_def_name() {
+    return currdef->name;
+}
+
 void editor_think(){
 
     Uint8 clicking = click_status();
