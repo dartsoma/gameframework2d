@@ -104,7 +104,88 @@
           0,
           0
         ],
-        "elements": []
+        "sprite": "images/backgrounds/background-1.png",
+        "elements": [
+          {
+            "type": 5,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              227,
+              491
+            ],
+            "sprite": "images/sp_weapons.png",
+            "sprite_w": 746,
+            "sprite_h": 491,
+            "active": 1
+          },
+          {
+            "type": 5,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              227,
+              491
+            ],
+            "sprite": "images/sp_perks.png",
+            "sprite_w": 746,
+            "sprite_h": 491,
+            "active": 0
+          },
+          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              241,
+              74
+            ],
+            "eventid": 12,
+            "sprite": "images/sp_perklabel.png",
+            "sprite_w": 324,
+            "sprite_h": 90,
+            "active": 1
+          },
+          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              635,
+              74
+            ],
+            "eventid": 13,
+            "sprite": "images/sp_weaponlabel.png",
+            "sprite_w": 324,
+            "sprite_h": 90,
+            "active": 1
+          },
+          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              635,
+              74
+            ],
+            "eventid": 13,
+            "sprite": "images/sp_weaponlabel.png",
+            "sprite_w": 324,
+            "sprite_h": 90,
+            "active": 1
+          },
+
+        ]
       },
       {
         "name": "editor",
@@ -458,6 +539,7 @@
           0,
           0
         ],
+        "sprite": "images/backgrounds/background-1.png",
         "elements": []
       },
       {
