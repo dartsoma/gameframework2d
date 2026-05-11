@@ -18,6 +18,8 @@
 
 #include "ent.h"
 
+#include "persistent_data.h"
+
 #include "level_editor.h"
 
 #include "player.h"
@@ -92,6 +94,7 @@ int main(int argc, char * argv[]) {
     font_init();
     load_editor();
     define_windows();
+    load_persistent_data();
     toggle_windows("mainmenu");
     current = SDL_GetTicks();
 
@@ -113,7 +116,24 @@ int main(int argc, char * argv[]) {
         gf2d_graphics_clear_screen();
 
         switch (gamestate) {
+            case GS_SHOP:{
+                W_Element *el = get_window("shop");
+                W_Window *win = (W_Window *) el->data;
 
+                if (win->sprite){
+                    gf2d_sprite_draw_image(win->sprite, gfc_vector2d(0,0));
+                }
+
+                if (gfc_input_key_pressed("ESCAPE")) {
+                    slog("back from shop");
+                    toggle_windows("shop");
+                    toggle_windows("mainmenu");
+                    toggle_windows("shop_weapon");
+                    gamestate = GS_MAINMENU;
+                }
+                break;
+
+            }
             case GS_EDITOR:{
 
                 W_Element *el = get_window("editor");

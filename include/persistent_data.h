@@ -1,12 +1,15 @@
 #ifndef __PERSISTENT_H__
 #define __PERSISTENT_H__
 
+#include "simple_json.h"
+#include "gfc_types.h"
+
 typedef struct {
 
     int unlocks; // first 10 weapons, next 5
     int money;
 
-} PersistantData;
+} PersistentData;
 
 Uint8 is_weapon_unlocked(Uint8 id);
 

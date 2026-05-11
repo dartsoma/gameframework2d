@@ -107,34 +107,384 @@
         "sprite": "images/backgrounds/background-1.png",
         "elements": [
           {
-            "type": 5,
+            "type": 4,
+            "name": "shop_weapon",
             "size": [
               1,
               1
             ],
             "position": [
-              227,
-              491
+              0,
+              0
             ],
-            "sprite": "images/sp_weapons.png",
-            "sprite_w": 746,
-            "sprite_h": 491,
-            "active": 1
+            "active": 0,
+            "elements": [
+              {
+                "type": 5,
+                "size": [
+                  1,
+                  1
+                ],
+                "position": [
+                  227,
+                  195
+                ],
+                "sprite": "images/sp_weapons.png",
+                "sprite_w": 746,
+                "sprite_h": 491,
+                "active": 1
+              },
+              {
+                "type": 1,
+                "size": [
+                  1,
+                  1
+                ],
+                "position": [
+                  813,
+                  231
+                ],
+                "eventid": 14,
+                "sprite": "images/sp_buybutton.png",
+                "sprite_w": 120,
+                "sprite_h": 30,
+                "active": 1
+              },
+              {
+                "type": 1,
+                "size": [
+                  1,
+                  1
+                ],
+                "position": [
+                  813,
+                  274
+                ],
+                "eventid": 15,
+                "sprite": "images/sp_buybutton.png",
+                "sprite_w": 120,
+                "sprite_h": 30,
+                "active": 1
+              },
+              {
+                "type": 1,
+                "size": [
+                  1,
+                  1
+                ],
+                "position": [
+                  813,
+                  317
+                ],
+                "eventid": 16,
+                "sprite": "images/sp_buybutton.png",
+                "sprite_w": 120,
+                "sprite_h": 30,
+                "active": 1
+              },
+              {
+                "type": 1,
+                "size": [
+                  1,
+                  1
+                ],
+                "position": [
+                  813,
+                  360
+                ],
+                "eventid": 17,
+                "sprite": "images/sp_buybutton.png",
+                "sprite_w": 120,
+                "sprite_h": 30,
+                "active": 1
+              },
+              {
+                "type": 1,
+                "size": [
+                  1,
+                  1
+                ],
+                "position": [
+                  813,
+                  403
+                ],
+                "eventid": 18,
+                "sprite": "images/sp_buybutton.png",
+                "sprite_w": 120,
+                "sprite_h": 30,
+                "active": 1
+              },
+              {
+                "type": 1,
+                "size": [
+                  1,
+                  1
+                ],
+                "position": [
+                  813,
+                  446
+                ],
+                "eventid": 19,
+                "sprite": "images/sp_buybutton.png",
+                "sprite_w": 120,
+                "sprite_h": 30,
+                "active": 1
+              },
+              {
+                "type": 1,
+                "size": [
+                  1,
+                  1
+                ],
+                "position": [
+                  813,
+                  489
+                ],
+                "eventid": 20,
+                "sprite": "images/sp_buybutton.png",
+                "sprite_w": 120,
+                "sprite_h": 30,
+                "active": 1
+              },
+              {
+                "type": 1,
+                "size": [
+                  1,
+                  1
+                ],
+                "position": [
+                  813,
+                  532
+                ],
+                "eventid": 21,
+                "sprite": "images/sp_buybutton.png",
+                "sprite_w": 120,
+                "sprite_h": 30,
+                "active": 1
+              },
+              {
+                "type": 1,
+                "size": [
+                  1,
+                  1
+                ],
+                "position": [
+                  813,
+                  575
+                ],
+                "eventid": 22,
+                "sprite": "images/sp_buybutton.png",
+                "sprite_w": 120,
+                "sprite_h": 30,
+                "active": 1
+              },
+              {
+                "type": 1,
+                "size": [
+                  1,
+                  1
+                ],
+                "position": [
+                  813,
+                  618
+                ],
+                "eventid": 23,
+                "sprite": "images/sp_buybutton.png",
+                "sprite_w": 120,
+                "sprite_h": 30,
+                "active": 1
+              }
+            ]
           },
           {
-            "type": 5,
+            "type": 4,
+            "name": "shop_perk",
             "size": [
               1,
               1
             ],
             "position": [
-              227,
-              491
+              0,
+              0
             ],
-            "sprite": "images/sp_perks.png",
-            "sprite_w": 746,
-            "sprite_h": 491,
-            "active": 0
+            "active": 0,
+            "elements": [
+              {
+                "type": 5,
+                "size": [
+                  1,
+                  1
+                ],
+                "position": [
+                  227,
+                  195
+                ],
+                "sprite": "images/sp_perks.png",
+                "sprite_w": 746,
+                "sprite_h": 491,
+                "active": 1
+              },
+              {
+                "type": 1,
+                "size": [
+                  1,
+                  1
+                ],
+                "position": [
+                  813,
+                  231
+                ],
+                "eventid": 24,
+                "sprite": "images/sp_buybutton.png",
+                "sprite_w": 120,
+                "sprite_h": 30,
+                "active": 1
+              },
+              {
+                "type": 1,
+                "size": [
+                  1,
+                  1
+                ],
+                "position": [
+                  813,
+                  274
+                ],
+                "eventid": 25,
+                "sprite": "images/sp_buybutton.png",
+                "sprite_w": 120,
+                "sprite_h": 30,
+                "active": 1
+              },
+              {
+                "type": 1,
+                "size": [
+                  1,
+                  1
+                ],
+                "position": [
+                  813,
+                  317
+                ],
+                "eventid": 26,
+                "sprite": "images/sp_buybutton.png",
+                "sprite_w": 120,
+                "sprite_h": 30,
+                "active": 1
+              },
+              {
+                "type": 1,
+                "size": [
+                  1,
+                  1
+                ],
+                "position": [
+                  813,
+                  360
+                ],
+                "eventid": 27,
+                "sprite": "images/sp_buybutton.png",
+                "sprite_w": 120,
+                "sprite_h": 30,
+                "active": 1
+              },
+              {
+                "type": 1,
+                "size": [
+                  1,
+                  1
+                ],
+                "position": [
+                  813,
+                  403
+                ],
+                "eventid": 28,
+                "sprite": "images/sp_buybutton.png",
+                "sprite_w": 120,
+                "sprite_h": 30,
+                "active": 1
+              },
+              {
+                "type": 1,
+                "size": [
+                  1,
+                  1
+                ],
+                "position": [
+                  813,
+                  446
+                ],
+                "eventid": 29,
+                "sprite": "images/sp_buybutton.png",
+                "sprite_w": 120,
+                "sprite_h": 30,
+                "active": 1
+              },
+              {
+                "type": 1,
+                "size": [
+                  1,
+                  1
+                ],
+                "position": [
+                  813,
+                  489
+                ],
+                "eventid": 30,
+                "sprite": "images/sp_buybutton.png",
+                "sprite_w": 120,
+                "sprite_h": 30,
+                "active": 1
+              },
+              {
+                "type": 1,
+                "size": [
+                  1,
+                  1
+                ],
+                "position": [
+                  813,
+                  532
+                ],
+                "eventid": 31,
+                "sprite": "images/sp_buybutton.png",
+                "sprite_w": 120,
+                "sprite_h": 30,
+                "active": 1
+              },
+              {
+                "type": 1,
+                "size": [
+                  1,
+                  1
+                ],
+                "position": [
+                  813,
+                  575
+                ],
+                "eventid": 32,
+                "sprite": "images/sp_buybutton.png",
+                "sprite_w": 120,
+                "sprite_h": 30,
+                "active": 1
+              },
+              {
+                "type": 1,
+                "size": [
+                  1,
+                  1
+                ],
+                "position": [
+                  813,
+                  618
+                ],
+                "eventid": 33,
+                "sprite": "images/sp_buybutton.png",
+                "sprite_w": 120,
+                "sprite_h": 30,
+                "active": 1
+              }
+            ]
           },
           {
             "type": 1,
@@ -167,24 +517,7 @@
             "sprite_w": 324,
             "sprite_h": 90,
             "active": 1
-          },
-          {
-            "type": 1,
-            "size": [
-              1,
-              1
-            ],
-            "position": [
-              635,
-              74
-            ],
-            "eventid": 13,
-            "sprite": "images/sp_weaponlabel.png",
-            "sprite_w": 324,
-            "sprite_h": 90,
-            "active": 1
-          },
-
+          }
         ]
       },
       {
@@ -358,7 +691,8 @@
             "placeholder": "X",
             "fontsize": 4,
             "active": 1
-          },          {
+          },
+          {
             "type": 2,
             "size": [
               1,
@@ -540,7 +874,559 @@
           0
         ],
         "sprite": "images/backgrounds/background-1.png",
-        "elements": []
+        "elements": [
+          {
+            "type": 5,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              17,
+              19
+            ],
+            "sprite": "images/map_thumbnail.png",
+            "sprite_w": 750,
+            "sprite_h": 390,
+            "active": 1
+          },
+          {
+            "type": 5,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              17,
+              433
+            ],
+            "sprite": "images/map_gameoptions.png",
+            "sprite_w": 307,
+            "sprite_h": 270,
+            "active": 1
+          },
+          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              39,
+              453
+            ],
+            "eventid": 0,
+            "sprite": "n/a",
+            "sprite_w": 50,
+            "sprite_h": 38,
+            "active": 1
+          },
+          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              39,
+              501
+            ],
+            "sprite": "n/a",
+            "sprite_w": 50,
+            "sprite_h": 38,
+            "active": 1
+          },
+          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              39,
+              549
+            ],
+            "sprite": "n/a",
+            "sprite_w": 50,
+            "sprite_h": 38,
+            "active": 1
+          },
+          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              39,
+              597
+            ],
+            "eventid": 0,
+            "sprite": "n/a",
+            "sprite_w": 50,
+            "sprite_h": 38,
+            "active": 1
+          },
+          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              39,
+              645
+            ],
+            "eventid": 0,
+            "sprite": "n/a",
+            "sprite_w": 50,
+            "sprite_h": 38,
+            "active": 1
+          },
+          {
+            "type": 5,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              341,
+              433
+            ],
+            "sprite": "images/map_music.png",
+            "sprite_w": 426,
+            "sprite_h": 270,
+            "active": 1
+          },
+          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              361,
+              640
+            ],
+            "eventid": 0,
+            "sprite": "images/map_musicl.png",
+            "sprite_w": 40,
+            "sprite_h": 40,
+            "active": 1
+          },
+          {
+            "type": 2,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              404,
+              641
+            ],
+            "sprite": "n/a",
+            "text": "Placeholder",
+            "sprite_w": 0,
+            "sprite_h": 0,
+            "fontsize": 5,
+            "id": 0,
+            "active": 1
+          },
+          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              708,
+              640
+            ],
+            "eventid": 0,
+            "sprite": "images/map_musicr.png",
+            "sprite_w": 40,
+            "sprite_h": 40,
+            "active": 1
+          },
+          {
+            "type": 5,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              795,
+              605
+            ],
+            "sprite": "images/map_options.png",
+            "sprite_w": 375,
+            "sprite_h": 96,
+            "active": 1
+          },
+          {
+            "type": 3,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              818,
+              631
+            ],
+            "sprite": "n/a",
+            "id": 0,
+            "placeholder": "placeholder",
+            "sprite_w": 140,
+            "sprite_h": 44,
+            "fontsize": 7,
+            "active": 1
+          },
+          {
+            "type": 3,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              1007,
+              631
+            ],
+            "sprite": "n/a",
+            "id": 0,
+            "placeholder": "placeholder",
+            "sprite_w": 140,
+            "sprite_h": 44,
+            "fontsize": 7,
+            "active": 1
+          },
+          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              708,
+              640
+            ],
+            "eventid": 0,
+            "sprite": "images/map_musicr.png",
+            "sprite_w": 300,
+            "sprite_h": 38,
+            "active": 1
+          },
+          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              853,
+              495
+            ],
+            "sprite": "images/map_play.png",
+            "eventid": 0,
+            "sprite_w": 260,
+            "sprite_h": 100,
+            "active": 1
+          },
+          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              1124,
+              495
+            ],
+            "sprite": "images/map_r.png",
+            "eventid": 0,
+            "sprite_w": 46,
+            "sprite_h": 100,
+            "active": 1
+          },
+          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              795,
+              495
+            ],
+            "sprite": "images/map_l.png",
+            "eventid": 0,
+            "sprite_w": 46,
+            "sprite_h": 100,
+            "active": 1
+          },
+          {
+            "type": 5,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              795,
+              29
+            ],
+            "sprite": "images/map_playeroptions.png",
+            "sprite_w": 375,
+            "sprite_h": 390,
+            "active": 1
+          },
+          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              833,
+              98
+            ],
+            "sprite": "images/map_playerl.png",
+            "eventid": 0,
+            "sprite_w": 38,
+            "sprite_h": 38,
+            "active": 1
+          },
+          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              1095,
+              98
+            ],
+            "sprite": "images/map_playerr.png",
+            "eventid": 0,
+            "sprite_w": 38,
+            "sprite_h": 38,
+            "active": 1
+          },
+          {
+            "type": 2,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              873,
+              95
+            ],
+            "sprite": "n/a",
+            "text": "Placeholder",
+            "sprite_w": 0,
+            "sprite_h": 0,
+            "fontsize": 5,
+            "id": 0,
+            "active": 1
+          },
+          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              833,
+              147
+            ],
+            "sprite": "images/map_playerl.png",
+            "eventid": 0,
+            "sprite_w": 38,
+            "sprite_h": 38,
+            "active": 1
+          },
+          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              1095,
+              147
+            ],
+            "sprite": "images/map_playerr.png",
+            "eventid": 0,
+            "sprite_w": 38,
+            "sprite_h": 38,
+            "active": 1
+          },
+          {
+            "type": 2,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              873,
+              147
+            ],
+            "sprite": "n/a",
+            "text": "Placeholder",
+            "sprite_w": 0,
+            "sprite_h": 0,
+            "fontsize": 5,
+            "id": 0,
+            "active": 1
+          },
+          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              833,
+              199
+            ],
+            "sprite": "images/map_playerl.png",
+            "eventid": 0,
+            "sprite_w": 38,
+            "sprite_h": 38,
+            "active": 1
+          },
+          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              1095,
+              199
+            ],
+            "sprite": "images/map_playerr.png",
+            "eventid": 0,
+            "sprite_w": 38,
+            "sprite_h": 38,
+            "active": 1
+          },
+          {
+            "type": 2,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              873,
+              199
+            ],
+            "sprite": "n/a",
+            "text": "Placeholder",
+            "sprite_w": 0,
+            "sprite_h": 0,
+            "fontsize": 5,
+            "id": 0,
+            "active": 1
+          },          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              833,
+              304
+            ],
+            "sprite": "images/map_playerl.png",
+            "eventid": 0,
+            "sprite_w": 38,
+            "sprite_h": 38,
+            "active": 1
+          },
+          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              1095,
+              304
+            ],
+            "sprite": "images/map_playerr.png",
+            "eventid": 0,
+            "sprite_w": 38,
+            "sprite_h": 38,
+            "active": 1
+          },
+          {
+            "type": 2,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              873,
+              304
+            ],
+            "sprite": "n/a",
+            "text": "Placeholder",
+            "sprite_w": 0,
+            "sprite_h": 0,
+            "fontsize": 5,
+            "id": 0,
+            "active": 1
+          },          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              833,
+              356
+            ],
+            "sprite": "images/map_playerl.png",
+            "eventid": 0,
+            "sprite_w": 38,
+            "sprite_h": 38,
+            "active": 1
+          },
+          {
+            "type": 1,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              1095,
+              356
+            ],
+            "sprite": "images/map_playerr.png",
+            "eventid": 0,
+            "sprite_w": 38,
+            "sprite_h": 38,
+            "active": 1
+          },
+          {
+            "type": 2,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              873,
+              356
+            ],
+            "sprite": "n/a",
+            "text": "Placeholder",
+            "sprite_w": 0,
+            "sprite_h": 0,
+            "fontsize": 5,
+            "id": 0,
+            "active": 1
+          }
+        ]
       },
       {
         "name": "hud",
@@ -568,18 +1454,19 @@
           {
             "type": 2,
             "size": [
-              100,
-              25
+              1,
+              1
             ],
             "position": [
-              -1000,
-              -1000
+              404,
+              641
             ],
             "sprite": "n/a",
             "text": "hello",
             "sprite_w": 50,
             "sprite_h": 50,
-            "fontsize": 20,
+            "fontsize": 5,
+            "id": 0,
             "active": 1
           },
           {

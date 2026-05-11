@@ -5,6 +5,7 @@
 #include "gfc_input.h"
 #include "level_editor.h"
 #include "font.h"
+#include "persistent_data.h"
 #include "window.h"
 
 // ** //
@@ -208,7 +209,7 @@ W_Element *create_container(SJson *j, W_Element *parent){
 
 void update_label(W_Label *l){
 
-    if (l->id == 0 ){
+    if (l->id == 0){
 
     }
     switch (l->id){
@@ -218,8 +219,11 @@ void update_label(W_Label *l){
         if(get_def_name()){
         strcpy(l->text, get_def_name());
         }
+
         break;
         case 2:
+
+
         break;
     }
 
@@ -258,19 +262,33 @@ void update_text (float deltatime){
         strcat(typingarea->text, temp);
         input_debounce = TYPE_CD;
     } else {
+    if (gfc_input_key_down("/")) {
+        char temp[2] = {' ', '\0'};
+        strcat(typingarea->text, temp);
+        input_debounce = TYPE_CD;
+    } else {
 
     // higher ascii values have higher precedence rather than what was pressed last on the last active frame
 
     for (i = 33; i < 123; i++) {
-        char temp[2] = {i, '\0'};
-        if(gfc_input_key_down(temp)){
+
+         char temp[2] = {i, '\0'};
+
+        if(gfc_input_key_down(temp) && i != 33){
             strcat(typingarea->text, temp);
             input_debounce = TYPE_CD;
         break;
+
+        strcat(typingarea->text, temp);
+        input_debounce = TYPE_CD;
+        break;
+
         }
     }
 
     }
+
+}
 
 }
 
@@ -296,8 +314,61 @@ void update_container(W_Element *w, GFC_Circle *click_loc, Uint8 *clicking, Uint
                 GFC_Vector2D position = gfc_vector2d(0,0);
                 position.x = win->position.x + butt->pos.x;
                 position.y = win->position.y + butt->pos.y;
-                GFC_Rect box = gfc_rect(position.x, position.y, butt->dim.x, butt->dim.y);
 
+
+                // yes ik i hardcoded it
+                if (butt->eventId > 13 && butt->eventId < 34){
+
+
+                if(butt->eventId > 13 && butt->eventId < 24 && is_weapon_unlocked(butt->eventId - 13)){
+                    if(butt->sprite){
+                        gf2d_sprite_render(
+                            butt->sprite,
+                            position,
+                            &butt->size,
+                            NULL,
+                            NULL,
+                            NULL,
+                            &base,
+                            NULL,
+                            1);
+                    }
+                    break;
+
+                } else if ((butt->eventId > 23 && butt->eventId < 29 && is_passive_unlocked(butt->eventId - 23))) {
+
+                    if(butt->sprite){
+                        gf2d_sprite_render(
+                            butt->sprite,
+                            position,
+                            &butt->size,
+                            NULL,
+                            NULL,
+                            NULL,
+                            &base,
+                            NULL,
+                            1);
+                    }
+
+                } else if ((butt->eventId > 28 && butt->eventId < 34 && is_active_unlocked(butt->eventId - 28))) {
+
+
+                    if(butt->sprite){
+                        gf2d_sprite_render(
+                            butt->sprite,
+                            position,
+                            &butt->size,
+                            NULL,
+                            NULL,
+                            NULL,
+                            &base,
+                            NULL,
+                            1);
+                    }
+
+                    }
+                    break;
+                }
                 if(butt->sprite){
                     gf2d_sprite_render(
                         butt->sprite,
@@ -310,6 +381,8 @@ void update_container(W_Element *w, GFC_Circle *click_loc, Uint8 *clicking, Uint
                         NULL,
                         0);
                 }
+
+                GFC_Rect box = gfc_rect(position.x, position.y, butt->dim.x, butt->dim.y);
 
                 if (*clicking) {
                     if (gfc_circle_rect_overlap(*click_loc, box)){
@@ -434,6 +507,7 @@ W_Element *get_window(const char* name){
 
 void event_activate(Uint8 id, Uint8 *gamestate){
 
+
 switch (id) {
 
     case 0:
@@ -456,6 +530,7 @@ switch (id) {
     case 3:
     toggle_windows("mainmenu");
     toggle_windows("shop");
+    toggle_windows("shop_weapon");
     *gamestate = 3;
     break;
 
@@ -612,6 +687,47 @@ switch (id) {
         prop_cycle_r();
 
     break;
+
+    case 12:
+
+    toggle_windows("shop_weapon");
+    toggle_windows("shop_perk");
+    break;
+
+    case 13:
+
+    toggle_windows("shop_perk");
+    toggle_windows("shop_weapon");
+
+    break;
+    default:
+        if(id > 13 && id < 24 ){
+
+            if(get_money() >= 100){
+                remove_money(100);
+                unlock_weapon(id-13);
+                save_data();
+            }
+        }
+        if(id > 23 && id < 29 ){
+
+            if(get_money() >= 100){
+                remove_money(100);
+                unlock_passive(id-23);
+                save_data();
+            }
+        }
+        if(id > 28 && id < 34 ){
+
+            if(get_money() >= 100){
+                remove_money(100);
+                unlock_active(id-28);
+                save_data();
+            }
+        }
+
+    break;
+
 }
 
 
@@ -856,6 +972,18 @@ W_Element *create_button(SJson *j, W_Element *parent){
 
     butt->dim.x = framewidth;
     butt->dim.y = frameheight;
+
+    if(butt->eventId > 13 && butt->eventId < 34){
+
+        butt->sprite = gf2d_sprite_load_all(
+            gamesprite,
+            framewidth,
+            frameheight,
+            2,
+            0
+        );
+        return ele;
+    }
 
     butt->sprite = gf2d_sprite_load_all(
         gamesprite,

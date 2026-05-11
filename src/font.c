@@ -59,6 +59,10 @@ void font_draw_test(const char *text, FontStyles style, GFC_Color color, GFC_Vec
     SDL_Color fg;
     SDL_Rect rect;
 
+    if(!text) return;
+    if(strcmp(text, "") == 0)return;
+
+
     font = gfc_list_get_nth(font_manager.fonts, style);
     if(!font){
         slog("font not loaded");

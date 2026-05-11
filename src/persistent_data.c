@@ -1,3 +1,5 @@
+
+#include "simple_logger.h"
 #include "persistent_data.h"
 
 
@@ -8,9 +10,12 @@ void load_persistent_data(){
 
 memset(&pd, 0, sizeof(PersistentData));
 
+pd.unlocks = 0;
+pd.money = 0;
+
 int i;
 
-SJson *json, *value;
+SJson *json;
 json = sj_load("./def/persistent.def");
 slog("saving level");
 
@@ -19,7 +24,7 @@ if (!json) {
 }
 Uint8 unlocks[20];
 
-sj_object_get_int(json, "money", &pd->money[10]);
+sj_object_get_int(json, "money", &pd.money);
 
 sj_object_get_uint8(json, "weapon1", &unlocks[0]);
 sj_object_get_uint8(json, "weapon2", &unlocks[1]);
@@ -47,21 +52,32 @@ sj_object_get_uint8(json, "active5", &unlocks[19]);
 
 
 for (i = 0; i < 20; i++) {
-    pd->unlocks |= unlocks[i] << i;
+    pd.unlocks |= unlocks[i] << i;
 }
 
 }
 
 Uint8 is_weapon_unlocked(Uint8 id){
-    return (pd.unlocks & (1<<(id-1)));
+    if (pd.unlocks & (1<<(id-1))){
+    return 1;
+    }
+    return 0;
 }
 
 Uint8 is_passive_unlocked(Uint8 id){
-    return (pd.unlocks & (1<<(id+9)));
+
+    if (pd.unlocks & (1<<(id+9))){
+        return 1;
+    }
+    return 0;
+
 }
 
 Uint8 is_active_unlocked(Uint8 id){
-    return (pd.unlocks & (1<<(id+14)));
+    if (pd.unlocks & (1<<(id+14))){
+        return 1;
+    }
+    return 0;
 }
 
 int get_money(){
@@ -69,23 +85,24 @@ int get_money(){
 }
 
 void add_money(int m){
-    money += m;
+    pd.money += m;
 }
 
 void remove_money(int m){
-    money -= m;
+    pd.money -= m;
 }
 
 void unlock_weapon(Uint8 id){
     pd.unlocks |= (1<<(id-1));
+    slog("unlocked weapon # %d", id);
 }
 
 void unlock_passive(Uint8 id){
-    pd.unlocks |= (1<<(id-9));
+    pd.unlocks |= (1<<(id+9));
 }
 
 void unlock_active(Uint8 id){
-    pd.unlocks |= (1<<(id-14));
+    pd.unlocks |= (1<<(id+14));
 }
 
 
@@ -96,12 +113,13 @@ void save_data(){
 
     slog("saving data");
 
-    if (!config) return;
-
     new_pd = sj_object_new();
 
+    if (!new_pd) return;
 
-    value = sj_new_uint8(base->width);
+
+    value = sj_new_int(get_money());
+    sj_object_insert(new_pd, "money", value);
 
     value = sj_new_uint8(is_weapon_unlocked(1));
     sj_object_insert(new_pd, "weapon1", value);
@@ -163,9 +181,9 @@ void save_data(){
     value = sj_new_uint8(is_active_unlocked(5));
     sj_object_insert(new_pd, "active5", value);
 
-    sj_save(json, "./def/persistent_data.def");
+    sj_save(new_pd, "./def/persistent.def");
 
-    sj_free(json);
+    sj_free(new_pd);
 
     slog("saved level");
 
