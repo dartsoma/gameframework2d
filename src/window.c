@@ -6,6 +6,7 @@
 #include "level_editor.h"
 #include "font.h"
 #include "persistent_data.h"
+#include "level_select.h"
 #include "window.h"
 
 // ** //
@@ -221,11 +222,50 @@ void update_label(W_Label *l){
         }
 
         break;
-        case 2:
+        case 3:
 
+            if(current_gun(0)){
+                strcpy(l->text, current_gun(0));
+            }
 
         break;
+        case 4:
+            if(current_gun(1)){
+                strcpy(l->text, current_gun(1));
+            }
+
+            break;
+        case 5:
+            if(current_melee()){
+                strcpy(l->text, current_melee());
+            }
+
+            break;
+        case 6:
+            if(current_passive()){
+                strcpy(l->text, current_passive());
+            }
+
+            break;
+        case 7:
+            if(current_active()){
+                strcpy(l->text, current_active());
+            }
+
+            break;
+        case 8:
+            if(current_map()) {
+                strcpy(l->text, current_map());
+            }
+
+
+            break;
+        case 9:
+            if(current_track()) {
+                strcpy(l->text, current_track());
+            }
     }
+
 
 }
 
@@ -349,7 +389,7 @@ void update_container(W_Element *w, GFC_Circle *click_loc, Uint8 *clicking, Uint
                             NULL,
                             1);
                     }
-
+                    break;
                 } else if ((butt->eventId > 28 && butt->eventId < 34 && is_active_unlocked(butt->eventId - 28))) {
 
 
@@ -365,9 +405,9 @@ void update_container(W_Element *w, GFC_Circle *click_loc, Uint8 *clicking, Uint
                             NULL,
                             1);
                     }
-
-                    }
                     break;
+                    }
+
                 }
                 if(butt->sprite){
                     gf2d_sprite_render(
@@ -415,7 +455,7 @@ void update_container(W_Element *w, GFC_Circle *click_loc, Uint8 *clicking, Uint
                         NULL,
                         0);
                 }
-
+                 update_label(la);
                 // text
                 font_draw_test(la->text, la->f_size, base, position);
 
@@ -537,6 +577,7 @@ switch (id) {
     case 4:
     toggle_windows("mainmenu");
     toggle_windows("editor");
+    load_editor();
     *gamestate = 6;
     break;
 
@@ -700,6 +741,93 @@ switch (id) {
     toggle_windows("shop_weapon");
 
     break;
+
+    case 34:
+        select_next_map();
+        break;
+
+    case 35:
+        select_previous_map();
+        break;
+
+    case 36:
+        // build level
+        // spawn player and start game
+        break;
+
+    case 38:
+
+        select_next_gun(0);
+
+
+    break;
+
+    case 37:
+
+        select_previous_gun(0);
+        break;
+
+    case 40:
+
+        select_next_gun(1);
+        break;
+
+    case 39:
+
+        select_previous_gun(1);
+        break;
+
+
+    case 42:
+        select_next_melee();
+        break;
+
+    case 41:
+        select_previous_melee();
+        break;
+
+    case 44:
+        select_next_passive();
+
+        break;
+
+    case 43:
+        select_previous_passive();
+
+        break;
+
+    case 46:
+
+        select_next_active();
+
+        break;
+
+    case 45:
+
+        select_previous_active();
+        break;
+
+    case 47:
+        set_game_options(0);
+        break;
+    case 48:
+        set_game_options(1);
+        break;
+    case 49:
+        set_game_options(2);
+        break;
+    case 50:
+        set_game_options(3);
+        break;
+    case 51:
+        set_game_options(4);
+        break;
+    case 52:
+        select_next_track();
+        break;
+    case 53:
+        select_previous_track();
+        break;
     default:
         if(id > 13 && id < 24 ){
 
@@ -811,6 +939,8 @@ void update_windows(Uint8 *gamestate){
                             NULL,
                             0);
                     }
+
+                    update_label(la);
 
                     // display text
 

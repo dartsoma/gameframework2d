@@ -5,30 +5,66 @@
 #include "weapon.h"
 #include "level.h"
 
+char** level_list;
+Uint8 map_count;
+
+Level *curr_level;
 
 Level* level_new(){
     Level *level;
     level = gfc_allocate_array(sizeof(Level),1);
     if(!level)return NULL;
+    curr_level = level;
     return level;
 }
 
-void level_free(Level *level){
-    if(!level)return;
-    gf2d_sprite_free(level->background);
+void level_free(){
+    int i;
+    if(!curr_level)return;
+    gf2d_sprite_free(curr_level->background);
     unload_weapons();
     unload_projectiles();
-    memset(level, 0, sizeof(Level));
-    free(level);
+
+    if(level_list) {
+        for(i = 0; i < map_count; i++) {
+            if(level_list[i]) free(level_list[i]);
+        }
+        free(level_list);
+    }
+
+    memset(curr_level, 0, sizeof(Level));
+    free(curr_level);
 }
 
-Level *level_create(const char *levelname){
+Uint8 get_win_state(){
+
+    if(!curr_level) return 0;
+
+    return curr_level->game.win;
+}
+
+Level *get_curr_level(){
+
+    if (curr_level!= NULL){
+        return curr_level;
+    }
+
+    return NULL;
+}
+
+Level *level_create(GamePreset gp){
+
     Level *level;
     level = level_new();
     level->width = 1200;
     level->height = 720;
+    level->game.mode = gp.gamemode;
+    level->game.win_count = gp.winscore;
     level->game.max_points = 0;
     level->game.win = 0;
+
+
+
     if(!level) {
         slog("no level init");
         return NULL;
@@ -36,11 +72,66 @@ Level *level_create(const char *levelname){
 
     load_defs(level);
 
-    set_level(level, levelname);
+    set_level(level, index_level_name(gp.map));
+
 
     return level;
 }
 
+    char* index_level_name(Uint8 id){
+        if(!level_list) return NULL;
+
+        if(level_list[id] != NULL){
+        return level_list[id];
+        }
+
+        return level_list[0];
+    }
+
+    Uint8 level_count(){
+        return map_count;
+    }
+
+    void populate_level_index(){
+
+        int i, c;
+        SJson *json;
+        const char* name;
+        json = sj_load("./def/levels.def");
+        slog("loading level names");
+        if (!json) {
+            slog("bad level def");
+        }
+        SJson *config, *leveljson;
+        slog("loading level");
+
+        config = sj_object_get_value(json, "levels");
+        c = sj_array_get_count(config);
+        map_count = c;
+
+        if(level_list) {
+            for(i = 0; i < map_count; i++) {
+                if(level_list[i]) free(level_list[i]);
+            }
+            free(level_list);
+        }
+
+        level_list = (char**)malloc(sizeof(char*) * c+1);
+
+        for(i = 0; i < c; i++){
+
+            leveljson = sj_array_get_nth(config,i);
+            name = sj_object_get_string(leveljson, "name");
+            if(name){
+                level_list[i] = (char*)malloc(strlen(name) + 1);
+                strcpy(level_list[i], name);
+            } else {
+                level_list[i] = NULL;
+            }
+        }
+        slog("finished level index");
+        free(json);
+    }
 
     void load_defs(Level *level)
     {
@@ -107,8 +198,6 @@ Level *level_create(const char *levelname){
             sj_object_get_int(leveljson, "width", &level->width );
             sj_object_get_int(leveljson, "height", &level->height );
             level->background = gf2d_sprite_load_image(sj_object_get_string(leveljson, "imagepath"));
-            sj_object_get_uint8(leveljson, "gamemode", &level->game.mode);
-            sj_object_get_int(leveljson, "winscore", &level->game.win_count);
 
             // get spawnpoints
 
@@ -131,11 +220,10 @@ Level *level_create(const char *levelname){
                 array = sj_array_get_nth(spawnarray, 1);
                 sj_get_float_value(array, &level->spawns[j].y);
             }
-            slog("hello");
             // spawn functions
                 break;
         }
-
+        curr_level = level;
         sj_free(json);
        // gfc_hashmap_foreach(level->prop_map, (gfc_work_func*)free_propdef);
         gfc_hashmap_free(level->prop_map);

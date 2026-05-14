@@ -5,6 +5,7 @@
 #include "player.h"
 #include "camera.h"
 
+
     /**
     * Z-index
     *
@@ -45,10 +46,12 @@
 
     void ent_score(Uint8 amount, Uint8 team) {
 
+        Level *level = get_curr_level();
+
         if (team == 1) {
-            entManager.level->game.t1_points += amount;
+            level->game.t1_points += amount;
         } else if(team == 2) {
-            entManager.level->game.t2_points += amount;
+            level->game.t2_points += amount;
         }
 
     }
@@ -124,6 +127,7 @@
 
         int i;
 
+        Level *level = get_curr_level();
         self->collide.c_color = GFC_COLOR_RED;
         // set grounded to zero
         self->status &= ~1;
@@ -140,7 +144,7 @@
             worldObjects[i]->collide.c_color = GFC_COLOR_GREEN;
 
             if (worldObjects[i]->collide.c_mask == CM_TRIGGER){
-                prop_trigger(self, worldObjects[i], entManager.level );
+                prop_trigger(self, worldObjects[i], level);
                 continue;
 ;            }
 
@@ -217,11 +221,6 @@
     }
 
 
-    void link_level(Level *l){
-
-        entManager.level = l;
-
-    }
 
     void ent_manager_init(Uint32 max) {
 
@@ -467,18 +466,19 @@
 
     void ent_update_all(float deltatime){
 
+        Level *level = get_curr_level();
         int i;
         for (i = 0; i < entManager.entMax; i++)  {
             if(!entManager.entList[i]._inuse)continue;
             ent_update(&entManager.entList[i], deltatime);
             if(entManager.entList[i]._tags == TAG_PLAYER || entManager.entList[i]._tags == TAG_NPC){
-                if (entManager.level->game.max_points < get_points(&entManager.entList[i])) {
-                    entManager.level->game.max_points = get_points(&entManager.entList[i]);
+                if (level->game.max_points < get_points(&entManager.entList[i])) {
+                    level->game.max_points = get_points(&entManager.entList[i]);
                 }
             }
             entManager.entList[i].collide.c_color = GFC_COLOR_RED;
         }
-        level_update(entManager.level);
+        level_update(level);
         ent_collide_all();
 
     }

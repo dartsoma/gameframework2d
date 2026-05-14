@@ -2,7 +2,6 @@
     #include "world_def.h"
 
 
-
     PlayerData *load_player_data(Ent *self){
         SJson *json;
         SJson *config, *loadjson;

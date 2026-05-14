@@ -1,5 +1,4 @@
-{"levels":[{"name":"test","width":1920,"height":1080,"imagepath":"./images/backgrounds/coolbackground.png","gamemode":0,"winscore":10,"spawns":[[0,0
-        ]],"props":[{"name":"wall","xpos":-140,"ypos":600,"xscale":1,"yscale":4,"rcolor":1,"gcolor":0,"bcolor":0,"acolor":1,"z-index":1
+{"levels":[{"name":"test","width":1920,"height":1080,"imagepath":"./images/backgrounds/coolbackground.png","props":[{"name":"wall","xpos":-140,"ypos":600,"xscale":1,"yscale":4,"rcolor":1,"gcolor":0,"bcolor":0,"acolor":1,"z-index":1
         },{"name":"wall","xpos":-140,"ypos":600,"xscale":1,"yscale":4,"rcolor":1,"gcolor":0,"bcolor":0,"acolor":1,"z-index":1
         },{"name":"blocker","xpos":0,"ypos":1000,"xscale":20,"yscale":2,"rcolor":1,"gcolor":0,"bcolor":0,"acolor":1,"z-index":1
         },{"name":"blocker","xpos":0,"ypos":560,"xscale":6,"yscale":1,"rcolor":1,"gcolor":0,"bcolor":0,"acolor":1,"z-index":1

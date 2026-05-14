@@ -58,6 +58,8 @@ typedef struct {
 
 } eCOUNT;
 
+
+
 typedef struct Entity {
 
     Uint8 _inuse; // no touch
@@ -92,7 +94,6 @@ typedef struct {
 
     Ent *entList;
     Uint32 entMax;
-    Level *level;
 } EntManager;
 
 /**
@@ -116,8 +117,6 @@ void ent_manager_close();
  ***/
 
 void ent_manager_init(Uint32 max);
-
-void link_level(Level *l);
 
 
 /**

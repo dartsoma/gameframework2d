@@ -119,11 +119,6 @@ if(gfc_input_key_down("2")){
     }
 }
 
-if(gfc_input_key_down("3")){
-    if((self->status & 24) == 0){
-    pd->hand = pd->guns+2;
-    }
-}
 }
 
 
@@ -340,7 +335,7 @@ void player_respawn(Ent *self){
     pd2->hCollide = pd1->hCollide;
 
     if(pd1->guns && pd2->guns) {
-        for(int i = 0; i < 3; i++) {
+        for(int i = 0; i < 2; i++) {
             pd2->guns[i] = pd1->guns[i];
         }
     }
@@ -495,7 +490,7 @@ Ent *player_new(){
     pd->activeCharge = 0;
     pd->hillTimer=0;
     pd->passiveCd = -1;
-    pd->guns = (Gun*) malloc(sizeof(Gun)*3);
+    pd->guns = (Gun*) malloc(sizeof(Gun)*2);
     pd->hand = pd->guns;
 
     self->misc = pd;

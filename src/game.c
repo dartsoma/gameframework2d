@@ -28,6 +28,8 @@
 
 #include "prop.h"
 
+#include "music_manager.h"
+
 #include "level.h"
 
 
@@ -45,7 +47,6 @@ int main(int argc, char * argv[]) {
     /*variable declarations*/
     Uint8 gamestate = 1;
     Ent * player;
-    Level * level;
     char points[256] = "";
 
     // deltatime
@@ -65,7 +66,7 @@ int main(int argc, char * argv[]) {
         255
     };
     GFC_Color mouseGFC_Color = gfc_color8(mRgbVal.red, mRgbVal.green, mRgbVal.blue, 255);
-
+    GFC_Vector2D mouse_size = gfc_vector2d(0.075, 0.075);
     /*program initializtion*/
     init_logger("gf2d.log", 0);
     slog("---==== BEGIN ====---");
@@ -81,22 +82,23 @@ int main(int argc, char * argv[]) {
     gf2d_sprite_init(1024);
     ent_manager_init(1024);
 
-    level = level_create("test");
-    link_level(level);
-    setup_camera(level);
     player = player_new();
 
     gfc_input_init("./gfc/sample_config/input.cfg");
     SDL_ShowCursor(SDL_DISABLE);
-    mouse = gf2d_sprite_load_all("images/pointer.png", 32, 32, 16, 0);
+    mouse = gf2d_sprite_load_all("images/crosshair.png", 512, 512, 1, 0);
     slog("press [escape] to quit");
     /*main game loop*/
     font_init();
-    load_editor();
+
     define_windows();
     load_persistent_data();
     toggle_windows("mainmenu");
     current = SDL_GetTicks();
+    populate_level_index();
+    music_system_init();
+    music_system_set_volume(0.7f);
+
 
     while (gamestate != GS_EXIT) {
         gfc_input_update();
@@ -116,6 +118,22 @@ int main(int argc, char * argv[]) {
         gf2d_graphics_clear_screen();
 
         switch (gamestate) {
+            case GS_MAPSELECT:{
+                W_Element *el = get_window("mapselect");
+                W_Window *win = (W_Window *) el->data;
+
+                if (win->sprite){
+                    gf2d_sprite_draw_image(win->sprite, gfc_vector2d(0,0));
+                }
+
+                if (gfc_input_key_pressed("ESCAPE")) {
+                    slog("back from map select");
+                    toggle_windows("mapselect");
+                    toggle_windows("mainmenu");
+                    gamestate = GS_MAINMENU;
+                }
+                break;
+            }
             case GS_SHOP:{
                 W_Element *el = get_window("shop");
                 W_Window *win = (W_Window *) el->data;
@@ -178,7 +196,7 @@ int main(int argc, char * argv[]) {
                 ent_think_all();
                 camera_update(0);
 
-                level_draw(level);
+                // level_draw(level);
 
                 rainbowStep( & mRgbVal, 0, 255);
                 mouseGFC_Color = gfc_color8(mRgbVal.red, mRgbVal.green, mRgbVal.blue, 255);
@@ -188,9 +206,10 @@ int main(int argc, char * argv[]) {
 
                 font_draw_test(points, FS_large, GFC_COLOR_BLACK, gfc_vector2d(0, 0));
 
-                if (level -> game.win == 1) {
+                if (get_win_state() == 1) {
                     gamestate = GS_MAINMENU;
                 }
+
                 break;
             }
         }
@@ -218,13 +237,11 @@ int main(int argc, char * argv[]) {
         lastUpdate = current;
         update_windows( &gamestate);
 
-        mf += 0.1;
-        if (mf >= 16.0) mf = 0;
 
         gf2d_sprite_draw(
             mouse,
             gfc_vector2d(mx, my),
-                         NULL, &
+                         &mouse_size, &
                          mCenter,
                          NULL,
                          NULL, &
@@ -238,9 +255,10 @@ int main(int argc, char * argv[]) {
     }
     clean_ui();
     font_close();
+    music_system_close();
     ent_clear();
     ent_manager_close();
-    level_free(level);
+    level_free();
     slog("---==== END ====---");
     return 0;
 }

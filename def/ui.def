@@ -1008,7 +1008,7 @@
               361,
               640
             ],
-            "eventid": 0,
+            "eventid": 53,
             "sprite": "images/map_musicl.png",
             "sprite_w": 40,
             "sprite_h": 40,
@@ -1029,7 +1029,7 @@
             "sprite_w": 0,
             "sprite_h": 0,
             "fontsize": 5,
-            "id": 0,
+            "id": 9,
             "active": 1
           },
           {
@@ -1042,7 +1042,7 @@
               708,
               640
             ],
-            "eventid": 0,
+            "eventid": 52,
             "sprite": "images/map_musicr.png",
             "sprite_w": 40,
             "sprite_h": 40,
@@ -1070,49 +1070,15 @@
               1
             ],
             "position": [
-              818,
-              631
-            ],
-            "sprite": "n/a",
-            "id": 0,
-            "placeholder": "placeholder",
-            "sprite_w": 140,
-            "sprite_h": 44,
-            "fontsize": 7,
-            "active": 1
-          },
-          {
-            "type": 3,
-            "size": [
-              1,
-              1
-            ],
-            "position": [
               1007,
               631
             ],
             "sprite": "n/a",
-            "id": 0,
+            "id": 9,
             "placeholder": "placeholder",
             "sprite_w": 140,
             "sprite_h": 44,
             "fontsize": 7,
-            "active": 1
-          },
-          {
-            "type": 1,
-            "size": [
-              1,
-              1
-            ],
-            "position": [
-              708,
-              640
-            ],
-            "eventid": 0,
-            "sprite": "images/map_musicr.png",
-            "sprite_w": 300,
-            "sprite_h": 38,
             "active": 1
           },
           {
@@ -1126,7 +1092,7 @@
               495
             ],
             "sprite": "images/map_play.png",
-            "eventid": 0,
+            "eventid": 36,
             "sprite_w": 260,
             "sprite_h": 100,
             "active": 1
@@ -1142,7 +1108,7 @@
               495
             ],
             "sprite": "images/map_r.png",
-            "eventid": 0,
+            "eventid": 34,
             "sprite_w": 46,
             "sprite_h": 100,
             "active": 1
@@ -1158,7 +1124,7 @@
               495
             ],
             "sprite": "images/map_l.png",
-            "eventid": 0,
+            "eventid": 35,
             "sprite_w": 46,
             "sprite_h": 100,
             "active": 1
@@ -1189,7 +1155,7 @@
               98
             ],
             "sprite": "images/map_playerl.png",
-            "eventid": 0,
+            "eventid": 37,
             "sprite_w": 38,
             "sprite_h": 38,
             "active": 1
@@ -1205,7 +1171,7 @@
               98
             ],
             "sprite": "images/map_playerr.png",
-            "eventid": 0,
+            "eventid": 38,
             "sprite_w": 38,
             "sprite_h": 38,
             "active": 1
@@ -1225,7 +1191,7 @@
             "sprite_w": 0,
             "sprite_h": 0,
             "fontsize": 5,
-            "id": 0,
+            "id": 3,
             "active": 1
           },
           {
@@ -1239,7 +1205,7 @@
               147
             ],
             "sprite": "images/map_playerl.png",
-            "eventid": 0,
+            "eventid": 39,
             "sprite_w": 38,
             "sprite_h": 38,
             "active": 1
@@ -1255,7 +1221,7 @@
               147
             ],
             "sprite": "images/map_playerr.png",
-            "eventid": 0,
+            "eventid": 40,
             "sprite_w": 38,
             "sprite_h": 38,
             "active": 1
@@ -1275,7 +1241,7 @@
             "sprite_w": 0,
             "sprite_h": 0,
             "fontsize": 5,
-            "id": 0,
+            "id": 4,
             "active": 1
           },
           {
@@ -1289,7 +1255,7 @@
               199
             ],
             "sprite": "images/map_playerl.png",
-            "eventid": 0,
+            "eventid": 41,
             "sprite_w": 38,
             "sprite_h": 38,
             "active": 1
@@ -1305,7 +1271,7 @@
               199
             ],
             "sprite": "images/map_playerr.png",
-            "eventid": 0,
+            "eventid": 42,
             "sprite_w": 38,
             "sprite_h": 38,
             "active": 1
@@ -1325,9 +1291,10 @@
             "sprite_w": 0,
             "sprite_h": 0,
             "fontsize": 5,
-            "id": 0,
+            "id": 5,
             "active": 1
-          },          {
+          },
+          {
             "type": 1,
             "size": [
               1,
@@ -1338,7 +1305,7 @@
               304
             ],
             "sprite": "images/map_playerl.png",
-            "eventid": 0,
+            "eventid": 43,
             "sprite_w": 38,
             "sprite_h": 38,
             "active": 1
@@ -1354,7 +1321,7 @@
               304
             ],
             "sprite": "images/map_playerr.png",
-            "eventid": 0,
+            "eventid": 44,
             "sprite_w": 38,
             "sprite_h": 38,
             "active": 1
@@ -1374,9 +1341,10 @@
             "sprite_w": 0,
             "sprite_h": 0,
             "fontsize": 5,
-            "id": 0,
+            "id": 6,
             "active": 1
-          },          {
+          },
+          {
             "type": 1,
             "size": [
               1,
@@ -1387,7 +1355,7 @@
               356
             ],
             "sprite": "images/map_playerl.png",
-            "eventid": 0,
+            "eventid": 45,
             "sprite_w": 38,
             "sprite_h": 38,
             "active": 1
@@ -1403,7 +1371,7 @@
               356
             ],
             "sprite": "images/map_playerr.png",
-            "eventid": 0,
+            "eventid": 46,
             "sprite_w": 38,
             "sprite_h": 38,
             "active": 1
@@ -1423,7 +1391,40 @@
             "sprite_w": 0,
             "sprite_h": 0,
             "fontsize": 5,
-            "id": 0,
+            "id": 7,
+            "active": 1
+          },
+          {
+            "type": 5,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+              795,
+              433
+            ],
+            "sprite": "images/map_namedisplay.png",
+            "sprite_w": 375,
+            "sprite_h": 52,
+            "active": 1
+          },
+          {
+            "type": 2,
+            "size": [
+              1,
+              1
+            ],
+            "position": [
+            805,
+              440
+            ],
+            "sprite": "n/a",
+            "text": "Placeholder",
+            "sprite_w": 0,
+            "sprite_h": 0,
+            "fontsize": 4,
+            "id": 8,
             "active": 1
           }
         ]
