@@ -1,0 +1,14 @@
+{
+
+"title": "Game Name",
+"description": "brief description of game",
+"path": "./projects/Game1",
+"version":  "0.00",
+"executable": "null",
+"thumbnail": "null",
+"last-played": "never",
+"window-length-override": "null",
+"window-width-override": "null",
+"fullscreen":  "0",
+
+}
