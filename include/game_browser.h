@@ -13,6 +13,7 @@
 // will be listed in a table with numerical id's
 
 typedef struct {
+    Uint8 id;
     char title[50];
     char description[500];
     char version[8];
