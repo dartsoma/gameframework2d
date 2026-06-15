@@ -42,6 +42,22 @@ int    __DebugMode = 0;
 /*forward declarations*/
 void gf2d_graphics_close();
 
+void gf2d_graphics_border(){
+
+    Uint32 flags = SDL_GetWindowFlags(gf2d_graphics.main_window);
+
+    if (flags & SDL_WINDOW_BORDERLESS){
+
+        SDL_SetWindowBordered(gf2d_graphics.main_window , SDL_TRUE);
+
+    } else {
+
+        SDL_SetWindowBordered(gf2d_graphics.main_window , SDL_FALSE);
+
+    }
+
+}
+
 void gf2d_graphics_initialize(
     char *windowName,
     int viewWidth,

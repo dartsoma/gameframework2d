@@ -22,9 +22,9 @@ typedef struct {
     char thumbnail[50]; // thumnail file name
     char executable[50]; // executable name
 
-    char* last_played[50]; // XX-XX-XXXX XX:XX:XX
-    int preffered_dim[2]; // preffered_dim
-
+    char last_played[50]; // XX-XX-XXXX XX:XX:XX
+    int preferred_dim[2]; // preffered_dim
+    Uint8 fullscreen; // 0 - no 1 - yes
 } GameMetaData;
 
 // Create list and populate metadata to a table

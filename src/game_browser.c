@@ -61,6 +61,21 @@ int populate_browser() {
         }
     }
 
+    for(int i = 0; i < meta_count; i++){
+
+        slog("Title: %s", meta_arr[i].title);
+        slog("Desc: %s", meta_arr[i].description);
+        slog("Path: %s", meta_arr[i].path);
+        slog("Thumbnail: %s", meta_arr[i].thumbnail);
+        slog("Executable: %s", meta_arr[i].executable);
+        slog("Last Played: %s", meta_arr[i].last_played);
+
+        if( meta_arr[i].preferred_dim[0] == -1 || meta_arr[i].preferred_dim[0] == -1 ){
+        slog("Preferred Dimensions: Default \n");
+        } else {
+        slog("Preferred Dimensions: %d, %d \n",meta_arr[i].preferred_dim[0], meta_arr[i].preferred_dim[1]);
+        }
+    }
 
     if (closedir(directory) == -1){
         slog("error closing directory");
@@ -84,7 +99,57 @@ int free_browser() {
 
 int is_valid_game(const char* path) {
 
-    // metadata exists and is populated
+    // clear last meta data
+
+    memset(&recent_meta, 0, sizeof(GameMetaData));
+
+    Uint8 _flags;
+    DIR* directory;
+    struct dirent *entry;
+
+
+
+    // src folder, metadata, metadata, and pak file exist
+
+
+    directory = opendir(path);
+
+    if(directory == NULL){
+        slog("open directory failed");
+        return 1;
+    }
+
+    while ((entry = readdir(directory)) != NULL){
+
+        if(strstr(entry->d_name, "metadata.json") != NULL){
+            _flags |= 1;
+            slog("Metadata Found.");
+        }
+        if(strstr(entry->d_name, "assets.pak") != NULL){
+            _flags |= 2;
+            slog("Asset.pak Found.");
+        }
+        if(strstr(entry->d_name, "metadata.json") != NULL){
+            _flags |= 4;
+            slog("Makefile Found.");
+        }
+        if(strstr(entry->d_name, "src") != NULL){
+            _flags |= 8;
+            slog("/src Found.");
+        }
+        if(strstr(entry->d_name, "include") != NULL){
+            _flags |= 16;
+            slog("/include Found.");
+        }
+    }
+
+    if ((_flags & 31) != 31){
+        slog("Missing key files");
+        return 1;
+    }
+
+
+    strcpy(recent_meta.path, path);
 
     char metapath[50];
     strcpy(metapath, path);
@@ -104,6 +169,58 @@ int is_valid_game(const char* path) {
         slog("Invalid Metadata: Requires \"title\"");
         return 1;
     }
+
+    if (sj_object_get_string(json, "description") != NULL) {
+        strcpy(recent_meta.description, sj_object_get_string(json, "description"));
+    } else {
+        slog("Invalid Metadata: Requires \"description\"");
+        return 1;
+    }
+
+
+    if (sj_object_get_string(json, "version") != NULL) {
+        strcpy(recent_meta.version, sj_object_get_string(json, "version"));
+    } else {
+        slog("Invalid Metadata: Requires \"version\"");
+        return 1;
+    }
+
+    if (sj_object_get_string(json, "executable") != NULL) {
+        strcpy(recent_meta.executable, sj_object_get_string(json, "executable"));
+    } else {
+        slog("Invalid Metadata: Requires \"executable\"");
+        return 1;
+    }
+
+    if (sj_object_get_string(json, "thumbnail") != NULL) {
+        strcpy(recent_meta.thumbnail, sj_object_get_string(json, "thumbnail"));
+    } else {
+        slog("Invalid Metadata: Requires \"thumbnail\"");
+        return 1;
+    }
+
+    if (sj_object_get_string(json, "last-played") != NULL) {
+        strcpy(recent_meta.last_played, sj_object_get_string(json, "last-played"));
+    } else {
+        slog("Invalid Metadata: Requires \"last-played\"");
+        return 1;
+    }
+
+    if (sj_object_get_int(json, "window-width-override", &recent_meta.preferred_dim[0]) == 0) {
+        slog("Invalid Metadata: Requires \"window-width-override\"");
+        return 1;
+    }
+
+    if (sj_object_get_int(json, "window-height-override", &recent_meta.preferred_dim[1]) == 0) {
+        slog("Invalid Metadata: Requires \"window-height-override\"");
+        return 1;
+    }
+
+    if (sj_object_get_uint8(json, "fullscreen", &recent_meta.fullscreen) == 0) {
+        slog("Invalid Metadata: Requires \"fullscreen\"");
+        return 1;
+    }
+
 
     sj_free(json);
 

@@ -1,0 +1,13 @@
+{
+
+"title": "Game Name",
+"description": "brief description of game",
+"version":  "0.00",
+"executable": "null",
+"thumbnail": "null",
+"last-played": "never",
+"window-width-override": "-1",
+"window-height-override": "-1",
+"fullscreen":  "0",
+
+}
