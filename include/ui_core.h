@@ -11,20 +11,21 @@
 #define MAX_SCREENS 64
 #define MAX_ELEMENTS 1024
 
-// ID for entity
-typedef uint32_t UIEntity;
+// UPDATE TO MATCH PROPER ECS DEFINITION
+typedef UIEntity{
 
+};
 
 typedef enum
 {
     UI_COMP_TRANSFORM = 1, // Position, Scale, Rotation // should be a default
-    UI_COMP_TEXT = 2, // Text
-    UI_COMP_TRIGGER = 8, // click, hover, scroll
-    UI_COMP_SPRITE = 16, // image, clips, animation
-    UI_COMP_CONTAINER = 32, // Contians Children
-    UI_COMP_ANCHOR = 64, // Position relative to its container / window -- REQ: TRANSFORM
-    UI_COMP_EVENT = 128 // Call a button event -- REQ: TRIGGER
-    UI_COMP_LAYOUT = 256 // positions children in accordance -- REQ: CONTAINER
+    UI_COMP_TEXT = 2, // Anything involving text
+    UI_COMP_TRIGGER = 4, // click, hover, scroll etc
+    UI_COMP_SPRITE = 8, // image, clips, animation
+    UI_COMP_CONTAINER = 16, // Contains Children
+    UI_COMP_ANCHOR = 32, // Position relative to its container / window -- REQ: TRANSFORM
+    UI_COMP_EVENT = 64 // Call for an external action -- REQ: TRIGGER
+    UI_COMP_LAYOUT = 128 // positions children in accordance -- REQ: CONTAINER
 } UIComponentType;
 
 typedef struct UIElement {
@@ -75,9 +76,7 @@ typedef enum {
 typedef struct
 {
   UIEntity id;
-  UIAnchorType;
-
-
+  UIAnchorType anchor;
 } UICompAnchor;
 
 typedef struct
@@ -85,8 +84,6 @@ typedef struct
 
     UIEntity id;
     GFC_Shape bounding_shape;
-
-
 } UICompTrigger;
 
 
@@ -116,7 +113,7 @@ typedef struct {
 
     Uint8 loaded;
     UIElement *root;
-    char name[50];CURSOR
+    char name[50];
 
     void (* init)(struct UIScreen *);
     void (* destroy)(struct UIScreen *);
@@ -125,11 +122,19 @@ typedef struct {
 
 } UIScreen;
 
+typedef struct {
+
+  UIElement ui;
+  Uint8 active;
+
+} CustomCursor;
+
 typedef struct{
 
     UIScreen *active_screen[MAX_STACK];
     int draw_order[MAX_STACK];
     GFC_HashMap *cache;
+    CustomCursor cursor; // is there a custom cursor, if not don't account for it
 
 } UIManager;
 
