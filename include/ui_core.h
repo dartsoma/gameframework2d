@@ -12,9 +12,9 @@
 #define MAX_ELEMENTS 1024
 
 // UPDATE TO MATCH PROPER ECS DEFINITION
-typedef UIEntity{
 
-};
+// Use with fixed array method for lower complexity
+typedef uint32_t UIObject;
 
 typedef enum
 {
@@ -23,43 +23,34 @@ typedef enum
     UI_COMP_TRIGGER = 4, // click, hover, scroll etc
     UI_COMP_SPRITE = 8, // image, clips, animation
     UI_COMP_CONTAINER = 16, // Contains Children
-    UI_COMP_ANCHOR = 32, // Position relative to its container / window -- REQ: TRANSFORM
-    UI_COMP_EVENT = 64 // Call for an external action -- REQ: TRIGGER
-    UI_COMP_LAYOUT = 128 // positions children in accordance -- REQ: CONTAINER
+
 } UIComponentType;
+
+typedef enum {
+  ANCHOR_TOP_L = 1,
+  ANCHOR_TOP = 2,
+  ANCHOR_TOP_R = 3,
+  ANCHOR_CENTER_L = 4,
+  ANCHOR_CENTER = 5,
+  ANCHOR_CENTER_R = 6,
+  ANCHOR_BOTTOM_L = 7,
+  ANCHOR_BOTTOM = 8,
+  ANCHOR_BOTTOM_R = 9
+} UIAnchorType;
+
 
 typedef struct UIElement {
 
     struct UIElement *parent;
     char name[50];
-    UIEntity id;
+    UIObject id;
 
     Uint8 visible;
-    Uint8 z_index;
+    Uint8 z_overwrite;
     // component bit mask
     int comp_mask;
 
 } UIElement;
-
-
-typedef struct
-{
-
-    UIEntity id;
-
-    GFC_Vector2D pos;
-    GFC_Vector2D scale;
-
-
-} UICompTransform;
-
-
-typedef struct
-{
-
-  UIEntity id;
-
-} UICompEvent;
 
 typedef enum {
     ANCHOR_TOP_L = 1,
@@ -75,38 +66,60 @@ typedef enum {
 
 typedef struct
 {
-  UIEntity id;
-  UIAnchorType anchor;
-} UICompAnchor;
 
+    UIObject id;
+
+    GFC_Vector2D pos;
+    GFC_Vector2D scale;
+    UIAnchorType anchor;
+
+} UICompTransform;
+
+
+// figure out event system before fiddling
 typedef struct
 {
 
-    UIEntity id;
+    UIObject id;
     GFC_Shape bounding_shape;
+    Uint8 trigger_mask; // 1 - LClick, 2 - RClick, 4 - Hover, 8 - ScrollUP, 16 - ScrollDOWN, 32 - Idle (always triggering)
+    int callback[6]; // stores the id of events to be callbackedz
+
+
 } UICompTrigger;
 
+typedef struct
+{
+
+  UIObject id;
+
+  GFC_Vector2D pos;
+  GFC_Vector2D bounds;
+  UIAnchorType alignment;
+
+  char *text;
+  char *placeholder;
+  GFC_Color color;
+  float font_size;
+
+  Uint32_t limit; // character limit
+
+} UICompText;
 
 typedef struct
 {
 
-  UIEntity id;
+  UIObject id;
 
 } UICompContainer;
 
+
 typedef struct
 {
 
-  UIEntity id;
-  Sprite *sp;
+  UIObject id;
 
 } UICompSprite;
-
-typedef struct
-{
-  UIEntity id;
-
-} UICompLayout;
 
 
 typedef struct {
