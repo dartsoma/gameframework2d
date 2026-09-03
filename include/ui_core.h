@@ -5,16 +5,45 @@
 #include "gfc_shape.h"
 #include "gfc_hashmap.h"
 
-// Amount of screens active at once
-#define MAX_STACK 10
-// Amount of screens to be loaded at a time
-#define MAX_SCREENS 64
-#define MAX_ELEMENTS 1024
+/*
 
-// UPDATE TO MATCH PROPER ECS DEFINITION
+ The plan is to have a running count of all total ui elements
+ allotting an id to each upon initialzation and incrementing up to 32 bit limit
+ whilst keeping the count for future
+
+ */
+
+
+
+#define MAX_STACK 8 // Amount of windows active at once
+#define MAX_WINDOWS 64
+#define MAX_UIELEMENTS 1024
+
 
 // Use with fixed array method for lower complexity
+
+
+// object identifier
 typedef uint32_t UIObject;
+
+// place in element array
+typedef uint32_t UIIndex;
+
+
+typedef struct UIElement {
+
+    struct UIElement *parent;
+
+    char name[50];
+    UIIndex index;
+    UIObject id;
+
+    Uint8 visible;
+    Uint8 z_overwrite;
+    // component bit mask
+    Uint8 comp_mask;
+
+} UIElement;
 
 typedef enum
 {
@@ -27,6 +56,7 @@ typedef enum
 } UIComponentType;
 
 typedef enum {
+  ANCHOR_NONE = 1,
   ANCHOR_TOP_L = 1,
   ANCHOR_TOP = 2,
   ANCHOR_TOP_R = 3,
@@ -39,77 +69,46 @@ typedef enum {
 } UIAnchorType;
 
 
-typedef struct UIElement {
+// UI COMPONENTS CAN BE STORED IN HASHMAPS and accessed via uielement id
 
-    struct UIElement *parent;
-    char name[50];
-    UIObject id;
-
-    Uint8 visible;
-    Uint8 z_overwrite;
-    // component bit mask
-    int comp_mask;
-
-} UIElement;
-
-typedef enum {
-    ANCHOR_TOP_L = 1,
-    ANCHOR_TOP = 2,
-    ANCHOR_TOP_R = 3,
-    ANCHOR_CENTER_L = 4,
-    ANCHOR_CENTER = 5,
-    ANCHOR_CENTER_R = 6,
-    ANCHOR_BOTTOM_L = 7,
-    ANCHOR_BOTTOM = 8,
-    ANCHOR_BOTTOM_R = 9
-} UIAnchorType;
 
 typedef struct
 {
-
-    UIObject id;
-
     GFC_Vector2D pos;
+    GFC_Vector2D offset; // anchor offset
     GFC_Vector2D scale;
     UIAnchorType anchor;
-
 } UICompTransform;
 
 
 // figure out event system before fiddling
 typedef struct
 {
-
-    UIObject id;
     GFC_Shape bounding_shape;
-    Uint8 trigger_mask; // 1 - LClick, 2 - RClick, 4 - Hover, 8 - ScrollUP, 16 - ScrollDOWN, 32 - Idle (always triggering)
+    Uint8 state; // 0 - NONE, 1 - LClick, 2 - RClick,  4 - ScrollUP, 8 - ScrollDOWN, 16 - Hover, 32 - Timed (always triggering)
+    Uint32_t framestep;
     int callback[6]; // stores the id of events to be callbackedz
-
-
 } UICompTrigger;
 
 typedef struct
 {
-
-  UIObject id;
-
   GFC_Vector2D pos;
   GFC_Vector2D bounds;
   UIAnchorType alignment;
 
   char *text;
   char *placeholder;
+
   GFC_Color color;
   float font_size;
-
   Uint32_t limit; // character limit
-
 } UICompText;
 
 typedef struct
 {
 
-  UIObject id;
+  uint32_t size; // how many
+  UIElement **root;
 
 } UICompContainer;
 
@@ -117,7 +116,8 @@ typedef struct
 typedef struct
 {
 
-  UIObject id;
+  Sprite *sprite;
+  uint32_t frames;
 
 } UICompSprite;
 
@@ -126,14 +126,15 @@ typedef struct {
 
     Uint8 loaded;
     UIElement *root;
+
     char name[50];
 
-    void (* init)(struct UIScreen *);
-    void (* destroy)(struct UIScreen *);
-    void (* draw_all)(struct UIScreen *);
-    void (* update_all)(struct UIScreen*);
+    void (* init)(struct UIWindow *);
+    void (* destroy)(struct UIWindow  *);
+    void (* draw_all)(struct UIWindow  *);
+    void (* update_all)(struct UIWindow *);
 
-} UIScreen;
+} UIWindow;
 
 typedef struct {
 
@@ -142,14 +143,26 @@ typedef struct {
 
 } CustomCursor;
 
-typedef struct{
+typedef struct  {
 
-    UIScreen *active_screen[MAX_STACK];
+    UIWindow *active_window[MAX_STACK];
     int draw_order[MAX_STACK];
-    GFC_HashMap *cache;
+    GFC_HashMap components[4];
+    GFC_HashMap ui;
     CustomCursor cursor; // is there a custom cursor, if not don't account for it
 
 } UIManager;
 
+void ui_init(UIManager *manager);
+
+ UIWindow *ui_window_add();
+
+ UIElement *ui_element_add();
+
+ UIWindow *ui_window_free();
+
+ UIElement *ui_element_free(); // an d components too
+
+ Uint8 component_free();
 
 #endif
