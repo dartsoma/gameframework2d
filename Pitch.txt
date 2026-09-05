@@ -1,0 +1,61 @@
+Skating Platformer Game
+
+
+Potential Research:
+	
+Volumetric Objects (Dynamic Water/Cloud Particles)
+
+NPR
+
+Rival Player AI
+
+
+Pipeline:
+
+Figma to UI System
+
+Level Builder to Game
+
+
+UI System:
+
+Data Driven read from json
+
+
+Camera System:
+
+Follow Camera
+Dynamic FOV
+Midscreen
+
+
+Entity System:
+
+Enemies
+Breakables
+Particles
+Hazards
+Props
+
+
+Player: 
+
+Combat:
+Speed = Defense + Offensive Power
+Successful Attacks Maintain Speed
+Unsuccessful Attacks Sacrifice Speed and May Damage the Player
+
+Resources:
+Health
+Velocity
+Directional Acceleration
+Velocity LIMIT
+Acceleration LIMIT
+
+Movement:
+Momentum conservation on slopes and horizontal surfaces
+Impulse movement (Quick change in velocity)
+Directional Velocity Conversion on falls, slopes and certain abilities
+Hitbox changes - (Sliding, Jumping)
+Drifting - Lock velocity in one direction while acceleration in another
+Braking - decrease acceleration to a negative value

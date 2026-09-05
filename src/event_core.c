@@ -149,7 +149,7 @@ Uint8 event_push(EventSystem* system, Event* event)
         return 0;
     }
 
-    EventQueue* queue = &system->queue;
+    EventQueue* queue = system->queue;
 
     if (queue->count >= queue->max_events) {
         slog("Event: Queue exceeds maxiumum - event_push");
@@ -204,6 +204,44 @@ Uint8 event_add_listener(EventSystem* system,
 
 void event_process_queue(EventSystem* system)
 {
+    if (!system){
+        slog("");
+        return 0;
+    }
+
+    EventQueue* queue = system->queue;
+
+    while (queue->head)
+    {
+        Event* event =queue->head;
+        queue->head = event->next;
+
+        if (!queue->head)
+            queue->tail = NULL;
+
+        queue->count--;
+
+        EventListenerList* list = gfc_hashmap_get(system->listeners, event->data.type_id);
+
+        if (list)
+        {
+            for (size_t i = 0;
+                 i < list->count;
+            i++)
+                 {
+                     EventListener* listener =
+                     &list->listeners[i];
+
+                     listener->callback(
+                         event,
+                         listener->context
+                     );
+                 }
+        }
+        event_destroy(event);
+    }
+
+    return 1;
 }
 
 Uint8 event_remove_listener(EventSystem* system,

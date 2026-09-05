@@ -39,7 +39,7 @@ typedef struct UIElement {
     UIObject id;
 
     Uint8 visible;
-    Uint8 z_overwrite;
+
     // component bit mask
     Uint8 comp_mask;
 
@@ -126,13 +126,7 @@ typedef struct {
 
     Uint8 loaded;
     UIElement *root;
-
     char name[50];
-
-    void (* init)(struct UIWindow *);
-    void (* destroy)(struct UIWindow  *);
-    void (* draw_all)(struct UIWindow  *);
-    void (* update_all)(struct UIWindow *);
 
 } UIWindow;
 
@@ -153,16 +147,24 @@ typedef struct  {
 
 } UIManager;
 
-void ui_init(UIManager *manager);
+ void ui_manager_init(UIManager *manager);
 
- UIWindow *ui_window_add();
+ void ui_manager_close(UIManager *manager);
 
- UIElement *ui_element_add();
+ void ui_window_draw();
 
- UIWindow *ui_window_free();
+ void ui_element_draw();
 
- UIElement *ui_element_free(); // an d components too
+ void ui_window_update();
 
- Uint8 component_free();
+ void ui_element_update();
+
+ UIWindow *ui_window_new();
+
+ UIElement *ui_element_new();
+
+ void *ui_window_free();
+
+ void *ui_element_free(); // and the related components too
 
 #endif
