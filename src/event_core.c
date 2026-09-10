@@ -8,16 +8,22 @@ static void event_default_cleanup(void* data)
 // why size_t
 void event_system_init(EventSystem* system, size_t max_queue_size)
 {
+    if (!system) {
+        slog("Event: Bad system - event_system_init");
+        return;
+    }
+
     memset(system, 0, sizeof(EventSystem));
 
+    system->queue.head = NULL;
+    system->queue.tail = NULL;
+    system->queue.count = 0;
     system->queue.max_events = max_queue_size;
 
     system->registry = gfc_hashmap_new();
-
     system->listeners = gfc_hashmap_new();
 
     system->next_event_id = 1;
-
     system->next_type_id = 1;
 
     system->running = 1;
@@ -25,6 +31,15 @@ void event_system_init(EventSystem* system, size_t max_queue_size)
 
 void event_system_shutdown(EventSystem* system)
 {
+    // recursive removal of events based on type
+
+    system->queue.tail
+
+    // free hashmap listeners
+
+    // free hashmap internet
+
+    // free system
 }
 
 int event_register_type(EventSystem* system,
@@ -46,6 +61,12 @@ int event_register_type(EventSystem* system,
 
     registry->type_id = system->next_type_id++;
 
+    // check for buffer overflow
+    if (strlen(registry->name) >= 50) {
+        slog("Event: Buffer overflow - event_register_type");
+        return 0;
+    }
+
     strncpy(
         registry->name,
         name,
@@ -54,7 +75,6 @@ int event_register_type(EventSystem* system,
     registry->name[sizeof(registry->name) - 1] = '\0';
 
     registry->data_size = data_size;
-
     registry->data_free = cleanup;
 
     gfc_hashmap_insert(
@@ -63,6 +83,31 @@ int event_register_type(EventSystem* system,
         registry);
 
     return registry->type_id;
+}
+
+Uint8 event_add_listener(EventSystem* system,
+    uint32_t event_type_id,
+    EventCallback callback,
+    void* user_data,
+    int priority)
+{
+
+    if (!system || !callback)
+        return 0;
+
+    EventListener* listener = gfc_hashmap_get(
+        system->listeners,
+        event_type_id);
+
+    EventListener listener;
+
+    listener.callback = callback;
+    listener.context = context;
+    listener.priority = priority;
+
+    event_listener_list_add(list, listener);
+
+    return 1;
 }
 
 Event* event_create(EventSystem* system,
@@ -168,16 +213,16 @@ Uint8 event_push(EventSystem* system, Event* event)
 
     return 1;
 }
+
 Uint8 event_emit(EventSystem* system,
     uint32_t event_type_id,
     void* data,
     size_t data_size)
 {
-    Event* event = event_create(
-        system,
-        type_id,
-        data,
-        data_size);
+    if (!system) {
+        // will flood do not slog
+        return 0;
+    }
 
     if (!event) {
         slog("Event: Bad event - event_emit");
@@ -194,26 +239,17 @@ Uint8 event_emit(EventSystem* system,
 
 // Brainstorm Bottom
 
-Uint8 event_add_listener(EventSystem* system,
-    uint32_t event_type_id,
-    EventCallback callback,
-    void* user_data,
-    int priority)
-{
-}
-
 void event_process_queue(EventSystem* system)
 {
-    if (!system){
-        slog("");
+    if (!system) {
+        // will flood logs if I add slog
         return 0;
     }
 
     EventQueue* queue = system->queue;
 
-    while (queue->head)
-    {
-        Event* event =queue->head;
+    while (queue->head) {
+        Event* event = queue->head;
         queue->head = event->next;
 
         if (!queue->head)
@@ -223,20 +259,16 @@ void event_process_queue(EventSystem* system)
 
         EventListenerList* list = gfc_hashmap_get(system->listeners, event->data.type_id);
 
-        if (list)
-        {
+        if (list) {
             for (size_t i = 0;
-                 i < list->count;
-            i++)
-                 {
-                     EventListener* listener =
-                     &list->listeners[i];
+                i < list->count;
+                i++) {
+                EventListener* listener = &list->listeners[i];
 
-                     listener->callback(
-                         event,
-                         listener->context
-                     );
-                 }
+                listener->callback(
+                    event,
+                    listener->context);
+            }
         }
         event_destroy(event);
     }

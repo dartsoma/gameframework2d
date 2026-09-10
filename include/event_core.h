@@ -63,6 +63,19 @@ uint32_t event_register_type(EventSystem* system,
     size_t data_size,
     void (*cleanup)(void* data));
 
+// Add a listener for an event type
+Uint8 event_add_listener(EventSystem* system,
+    uint32_t event_type_id,
+    EventCallback callback,
+    void* context,
+    int priority);
+
+// Remove a listener
+Uint8 event_remove_listener(EventSystem* system,
+    uint32_t event_type_id,
+    EventCallback callback,
+    void* context);
+
 // Create a new event (with data)
 Event* event_create(EventSystem* system,
     uint32_t event_type_id,
@@ -74,27 +87,14 @@ Event* event_create(EventSystem* system,
 // Side note: this project is not multithreaded that may come years later
 Uint8 event_push(EventSystem* system, Event* event);
 
-// Process all events in queue
-Uint8 event_process_queue(EventSystem* system);
-
-// Add a listener for an event type
-Uint8 event_add_listener(EventSystem* system,
-    uint32_t event_type_id,
-    EventCallback callback,
-    void* user_data,
-    int priority);
-
-// Remove a listener
-Uint8 event_remove_listener(EventSystem* system,
-    uint32_t event_type_id,
-    EventCallback callback,
-    void* user_data);
-
 // Create and push event in one call
 Uint8 event_emit(EventSystem* system,
     uint32_t event_type_id,
     void* data,
     size_t data_size);
+
+// Process all events in queue
+Uint8 event_process_queue(EventSystem* system);
 
 // Event type ID frome name
 Uint8 event_get_type_id(EventSystem* system, const char* name);
