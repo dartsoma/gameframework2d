@@ -1,9 +1,9 @@
 #define __UI_CORE_H__
 #ifndef __UI_CORE_H__
 
-#include "gfc_vector.h"
-#include "gfc_shape.h"
 #include "gfc_hashmap.h"
+#include "gfc_shape.h"
+#include "gfc_vector.h"
 
 /*
 
@@ -13,15 +13,11 @@
 
  */
 
-
-
 #define MAX_STACK 8 // Amount of windows active at once
 #define MAX_WINDOWS 64
 #define MAX_UIELEMENTS 1024
 
-
 // Use with fixed array method for lower complexity
-
 
 // object identifier
 typedef uint32_t UIObject;
@@ -29,10 +25,9 @@ typedef uint32_t UIObject;
 // place in element array
 typedef uint32_t UIIndex;
 
-
 typedef struct UIElement {
 
-    struct UIElement *parent;
+    struct UIElement* parent;
 
     char name[50];
     UIIndex index;
@@ -45,8 +40,7 @@ typedef struct UIElement {
 
 } UIElement;
 
-typedef enum
-{
+typedef enum {
     UI_COMP_TRANSFORM = 1, // Position, Scale, Rotation // should be a default
     UI_COMP_TEXT = 2, // Anything involving text
     UI_COMP_TRIGGER = 4, // click, hover, scroll etc
@@ -56,21 +50,19 @@ typedef enum
 } UIComponentType;
 
 typedef enum {
-  ANCHOR_NONE = 1,
-  ANCHOR_TOP_L = 1,
-  ANCHOR_TOP = 2,
-  ANCHOR_TOP_R = 3,
-  ANCHOR_CENTER_L = 4,
-  ANCHOR_CENTER = 5,
-  ANCHOR_CENTER_R = 6,
-  ANCHOR_BOTTOM_L = 7,
-  ANCHOR_BOTTOM = 8,
-  ANCHOR_BOTTOM_R = 9
+    ANCHOR_NONE = 1,
+    ANCHOR_TOP_L = 1,
+    ANCHOR_TOP = 2,
+    ANCHOR_TOP_R = 3,
+    ANCHOR_CENTER_L = 4,
+    ANCHOR_CENTER = 5,
+    ANCHOR_CENTER_R = 6,
+    ANCHOR_BOTTOM_L = 7,
+    ANCHOR_BOTTOM = 8,
+    ANCHOR_BOTTOM_R = 9
 } UIAnchorType;
 
-
 // UI COMPONENTS CAN BE STORED IN HASHMAPS and accessed via uielement id
-
 
 typedef struct
 {
@@ -79,7 +71,6 @@ typedef struct
     GFC_Vector2D scale;
     UIAnchorType anchor;
 } UICompTransform;
-
 
 // figure out event system before fiddling
 typedef struct
@@ -92,54 +83,52 @@ typedef struct
 
 typedef struct
 {
-  GFC_Vector2D pos;
-  GFC_Vector2D bounds;
-  UIAnchorType alignment;
+    GFC_Vector2D pos;
+    GFC_Vector2D bounds;
+    UIAnchorType alignment;
 
-  char *text;
-  char *placeholder;
+    char* text;
+    char* placeholder;
 
-  GFC_Color color;
-  float font_size;
-  Uint32_t limit; // character limit
+    GFC_Color color;
+    float font_size;
+    Uint32_t limit; // character limit
 } UICompText;
 
 typedef struct
 {
 
-  uint32_t size; // how many
-  UIElement **root;
+    uint32_t size; // how many
+    UIElement** root;
 
 } UICompContainer;
-
 
 typedef struct
 {
 
-  Sprite *sprite;
-  uint32_t frames;
+    Sprite* sprite;
+    uint32_t frames;
 
 } UICompSprite;
-
 
 typedef struct {
 
     Uint8 loaded;
-    UIElement *root;
+    UIElement* root;
     char name[50];
 
 } UIWindow;
 
 typedef struct {
 
-  UIElement ui;
-  Uint8 active;
+    UIElement ui;
+    Uint8 active;
 
 } CustomCursor;
 
-typedef struct  {
+typedef struct {
 
-    UIWindow *active_window[MAX_STACK];
+    UIWindow* active_window[MAX_STACK];
     int draw_order[MAX_STACK];
     GFC_HashMap components[4];
     GFC_HashMap ui;
@@ -147,24 +136,24 @@ typedef struct  {
 
 } UIManager;
 
- void ui_manager_init(UIManager *manager);
+void ui_manager_init(UIManager* manager);
 
- void ui_manager_close(UIManager *manager);
+void ui_manager_close(UIManager* manager);
 
- void ui_window_draw();
+void ui_window_draw();
 
- void ui_element_draw();
+void ui_element_draw();
 
- void ui_window_update();
+void ui_window_update();
 
- void ui_element_update();
+void ui_element_update();
 
- UIWindow *ui_window_new();
+UIWindow* ui_window_new();
 
- UIElement *ui_element_new();
+UIElement* ui_element_new();
 
- void *ui_window_free();
+void* ui_window_free();
 
- void *ui_element_free(); // and the related components too
+void* ui_element_free(); // and the related components too
 
 #endif
