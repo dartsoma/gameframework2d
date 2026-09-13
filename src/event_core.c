@@ -84,7 +84,7 @@ int event_register_type(EventSystem* system,
 
     return registry->type_id;
 }
-
+// fix
 Uint8 event_add_listener(EventSystem* system,
     uint32_t event_type_id,
     EventCallback callback,
@@ -99,13 +99,7 @@ Uint8 event_add_listener(EventSystem* system,
         system->listeners,
         event_type_id);
 
-    EventListener listener;
 
-    listener.callback = callback;
-    listener.context = context;
-    listener.priority = priority;
-
-    event_listener_list_add(list, listener);
 
     return 1;
 }
@@ -279,7 +273,11 @@ void event_process_queue(EventSystem* system)
 Uint8 event_remove_listener(EventSystem* system,
     uint32_t event_type_id,
     EventCallback callback,
-    void* user_data) { }
+    void* user_data) {
+
+
+
+    }
 
 Uint8 event_get_type_id(EventSystem* system, const char* name) { }
 
